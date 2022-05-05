@@ -1,0 +1,75 @@
+﻿@page "/account"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IAccountAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+<h3>@Cookie.CookieAuth 's Profile</h3>
+
+
+@if (account == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in account)
+    {
+        <p>
+            Here is some info about your account!
+        </p>
+        <p>
+            @p.Firstname @p.Lastname @p.Username @p.Coins  
+        </p>
+        <p>
+            You are enrolled in @p.CurrentClass
+        </p>
+    }
+}
+
+@code {
+    List<Account>? account;
+
+    private async Task InsertData()
+    {
+        string sql = "insert into people (FirstName, LastName) values (@FirstName, @LastName);";
+
+        await _data.SaveData(sql, new { FirstName = "Billy", LastName = "Bob" }, _config.GetConnectionString("Account"));
+
+        await OnInitializedAsync();
+    }
+
+    private async Task UpdateData()
+    {
+        string sql = "update people set FirstName = @FirstName where LastName = @LastName";
+
+        await _data.SaveData(sql, new { FirstName = "Timothy", LastName = "Corey" }, _config.GetConnectionString("Account"));
+
+        await OnInitializedAsync();
+    }
+
+    private async Task DeleteData()
+    {
+        string sql = "delete from people where LastName = @LastName";
+
+        await _data.SaveData(sql, new { LastName = "Bob" }, _config.GetConnectionString("Account"));
+
+        await OnInitializedAsync();
+    }
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from people where Username = @Username";
+
+        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("Account"));
+    }
+
+}

@@ -1,0 +1,65 @@
+﻿@page "/viewdiscussions"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IDiscussionBoardAccess _discussion
+@inject IConfiguration _config
+@inject NavigationManager NavManager;
+
+
+<h3>ViewDiscussions</h3>
+<button class="btn btn-primary" @onclick="NewDiscussion">Post New Discussion</button>
+@if (discussions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in discussions)
+    {
+        
+        <p>
+             Written by @p.PlayerName at @p.Date 
+             
+        </p>
+        <p>
+            @p.DiscussionName
+        </p>
+
+        <p>
+            @p.DiscussionContent
+        </p>
+        <p>
+            -----------------------------------------------
+        </p>
+        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
+    }
+}
+
+@code {
+    List<DiscussionBoard>? discussions;
+
+    public async Task Reply(DiscussionBoard discussionBoard)
+    {
+        NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
+        
+    }
+
+    public async Task NewDiscussion()
+    {
+        NavManager.NavigateTo("/newdiscussion");
+    }
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+     protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from discussion";
+
+        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("Discussion"));
+    }
+}

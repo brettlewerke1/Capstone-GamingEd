@@ -1,0 +1,63 @@
+﻿@page "/replytodiscussion/{paramDiscussion}"
+@using RTXWebsite1.IDbContext
+@inject IDiscussionBoardAccess _discussion;
+@using RTXWebsite1.Models
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+<h3>Reply To Discussion: @this.paramDiscussion</h3>
+
+@if (discussions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in discussions)
+    {
+        <p>
+            @p.DiscussionContent
+        </p>
+        <p>
+            -----------------------------------------------
+        </p>
+    }
+    <EditForm Model=@discussion OnValidSubmit="submitDiscussion">
+        <DataAnnotationsValidator/>
+        <div class="form-group">
+            <label for="DiscussionContent">Content:</label>
+            <InputText @bind-Value=discussion.DiscussionContent class="form-control" id="DiscussionContent" />
+        </div>
+        <ValidationMessage For="@(() => discussion.DiscussionContent)"/>
+        <button type="submit" class="btn btn-primary"> Submit</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public string paramDiscussion{ get; set; }
+
+    List<DiscussionBoard>? discussions;
+    DiscussionBoard discussion = new DiscussionBoard();
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from discussion where DiscussionName=@DiscussionName";
+
+        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion}, _config.GetConnectionString("Discussion"));
+    }
+    async Task submitDiscussion()
+    {
+        discussion.DiscussionName = this.paramDiscussion;
+        discussion.Date = DateTime.Today.ToString().Split(' ')[0];
+        discussion.PlayerName = Cookie.CookieAuth;
+        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date);";
+
+        await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
+            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date }, _config.GetConnectionString("Discussion"));
+
+            NavManager.NavigateTo("viewdiscussions");
+
+    }
+
+}

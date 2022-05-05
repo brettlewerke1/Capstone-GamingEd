@@ -1,0 +1,32 @@
+﻿@inherits LayoutComponentBase
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+<PageTitle>RTXWebsite1</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        @if(Cookie.CookieAuth != "")
+        {
+        <div class="top-row px-4">
+            <a href="viewdiscussions"> Discussions</a>
+            <a href="account"> Account</a>
+        </div>
+        }
+        else
+        {
+        <div class="top-row px-4">
+            <a href="login"> Login</a>
+
+        </div>            
+        }
+
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

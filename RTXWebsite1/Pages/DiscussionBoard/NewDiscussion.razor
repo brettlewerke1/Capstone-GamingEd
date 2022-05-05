@@ -1,0 +1,40 @@
+﻿@page "/newdiscussion"
+
+@inject RTXWebsite1.IDbContext.IDiscussionBoardAccess _discussion;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+<h3>NewDiscussion</h3>
+    <EditForm Model=@discussion OnValidSubmit="submitDiscussion">
+        <DataAnnotationsValidator/>
+        <div class="form-group">
+            <label for="DiscussionName">Title:</label>
+            <InputText @bind-Value=discussion.DiscussionName class="form-control" id="DiscussionName" />
+        </div>
+        <ValidationMessage For="@(() => discussion.DiscussionName)"/>
+        <div class="form-group">
+            <label for="DiscussionContent">Content:</label>
+            <InputText @bind-Value=discussion.DiscussionContent class="form-control" id="DiscussionContent" />
+        </div>
+        <ValidationMessage For="@(() => discussion.DiscussionContent)"/>
+        <button type="submit" class="btn btn-primary"> Submit</button>
+    </EditForm>
+@code {
+    RTXWebsite1.Models.DiscussionBoard discussion = new  RTXWebsite1.Models.DiscussionBoard();
+
+    async Task submitDiscussion()
+    {
+        discussion.Date = DateTime.Today.ToString().Split(' ')[0];
+        discussion.PlayerName = Cookie.CookieAuth;
+        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date);";
+
+        await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
+            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date }, _config.GetConnectionString("Discussion"));
+
+            NavManager.NavigateTo("viewdiscussions");
+
+    }
+
+
+}
