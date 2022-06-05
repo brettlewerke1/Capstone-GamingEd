@@ -1,0 +1,39 @@
+@page "/marketplace"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+
+@inject IMarketplaceAccess _marketActions
+@inject IConfiguration _config
+
+<h3>Marketplace</h3>
+@if (transactions == null)
+{
+    <p>Empty. Please check back later.</p>
+}
+else
+{
+    @foreach (var p in transactions)
+    {
+        <h1>Um uh oh</h1>
+    }
+}
+
+@code{
+    List<Marketplace>? transactions = null;
+    @*
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from transaction";
+
+        transactions = await _marketActions.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("Marketplace"));
+    }
+    *@
+}
+
