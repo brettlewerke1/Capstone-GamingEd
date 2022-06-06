@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject RTXWebsite1.Data.Cookies Cookie;
 
 <PageTitle>RTXWebsite1</PageTitle>
@@ -12,8 +12,11 @@
         @if(Cookie.CookieAuth != "")
         {
         <div class="top-row px-4">
-            <a href="viewdiscussions"> Discussions</a>
+            <a href="home"> Home</a>
             <a href="account"> Account</a>
+            <a href="viewdiscussions"> Discussions</a>
+            <a href="market"> Market</a>
+            
         </div>
         }
         else
@@ -29,4 +32,4 @@
             @Body
         </article>
     </main>
-</div>
+</div> 
