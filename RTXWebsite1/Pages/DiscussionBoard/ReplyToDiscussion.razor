@@ -76,6 +76,7 @@ else
         discussion.PlayerName = Cookie.CookieAuth;
         discussion.Type = "Reply";
         discussion.DiscussionId = util.AnchorId;
+        /// this is a test string
         string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date);";
 
         await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
