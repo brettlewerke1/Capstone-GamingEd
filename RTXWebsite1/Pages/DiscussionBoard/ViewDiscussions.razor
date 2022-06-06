@@ -46,6 +46,7 @@ else
 
     public async Task Reply(DiscussionBoard discussionBoard)
     {
+        // this is a test string
         util.AnchorId = discussionBoard.Id;
         NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
         
