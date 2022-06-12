@@ -4,10 +4,14 @@
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 
-@inject IMarketplaceAccess _marketActions
+
 @inject IConfiguration _config
 
+@inject IDiscussionBoardAccess _temp
+
 <h3>Marketplace</h3>
+
+<hr />
 @if (transactions == null)
 {
     <p>Empty. Please check back later.</p>
@@ -16,13 +20,15 @@ else
 {
     @foreach (var p in transactions)
     {
-        <h1>Um uh oh</h1>
+        <p>
+            @p.Name | @p.Description @p.Cost <button type="button">+</button>
+        </p>
     }
 }
 
 @code{
-    List<Marketplace>? transactions = null;
-    @*
+    List<Marketplace>? transactions;
+
     private async Task GetData()
     {
         await OnInitializedAsync();
@@ -32,8 +38,7 @@ else
     {
         string sql = "select * from transaction";
 
-        transactions = await _marketActions.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("Marketplace"));
+        transactions = await _temp.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("Marketplace"));
     }
-    *@
 }
 
