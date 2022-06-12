@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {}
+    "C:\\Users\\Chase\\Source\\Repos\\chasespigarelli\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {
+    "C:\\Users\\Chase\\Source\\Repos\\chasespigarelli\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+        "projectUniqueName": "C:\\Users\\Chase\\Source\\Repos\\chasespigarelli\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
         "projectName": "RTXWebsite1",
-        "projectPath": "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
-        "packagesPath": "C:\\Users\\brett\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
+        "projectPath": "C:\\Users\\Chase\\Source\\Repos\\chasespigarelli\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+        "packagesPath": "C:\\Users\\Chase\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Chase\\Source\\Repos\\chasespigarelli\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\brett\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -74,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
