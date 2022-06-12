@@ -4,7 +4,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\Brett\source\repos\RTXWebsite1\bin\Release\net6.0\final\</_PublishTargetUrl>
+    <_PublishTargetUrl>bin\Release\net6.0\final\</_PublishTargetUrl>
     <History>True|2022-05-05T19:39:31.2964388Z;</History>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="IDbContext/IMarketplaceAccess - IDb.cs">
+      <publishTime>06/04/2022 16:15:21</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

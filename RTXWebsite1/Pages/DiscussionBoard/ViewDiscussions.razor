@@ -5,7 +5,8 @@
 @using Microsoft.Extensions.Configuration
 @inject IDiscussionBoardAccess _discussion
 @inject IConfiguration _config
-@inject NavigationManager NavManager;
+@inject NavigationManager NavManager
+@inject RTXWebsite1.Data.Utils util
 
 
 <h3>ViewDiscussions</h3>
@@ -18,22 +19,25 @@ else
 {
     @foreach (var p in discussions)
     {
-        
-        <p>
+        if(p.Type == "Original")
+        {
+            <p>
              Written by @p.PlayerName at @p.Date 
              
-        </p>
-        <p>
-            @p.DiscussionName
-        </p>
+            </p>
+            <p>
+                @p.DiscussionName
+            </p>
 
-        <p>
-            @p.DiscussionContent
-        </p>
-        <p>
+            <p>
+                @p.DiscussionContent
+            </p>
+            <p>
             -----------------------------------------------
-        </p>
-        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
+            </p>
+        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>    
+        }
+
     }
 }
 
@@ -42,6 +46,7 @@ else
 
     public async Task Reply(DiscussionBoard discussionBoard)
     {
+        util.AnchorId = discussionBoard.Id;
         NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
         
     }

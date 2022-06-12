@@ -31,6 +31,7 @@ namespace RTXWebsite1
             services.AddSingleton<IAccountAccess, AccountAccess>();
             services.AddSingleton<IDiscussionBoardAccess, DiscussionBoardAccess>();
             services.AddSingleton<Cookies>();
+            services.AddSingleton<Utils>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

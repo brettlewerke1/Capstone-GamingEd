@@ -25,12 +25,14 @@
 
     async Task submitDiscussion()
     {
+        // this is a test string
         discussion.Date = DateTime.Today.ToString().Split(' ')[0];
         discussion.PlayerName = Cookie.CookieAuth;
-        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date);";
+        discussion.Type = "Original";
+        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date, Type) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type);";
 
         await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
-            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date }, _config.GetConnectionString("Discussion"));
+            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date, Type = discussion.Type }, _config.GetConnectionString("Discussion"));
 
             NavManager.NavigateTo("viewdiscussions");
 

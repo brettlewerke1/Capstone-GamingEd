@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Brett\\source\\repos\\RTXWebsite1\\RTXWebsite1.csproj": {}
+    "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Brett\\source\\repos\\RTXWebsite1\\RTXWebsite1.csproj": {
+    "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Brett\\source\\repos\\RTXWebsite1\\RTXWebsite1.csproj",
+        "projectUniqueName": "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
         "projectName": "RTXWebsite1",
-        "projectPath": "C:\\Users\\Brett\\source\\repos\\RTXWebsite1\\RTXWebsite1.csproj",
-        "packagesPath": "C:\\Users\\Brett\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Brett\\source\\repos\\RTXWebsite1\\obj\\",
+        "projectPath": "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+        "packagesPath": "C:\\Users\\brett\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brett\\OneDrive\\Documents\\GitHub\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Brett\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brett\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
