@@ -4,6 +4,6 @@ namespace RTXWebsite1.IDbContext
 {
 	public interface IMarketplaceAccess
 	{
-	
+
 	}
 }
