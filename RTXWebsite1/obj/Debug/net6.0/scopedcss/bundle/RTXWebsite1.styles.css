@@ -10,17 +10,19 @@ main[b-flfmdw9yl9] {
 }
 
 .sidebar[b-flfmdw9yl9] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    /*
+        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    */
+    background-color: teal;
 }
 
 .top-row[b-flfmdw9yl9] {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
+    background-color: #1F2833;   /* Original Color is Shadow: #f7f7f7 */
+    border-bottom: 4px solid teal;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
     align-items: center;
-    /* test comment - Chase*/
 }
 
     .top-row[b-flfmdw9yl9]  a, .top-row .btn-link[b-flfmdw9yl9] {
@@ -69,6 +71,16 @@ main[b-flfmdw9yl9] {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
+
+    /* Link (Tab) Color */
+    a[b-flfmdw9yl9] {
+        color: teal;
+    }
+
+    a:hover[b-flfmdw9yl9] {
+        color: white;
+    }
+
 }
 /* _content/RTXWebsite1/Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-fn9io6309k] {

@@ -12,18 +12,28 @@
         @if(Cookie.CookieAuth != "")
         {
         <div class="top-row px-4">
+
             <a href="/"> Home</a>
-            <a href="account"> Account</a>
-            <a href="viewdiscussions"> Discussions</a>
-            <a href="marketplace"> Market</a>
-            <a href="logout">Logout</a>
             
+            <a href="account"> Account</a>
+           
+            <a href="viewdiscussions"> Discussions</a>
+          
+            <a href="marketplace"> Market</a>
+         
+            <a href="logout"> Logout</a>
+         
         </div>
         }
         else
         {
         <div class="top-row px-4">
-            <a href="login"> Login</a>
+            <div class="button0"> <!--Example of how to style each button individually-->
+
+                <a href="login"> Login</a>
+
+            </div>
+            
 
         </div>            
         }
