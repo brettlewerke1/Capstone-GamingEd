@@ -7,8 +7,15 @@
 @inject IConfiguration _config
 @inject RTXWebsite1.Data.Cookies Cookie;
 
-<h3>@Cookie.CookieAuth 's Profile</h3>
+<div class="my_headers">
+    <h1>Account</h1>
+</div>
 
+<hr />
+
+<!--Originally: <h3>@Cookie.CookieAuth 's Profile</h3>-->
+
+<h3>Account Information</h3>
 
 @if (account == null)
 {
@@ -18,14 +25,21 @@ else
 {
     @foreach (var p in account)
     {
+        
         <p>
-            Here is some info about your account!
+            Name: @p.Firstname @p.Lastname
         </p>
         <p>
-            @p.Firstname @p.Lastname @p.Username @p.Coins  
+            Username: @p.Username
         </p>
         <p>
-            You are enrolled in @p.CurrentClass
+            Coins: @p.Coins
+        </p>
+        <p>
+            Classes: @p.CurrentClass
+        </p>
+        <p>
+            Items: 
         </p>
     }
 }

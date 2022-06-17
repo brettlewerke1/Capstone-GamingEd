@@ -6,16 +6,26 @@ html, body {
 
 h1:focus {
     outline: none;
+    
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: red;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: white;
+    background-color: #334d4d;
+    border-color: black;
+    font-weight: bold;
+    margin-top: .5rem;
+}
+
+/*
+    When cursor is hovering over the button
+*/
+.btn-primary:hover {
+   background-color: red;
 }
 
 .content {
@@ -62,3 +72,15 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+.my_headers {
+    font-weight: bold;  /* Had to change the h1 header to change font-weight */
+    text-align: center;
+}
+
+h1{
+    font-weight: bold;
+}
+
+
