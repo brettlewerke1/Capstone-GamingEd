@@ -10,14 +10,15 @@ main[b-flfmdw9yl9] {
 
 .sidebar[b-flfmdw9yl9] {
     /*
+        Originally -->
         background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
     */
-    background-color: teal;
+    background-color: red; /* Teal? */
 }
 
 .top-row[b-flfmdw9yl9] {
-    background-color: #1F2833;   /* Original Color is Shadow: #f7f7f7 */
-    border-bottom: 4px solid teal;
+    background-color: #334d4d; /* Originally --> #f7f7f7 */
+    border-bottom: 4px solid black;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
@@ -73,11 +74,16 @@ main[b-flfmdw9yl9] {
 
     /* Link (Tab) Color */
     a[b-flfmdw9yl9] {
-        color: teal;
+        color: white;
+        font-weight: bold;
     }
 
+    /* On Hover Color */
     a:hover[b-flfmdw9yl9] {
-        color: white;
+        color: red;
     }
+
+ 
+    
 
 }
