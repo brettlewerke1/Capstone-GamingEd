@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_12\\RTXWebsite1\\RTXWebsite1.csproj": {}
+    "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_17\\RTXWebsite1\\RTXWebsite1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_12\\RTXWebsite1\\RTXWebsite1.csproj": {
+    "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_17\\RTXWebsite1\\RTXWebsite1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_12\\RTXWebsite1\\RTXWebsite1.csproj",
+        "projectUniqueName": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_17\\RTXWebsite1\\RTXWebsite1.csproj",
         "projectName": "RTXWebsite1",
-        "projectPath": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_12\\RTXWebsite1\\RTXWebsite1.csproj",
+        "projectPath": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_17\\RTXWebsite1\\RTXWebsite1.csproj",
         "packagesPath": "C:\\Users\\chhaa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_12\\RTXWebsite1\\obj\\",
+        "outputPath": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_17\\RTXWebsite1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chhaa\\AppData\\Roaming\\NuGet\\NuGet.Config",
