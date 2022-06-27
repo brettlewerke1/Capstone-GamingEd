@@ -1,0 +1,63 @@
+﻿@page "/classes"
+
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IAccountAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+
+<div class="my_headers">
+    <h1>Classes</h1>
+</div>
+
+<hr />
+
+<p>
+    These are your current classes:
+</p>
+
+@if (account == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in account)
+    {
+        @if(p.CurrentClass == "cs450")
+        {
+            <p>
+                <a href="cs450">Computer Science 450</a>
+            </p>
+        }
+        
+        
+    }
+}
+
+
+@code {
+
+    List<Account>? account;
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from people where Username = @Username";
+
+        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("Account"));
+    }
+}
+
+
+
+
+
