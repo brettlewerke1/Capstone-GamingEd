@@ -9,15 +9,12 @@ main {
 }
 
 .sidebar {
-    /*
-        Originally -->
-        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-    */
-    background-color: red; /* Teal? */
+    background-color: red; 
 }
 
 .top-row {
-    background-color: #334d4d; /* Originally --> #f7f7f7 */
+    /* Dark Grey */
+    background-color: #334d4d;
     border-bottom: 4px solid black;
     justify-content: flex-end;
     height: 3.5rem;
@@ -86,4 +83,14 @@ main {
  
     
 
+}
+
+
+
+.my_footer {
+    text-align: center;
+    /* Dark Grey */
+    background-color: #334d4d;
+    border-top: 4px solid black;
+    color: white;
 }
