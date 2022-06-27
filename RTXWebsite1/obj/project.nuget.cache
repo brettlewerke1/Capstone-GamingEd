@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a9CCf006UVH+AzTSAyjxPDGzdT4cF5xV2ZcUKMdzCOZJzExkj7BdnFD2Zpe+q3cz6ka1wiyfC0iW4TJGqZcPUg==",
+  "dgSpecHash": "yThzCs313a0t2h7l3FJ7TRlOudpOn79S4g+IsDpzjqhpETeTE9y9jTN1SPv/BMbF4l1/ZCLdZczFda/jzl0UyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_11\\RTXWebsite1\\RTXWebsite1.csproj",
+  "projectFilePath": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_13\\RTXWebsite1\\RTXWebsite1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Chase\\.nuget\\packages\\blazored.localstorage\\4.2.0\\blazored.localstorage.4.2.0.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
