@@ -16,6 +16,10 @@ namespace RTXWebsite1.Models
         public string CurrentClass { get; set; }
         public int Coins { get; set; }
 
+        public string ClassOne { get; set; }
+
+        public string ClassTwo { get; set; }
+
         public string Role { get; set; }
     }
 }
