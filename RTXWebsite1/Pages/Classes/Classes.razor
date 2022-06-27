@@ -9,6 +9,10 @@
 @inject RTXWebsite1.Data.Cookies Cookie;
 
 
+
+@inject NavigationManager NavManager
+
+
 <div class="my_headers">
     <h1>Classes</h1>
 </div>
@@ -35,20 +39,20 @@ else
         @if(p.ClassOne == "cs450" || p.ClassTwo == "cs450")
         {
             <p>
-                <a href="CS450">Computer Science 450</a>
+                <button class="btn btn-primary" @onclick="CS450">Computer Science 450</button>
             </p>
         }
 
         @if(p.ClassOne == "cs486" || p.ClassTwo == "cs486")
         {
             <p>
-                <a href="CS486">Computer Science 480</a>
+                <button class="btn btn-primary" @onclick="CS486">Computer Science 486</button>
             </p>
         }
         @if(p.ClassOne == "cs100" || p.ClassTwo == "cs100")
         {
             <p>
-                <a href="CS100">Computer Science 100</a>
+                <button class="btn btn-primary" @onclick="CS100">Computer Science 100</button>
             </p>
         }
 
@@ -72,6 +76,26 @@ else
         string sql = "select * from people where Username = @Username";
 
         account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("Account"));
+    }
+
+
+
+    /*
+     * Need a new method for each class in order to "navigate" to that specific class... no pun intended.
+     */
+    public async Task CS450()
+    {
+        NavManager.NavigateTo("/cs450");
+    }
+
+    public async Task CS486()
+    {
+        NavManager.NavigateTo("/cs486");
+    }
+
+    public async Task CS100()
+    {
+        NavManager.NavigateTo("/cs100");
     }
 }
 
