@@ -1,0 +1,81 @@
+﻿@page "/classes"
+
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IAccountAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+
+<div class="my_headers">
+    <h1>Classes</h1>
+</div>
+
+<hr />
+
+
+
+@if (account == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in account)
+    {
+        @if(p.ClassOne == null && p.ClassTwo == null)
+        {
+            <p>
+                You are currently not enrolled in any classes. Please reach out to your administrator to request a course.
+            </p>
+        }
+
+        @if(p.ClassOne == "cs450" || p.ClassTwo == "cs450")
+        {
+            <p>
+                <a href="CS450">Computer Science 450</a>
+            </p>
+        }
+
+        @if(p.ClassOne == "cs486" || p.ClassTwo == "cs486")
+        {
+            <p>
+                <a href="CS486">Computer Science 480</a>
+            </p>
+        }
+        @if(p.ClassOne == "cs100" || p.ClassTwo == "cs100")
+        {
+            <p>
+                <a href="CS100">Computer Science 100</a>
+            </p>
+        }
+
+
+}
+}
+
+
+@code {
+
+    List<Account>? account;
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from people where Username = @Username";
+
+        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("Account"));
+    }
+}
+
+
+
+
+
