@@ -1,5 +1,6 @@
 @inherits LayoutComponentBase
 @inject RTXWebsite1.Data.Cookies Cookie;
+@inject NavigationManager NavManager;
 
 <PageTitle>RTXWebsite1</PageTitle>
 
@@ -34,12 +35,10 @@
                 <a href="marketplace"> Market</a>
             </div>
             
-          
-            
-                <a href="logout"> Logout</a>
+                <a href="logout" @onclick="(() => Logout())"> Logout</a>
             
          
-        </div>
+            </div>
         }
         else
         {
@@ -73,6 +72,14 @@
     
 </div>
 
+
+@code{
+    public async Task Logout()
+    {
+        Cookie.CookieAuth = "";
+        NavManager.NavigateTo("/");
+    }
+}
 
 
 
