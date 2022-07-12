@@ -55,13 +55,11 @@ else
     public async Task Reply(DiscussionBoard discussionBoard)
     {
         //**** special edge case ****//
-        // if the param passed has a question mark thenit glitches
-        // use string concatination
-        char lastChar = discussionBoard.DiscussionName[discussionBoard.DiscussionName.Length - 1];
-        if (lastChar == '?')
-        {
-            util.isInvalidParamChar = "?";
-        }
+        // if the param passed has a question mark then it glitches
+        // so store the name temporarily until we get to the reply screen
+
+        util.paramDiscussionName = discussionBoard.DiscussionName;
+
         util.AnchorId = discussionBoard.Id;
         NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
 
