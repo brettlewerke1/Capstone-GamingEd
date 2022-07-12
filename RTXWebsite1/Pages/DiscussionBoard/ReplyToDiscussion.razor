@@ -66,9 +66,9 @@ else
         {
             paramDiscussion += util.isInvalidParamChar;
         }
-        string sql = "select * from discussion where DiscussionName= @DiscussionName";
+        string sql = "select * from discussion where DiscussionName= @DiscussionName and Type= @Type";
 
-        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion}, _config.GetConnectionString("Discussion"));
+        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion, Type = "Original"}, _config.GetConnectionString("Discussion"));
 
         sql = "select * from discussion where DiscussionId= @DiscussionId";
 
