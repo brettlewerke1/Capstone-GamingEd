@@ -1350,19 +1350,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Brett\\.nuget\\packages\\": {}
+    "C:\\Users\\blewerke\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Brett\\Documents\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+      "projectUniqueName": "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
       "projectName": "RTXWebsite1",
-      "projectPath": "C:\\Users\\Brett\\Documents\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
-      "packagesPath": "C:\\Users\\Brett\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Brett\\Documents\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
+      "projectPath": "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+      "packagesPath": "C:\\Users\\blewerke\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Brett\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\blewerke\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1419,7 +1419,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

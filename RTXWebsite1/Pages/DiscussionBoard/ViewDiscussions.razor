@@ -41,7 +41,8 @@ else
             <p>
             -----------------------------------------------
             </p>
-        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>    
+        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
+        <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
         }
 
     }
@@ -49,28 +50,49 @@ else
 
 @code {
     List<DiscussionBoard>? discussions;
+    List<DiscussionBoard>? deletedDiscussion;
 
     public async Task Reply(DiscussionBoard discussionBoard)
     {
+        //**** special edge case ****//
+        // if the param passed has a question mark thenit glitches
+        // use string concatination
+        char lastChar = discussionBoard.DiscussionName[discussionBoard.DiscussionName.Length - 1];
+        if (lastChar == '?')
+        {
+            util.isInvalidParamChar = "?";
+        }
         util.AnchorId = discussionBoard.Id;
         NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
-        
+
     }
+
 
     public async Task NewDiscussion()
     {
         NavManager.NavigateTo("/newdiscussion");
     }
 
+
     private async Task GetData()
     {
         await OnInitializedAsync();
     }
 
-     protected override async Task OnInitializedAsync()
+
+    protected override async Task OnInitializedAsync()
     {
         string sql = "select * from discussion";
 
         discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("Discussion"));
+    }
+
+
+    public async Task DeleteDiscussion(DiscussionBoard discussionBoard)
+    {
+        string sql = "delete from discussion where DiscussionName = @DiscussionName";
+
+        deletedDiscussion = await _discussion.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionName = discussionBoard.DiscussionName}, _config.GetConnectionString("Discussion"));
+         NavManager.NavigateTo("/viewdiscussions", forceLoad: true);
     }
 }
