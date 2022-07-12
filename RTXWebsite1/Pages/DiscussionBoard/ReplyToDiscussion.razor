@@ -53,12 +53,19 @@ else
 @code {
     [Parameter]
     public string paramDiscussion{ get; set; }
-
+    //
     List<DiscussionBoard>? discussions;
     List<DiscussionBoard>? replies;
     DiscussionBoard discussion = new DiscussionBoard();
+
+
     protected override async Task OnInitializedAsync()
     {
+        // check to see if invalid character was passed through param
+        if(util.isInvalidParamChar != "")
+        {
+            paramDiscussion += util.isInvalidParamChar;
+        }
         string sql = "select * from discussion where DiscussionName= @DiscussionName";
 
         discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion}, _config.GetConnectionString("Discussion"));
@@ -69,6 +76,8 @@ else
 
 
     }
+
+
     async Task submitDiscussion()
     {
         discussion.DiscussionName = this.paramDiscussion;
