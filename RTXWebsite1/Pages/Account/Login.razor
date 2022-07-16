@@ -38,9 +38,9 @@
 
         if(result)
         {
-            await localStorage.SetItemAsync("username", account.Username);
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Username, DateTime.Now.AddMinutes(1000));
-            Cookie.CookieAuth = account.Username;
+            await localStorage.SetItemAsync("username", account.Account_Username);
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "Account", account.Account_Username, DateTime.Now.AddMinutes(1000));
+            Cookie.CookieAuth = account.Account_Username;
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
             

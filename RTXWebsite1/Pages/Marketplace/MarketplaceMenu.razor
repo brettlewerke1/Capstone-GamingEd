@@ -6,12 +6,11 @@
 
 
 @inject IConfiguration _config
-
-@inject IDiscussionBoardAccess _temp
+@inject IDatabaseAccess _data
+@inject IMarketplaceAccess _market
 
 <div class="my_headers">
     <h1>Market</h1>
-    <h4>Chayson's' Note: Market page should be inside a course.</h4>
 </div>
 <hr />
 
@@ -23,12 +22,16 @@
 }
 else
 {
+    <ul>
     @foreach (var p in transactions)
-    {
-        <p>
-            @p.Name | @p.Description @p.Cost <button type="button">+</button>
-        </p>
-    }
+        {
+            <li> 
+                <em>@p.Transaction_Name</em>
+                <p>@p.Transaction_Description</p>
+                <p>@p.Transaction_Cost <button type="button">+</button></p>
+            </li>
+        }
+    </ul>
 }
 
 @code{
@@ -41,9 +44,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from transaction";
+        string sql = "select * from Transaction";
 
-        transactions = await _temp.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("Marketplace"));
+        transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
     }
 }
 
