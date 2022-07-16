@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\RTXWebsite1",
+    "\\RTXWebsite1\\Pages",
+    "\\RTXWebsite1\\Pages\\Account",
+    "\\RTXWebsite1\\Pages\\DiscussionBoard",
+    "\\RTXWebsite1\\Shared"
   ],
-  "SelectedNode": "\\RTXWebsite1.sln",
+  "SelectedNode": "\\RTXWebsite1\\Pages\\Account\\DisplayAccount.razor",
   "PreviewInSolutionExplorer": false
 }
