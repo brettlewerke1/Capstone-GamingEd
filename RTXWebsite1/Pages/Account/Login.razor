@@ -1,11 +1,11 @@
 ﻿@page "/login"
 
 @using RTXWebsite1.Models;
+@using RTXWebsite1.Data;
 @inject RTXWebsite1.IDbContext.IAccountAccess _account;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
-@using RTXWebsite1.Data;
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 

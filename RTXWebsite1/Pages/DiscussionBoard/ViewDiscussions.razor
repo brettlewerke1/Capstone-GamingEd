@@ -4,15 +4,13 @@
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 @inject IDiscussionBoardAccess _discussion
+@inject IDatabaseAccess _data
 @inject IConfiguration _config
 @inject NavigationManager NavManager
 @inject RTXWebsite1.Data.Utils util
 
 
-<div class="my_headers">
-    <h1>Discussion Board for all Classes</h1>
-</div>
-
+<h1 div class="title-head">Discussion Board</h1>
 <hr />
 
 <h3>View Discussions</h3>
@@ -80,9 +78,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from discussion";
+        string sql = "select * from DiscussionHead"; // Where classID == currentclass
 
-        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("Discussion"));
+        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
     }
 
 

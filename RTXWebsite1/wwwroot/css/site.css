@@ -77,13 +77,9 @@ a, .btn-link {
     }
 
 
-.my_headers {
-    font-weight: bold;  /* Had to change the h1 header to change font-weight */
+.title_head {
     text-align: center;
-}
-
-h1{
-    font-weight: bold;
+    font-weight:bold;
 }
 
 
