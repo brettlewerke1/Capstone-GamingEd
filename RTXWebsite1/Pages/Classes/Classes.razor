@@ -13,12 +13,14 @@
 <h1 div class="title-head">Classes</h1>
 <hr />
 
+<p><em>Under Construction</em></p>
 @if (account == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    
     /*
     Old Code
     @foreach (var p in account)
@@ -49,16 +51,16 @@ else
                 <button class="btn btn-primary" @onclick="CS100">Computer Science 100</button>
             </p>
         }
-        */
     }
+    */
 }
 
 
 @code {
 
-    List<Account>? account;
+    List<Account>? account = null;
 
-
+    /*
     private async Task GetData()
     {
         await OnInitializedAsync();
@@ -73,7 +75,7 @@ else
 
 
 
-    /*
+    
     Old Code
     public async Task CS450()
     {

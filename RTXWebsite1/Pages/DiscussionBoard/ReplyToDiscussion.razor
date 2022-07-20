@@ -52,7 +52,7 @@ else
 
 @code {
     [Parameter]
-    public string paramDiscussion{ get; set; }
+    public string paramDiscussion { get; set; } = "";
     //
     List<DiscussionBoard>? discussions;
     List<DiscussionBoard>? replies;
@@ -79,7 +79,7 @@ else
     {
         discussion.DiscussionName = this.paramDiscussion;
         discussion.Date = DateTime.Today.ToString().Split(' ')[0];
-        discussion.PlayerName = Cookie.CookieAuth;
+        discussion.PlayerName = "CHANGE_ME"; //Cookie.UserID;
         discussion.Type = "Reply";
         discussion.DiscussionId = util.AnchorId;
         string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date, Type, DiscussionId) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type, @DiscussionId);";
