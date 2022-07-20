@@ -15,14 +15,14 @@
   <DataAnnotationsValidator/>
   <div class="form-group">
     <label for="Username">Username:</label>
-    <InputText @bind-Value=account.Username class="form-control" id="Username" />
+    <InputText @bind-Value=account.Account_Username class="form-control" id="Username" />
   </div>
-  <ValidationMessage For="@(() => account.Username)"/>
+  <ValidationMessage For="@(() => account.Account_Username)"/>
   <div class="form-group">
     <label for="Password">Password:</label>
-    <InputText @bind-Value=account.Password class="form-control" id="Password" />
+    <InputText @bind-Value=account.Account_Password class="form-control" id="Password" />
   </div>
-  <ValidationMessage For="@(() => account.Password)"/>
+  <ValidationMessage For="@(() => account.Account_Password)"/>
   <button type="submit" class="btn btn-primary"> Login</button>
 </EditForm>
 
@@ -30,21 +30,19 @@
 
 @code {
     Account account = new Account();
-    public string myCookieValue { get; set; } = "";
+    //public string myCookieValue { get; set; } = "";
 
     async Task ValidateAccount()
     {
-        var result = await _account.ValidateAccount(account, _config);
+        int result = await _account.ValidateAccount(account, _config);
 
-        if(result)
+        if(result != 0)
         {
             await localStorage.SetItemAsync("username", account.Account_Username);
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "Account", account.Account_Username, DateTime.Now.AddMinutes(1000));
-            Cookie.CookieAuth = account.Account_Username;
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Account_Username, DateTime.Now.AddMinutes(1000));
+            Cookie.UserID = result;
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
-            
-
         }
     }
     //protected async Task ReadCookies()

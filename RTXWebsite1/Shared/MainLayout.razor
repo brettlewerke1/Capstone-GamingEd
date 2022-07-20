@@ -10,7 +10,7 @@
     </div>
 
     <main>
-        @if(Cookie.CookieAuth != "")
+        @if(Cookie.UserID != 0)
         {
             <div class="top-row px-4">
                 <a href="/"> Home</a>
@@ -35,7 +35,7 @@
 @code{
     public async Task Logout()
     {
-        Cookie.CookieAuth = "";
+        Cookie.UserID = 0;
         NavManager.NavigateTo("/");
     }
 }

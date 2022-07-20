@@ -28,7 +28,7 @@
     {
         // this is a test string
         discussion.Date = DateTime.Today.ToString().Split(' ')[0];
-        discussion.PlayerName = Cookie.CookieAuth;
+        discussion.PlayerName = "CHANGE_ME"; // Cookie.UserID;
         discussion.Type = "Original";
         string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date, Type) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type);";
 

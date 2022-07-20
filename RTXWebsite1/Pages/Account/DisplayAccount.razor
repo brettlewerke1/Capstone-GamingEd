@@ -11,7 +11,7 @@
 <h1 div class="title-head">Account</h1>
 <hr />
 
-<h3>@Cookie.CookieAuth 's Profile</h3>
+<h3>@Cookie.UserID 's Profile</h3>
  
 @if (account == null)
 {
@@ -61,13 +61,12 @@ else
     {
         string sql = "select * from Account where Account_Username = @Username";
 
-        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("RTX"));
+        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
         string playerInfoJoin = @"
         SELECT 
             `Account`.`Account_ID` AS `Account_ID`,
             `Account`.`Account_Username` AS `Account_Username`,
-            `Account`.`Account_Password` AS `Account_Password`,
             `Player`.`Player_Coins` AS `Player_Coins`,
             `Player`.`Player_IGN` AS `Player_IGN`,
             `Course`.`Course_ID` AS `Course_ID`,
@@ -80,7 +79,7 @@ else
 
         string playerInfoSelect = "WHERE Account_Username = @Username";
 
-        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("RTX"));
+        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.UserID}, _config.GetConnectionString("RTX"));
     }
 
     @*
