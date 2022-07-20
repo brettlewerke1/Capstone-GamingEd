@@ -1,4 +1,4 @@
-﻿@page "/replytodiscussion/{paramDiscussion}"
+﻿@*@page "/replytodiscussion/{paramDiscussion}"
 @using RTXWebsite1.IDbContext
 @inject IDiscussionBoardAccess _discussion;
 @using RTXWebsite1.Models
@@ -82,7 +82,7 @@ else
         discussion.PlayerName = "CHANGE_ME"; //Cookie.UserID;
         discussion.Type = "Reply";
         discussion.DiscussionId = util.AnchorId;
-        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date, Type, DiscussionId) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type, @DiscussionId);";
+        string sql = "insert into DiscussionPost (Post_Title, DiscussionContent, Date, Type, DiscussionId) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type, @DiscussionId);";
 
         await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
             DiscussionContent = discussion.DiscussionContent, Date = discussion.Date, Type = discussion.Type, DiscussionId = discussion.DiscussionId }, _config.GetConnectionString("Discussion"));
@@ -92,3 +92,4 @@ else
     }
 
 }
+*@
