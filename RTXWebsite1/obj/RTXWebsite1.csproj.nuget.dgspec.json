@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {}
+    "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {
+    "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+        "projectUniqueName": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
         "projectName": "RTXWebsite1",
-        "projectPath": "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
-        "packagesPath": "C:\\Users\\blewerke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blewerke\\GITHUB\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
+        "projectPath": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+        "packagesPath": "C:\\Users\\hsieh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\blewerke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hsieh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

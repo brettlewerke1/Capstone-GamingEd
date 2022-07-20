@@ -1,4 +1,3 @@
-﻿
 using Dapper;
 using MySql.Data.MySqlClient;
 using RTXWebsite1.IDbContext;
@@ -6,8 +5,8 @@ using System.Data;
 
 namespace RTXWebsite1.DbContext
 {
-    public class DiscussionBoardAccess : IDiscussionBoardAccess
-    {
+	public class DatabaseAccess : IDatabaseAccess
+	{
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString)
         {
             using (IDbConnection connection = new MySqlConnection(connectionString))

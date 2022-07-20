@@ -3,53 +3,87 @@
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
-@inject IAccountAccess _data
+@inject IDatabaseAccess _data
+@inject IAccountAccess _account
 @inject IConfiguration _config
 @inject RTXWebsite1.Data.Cookies Cookie;
 
-<div class="my_headers">
-    <h1>Account</h1>
-</div>
-
+<h1 div class="title-head">Account</h1>
 <hr />
 
-<!--Originally: <h3>@Cookie.CookieAuth 's Profile</h3>-->
-
-<h3>Account Information</h3>
-
+<h3>@Cookie.CookieAuth 's Profile</h3>
+ 
 @if (account == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    
     @foreach (var p in account)
     {
         
         <p>
-            First Name: @p.Firstname 
+            Username: @p.Account_Username
         </p>
-        <p>
-            Last Name: @p.Lastname
-        </p>
-        <p>
-            Username: @p.Username
-        </p>
-        
-        <p>
-            Coins: @p.Coins   (Coins should differ from each class)
-        </p>
-        
-       
-        <p>
-            Classes: @p.CurrentClass
-        </p>
+
+    }
+    if (player == null)
+    {
+        <p>No classes found.</p>
+    }
+    else
+    {
+        <h4>Enrolled Classes</h4>
+        @foreach (var playInfo  in player)
+        {
+            <p>
+                (@playInfo.Course_Tag) @playInfo.Course_Name
+            </p>
+            <p>
+                IGN: @playInfo.Player_IGN
+                Coins: @playInfo.Player_Coins
+            </p>
+        }
     }
 }
 
 @code {
     List<Account>? account;
+    List<PlayerInformation>? player;
 
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from Account where Account_Username = @Username";
+
+        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("RTX"));
+
+        string playerInfoJoin = @"
+        SELECT 
+            `Account`.`Account_ID` AS `Account_ID`,
+            `Account`.`Account_Username` AS `Account_Username`,
+            `Account`.`Account_Password` AS `Account_Password`,
+            `Player`.`Player_Coins` AS `Player_Coins`,
+            `Player`.`Player_IGN` AS `Player_IGN`,
+            `Course`.`Course_ID` AS `Course_ID`,
+            `Course`.`Course_Name` AS `Course_Name`,
+            `Course`.`Course_Tag` AS `Course_Tag`
+        FROM
+            ((`Account`
+            JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
+            JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))";
+
+        string playerInfoSelect = "WHERE Account_Username = @Username";
+
+        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("RTX"));
+    }
+
+    @*
     private async Task InsertData()
     {
         string sql = "insert into people (FirstName, LastName) values (@FirstName, @LastName);";
@@ -76,17 +110,5 @@ else
 
         await OnInitializedAsync();
     }
-
-    private async Task GetData()
-    {
-        await OnInitializedAsync();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        string sql = "select * from people where Username = @Username";
-
-        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("Account"));
-    }
-
+    *@
 }

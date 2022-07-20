@@ -1,11 +1,11 @@
 ﻿@page "/login"
 
 @using RTXWebsite1.Models;
+@using RTXWebsite1.Data;
 @inject RTXWebsite1.IDbContext.IAccountAccess _account;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
-@using RTXWebsite1.Data;
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
@@ -38,9 +38,9 @@
 
         if(result)
         {
-            await localStorage.SetItemAsync("username", account.Username);
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Username, DateTime.Now.AddMinutes(1000));
-            Cookie.CookieAuth = account.Username;
+            await localStorage.SetItemAsync("username", account.Account_Username);
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "Account", account.Account_Username, DateTime.Now.AddMinutes(1000));
+            Cookie.CookieAuth = account.Account_Username;
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
             

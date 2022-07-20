@@ -8,18 +8,10 @@
 @inject IConfiguration _config
 @inject RTXWebsite1.Data.Cookies Cookie;
 
-
-
 @inject NavigationManager NavManager
 
-
-<div class="my_headers">
-    <h1>Classes</h1>
-</div>
-
+<h1 div class="title-head">Classes</h1>
 <hr />
-
-
 
 @if (account == null)
 {
@@ -27,6 +19,8 @@
 }
 else
 {
+    /*
+    Old Code
     @foreach (var p in account)
     {
         @if(p.ClassOne == null && p.ClassTwo == null)
@@ -55,9 +49,8 @@ else
                 <button class="btn btn-primary" @onclick="CS100">Computer Science 100</button>
             </p>
         }
-
-
-}
+        */
+    }
 }
 
 
@@ -81,8 +74,7 @@ else
 
 
     /*
-     * Need a new method for each class in order to "navigate" to that specific class... no pun intended.
-     */
+    Old Code
     public async Task CS450()
     {
         NavManager.NavigateTo("/cs450");
@@ -97,6 +89,7 @@ else
     {
         NavManager.NavigateTo("/cs100");
     }
+    */
 }
 
 
