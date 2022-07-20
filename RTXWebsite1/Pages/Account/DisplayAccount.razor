@@ -10,8 +10,6 @@
 
 <h1 div class="title-head">Account</h1>
 <hr />
-
-<h3>@Cookie.UserID 's Profile</h3>
  
 @if (account == null)
 {
@@ -19,10 +17,9 @@
 }
 else
 {
-    
     @foreach (var p in account)
     {
-        
+        <h3>@p.Account_Username 's Profile</h3>
         <p>
             Username: @p.Account_Username
         </p>
@@ -81,33 +78,4 @@ else
 
         player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.UserID}, _config.GetConnectionString("RTX"));
     }
-
-    @*
-    private async Task InsertData()
-    {
-        string sql = "insert into people (FirstName, LastName) values (@FirstName, @LastName);";
-
-        await _data.SaveData(sql, new { FirstName = "Billy", LastName = "Bob" }, _config.GetConnectionString("Account"));
-
-        await OnInitializedAsync();
-    }
-
-    private async Task UpdateData()
-    {
-        string sql = "update people set FirstName = @FirstName where LastName = @LastName";
-
-        await _data.SaveData(sql, new { FirstName = "Timothy", LastName = "Corey" }, _config.GetConnectionString("Account"));
-
-        await OnInitializedAsync();
-    }
-
-    private async Task DeleteData()
-    {
-        string sql = "delete from people where LastName = @LastName";
-
-        await _data.SaveData(sql, new { LastName = "Bob" }, _config.GetConnectionString("Account"));
-
-        await OnInitializedAsync();
-    }
-    *@
 }

@@ -14,11 +14,11 @@ namespace RTXWebsite1.Models
     public class PlayerInformation
     {
         public int Account_ID { get; set; }
-        public string Account_Username { get; set; } = "";
+        public string Account_Username { get; set; }
         public int Player_Coins { get; set; }
-        public string Player_IGN { get; set; } = "";
+        public string Player_IGN { get; set; }
         public int Course_ID { get; set; }
-        public string Course_Name { get; set; } = "";
-        public string Course_Tag { get; set; } = "";
+        public string Course_Name { get; set; }
+        public string Course_Tag { get; set; }
     }
 }
