@@ -1,4 +1,4 @@
-﻿@page "/replytodiscussion/{paramDiscussion}"
+﻿@*@page "/replytodiscussion/{paramDiscussion}"
 @using RTXWebsite1.IDbContext
 @inject IDiscussionBoardAccess _discussion;
 @using RTXWebsite1.Models
@@ -52,16 +52,20 @@ else
 
 @code {
     [Parameter]
-    public string paramDiscussion{ get; set; }
-
+    public string paramDiscussion { get; set; } = "";
+    //
     List<DiscussionBoard>? discussions;
     List<DiscussionBoard>? replies;
     DiscussionBoard discussion = new DiscussionBoard();
+
+
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from discussion where DiscussionName= @DiscussionName";
+        // param might have illegal character, take the value from utils
+        paramDiscussion = util.paramDiscussionName;
+        string sql = "select * from discussion where DiscussionName= @DiscussionName and Type= @Type";
 
-        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion}, _config.GetConnectionString("Discussion"));
+        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion, Type = "Original"}, _config.GetConnectionString("Discussion"));
 
         sql = "select * from discussion where DiscussionId= @DiscussionId";
 
@@ -69,20 +73,23 @@ else
 
 
     }
+
+
     async Task submitDiscussion()
     {
         discussion.DiscussionName = this.paramDiscussion;
         discussion.Date = DateTime.Today.ToString().Split(' ')[0];
-        discussion.PlayerName = Cookie.CookieAuth;
+        discussion.PlayerName = "CHANGE_ME"; //Cookie.UserID;
         discussion.Type = "Reply";
         discussion.DiscussionId = util.AnchorId;
-        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date);";
+        string sql = "insert into DiscussionPost (Post_Title, DiscussionContent, Date, Type, DiscussionId) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type, @DiscussionId);";
 
         await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
-            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date }, _config.GetConnectionString("Discussion"));
+            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date, Type = discussion.Type, DiscussionId = discussion.DiscussionId }, _config.GetConnectionString("Discussion"));
 
             NavManager.NavigateTo("viewdiscussions");
 
     }
 
 }
+*@
