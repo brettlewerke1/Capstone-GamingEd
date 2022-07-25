@@ -2,8 +2,6 @@
 {
     public class Cookies
     {
-        public int UserID { get; set; } = 0;
-
-        public int CurrentClass { get; set; } = 0;
+        public string CookieAuth { get; set; } = "";
     }
 }

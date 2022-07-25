@@ -1,6 +1,5 @@
 @inherits LayoutComponentBase
 @inject RTXWebsite1.Data.Cookies Cookie;
-@inject NavigationManager NavManager;
 
 <PageTitle>RTXWebsite1</PageTitle>
 
@@ -10,35 +9,70 @@
     </div>
 
     <main>
-        @if(Cookie.UserID != 0)
+        @if(Cookie.CookieAuth != "")
         {
-            <div class="top-row px-4">
+        <div class="top-row px-4">
+
+            <div class="button1">
                 <a href="/"> Home</a>
-                <a href="classes"> Classes</a>
-                <a href="account"> Account</a>
-                <a href="viewdiscussions"> Discussions</a>
-                <a href="marketplace"> Market</a>
-                <a href="logout" @onclick="(() => Logout())"> Logout</a>
             </div>
+            
+            <a href="classes"> Classes</a>
+
+            <div class="button2">
+                <a href="account"> Account</a>
+            </div>
+
+            
+            <div class="button3">
+                <a href="viewdiscussions"> Discussions</a>
+            </div>
+            
+
+            
+            <div class="button4">
+                <a href="marketplace"> Market</a>
+            </div>
+            
+          
+            
+                <a href="logout"> Logout</a>
+            
+         
+        </div>
         }
         else
         {
-            <a href="login" div class="top-row px-4"> Login</a>     
+        <div class="top-row px-4">
+            <div class="button0"> <!--Example of how to style each button individually-->
+
+                <a href="login"> Login</a>
+
+            </div>
+            
+
+        </div>            
         }
+
 
         <article class="content px-4">
             @Body
         </article>
+
+        
+
+
     </main>
+    
+
 </div> 
 
-@code{
-    public async Task Logout()
-    {
-        Cookie.UserID = 0;
-        NavManager.NavigateTo("/");
-    }
-}
+<div class = "my_footer">
+    
+            <footer>© 2022 Gaming Ed. All rights reserved.</footer>
+    
+</div>
+
 
 
 

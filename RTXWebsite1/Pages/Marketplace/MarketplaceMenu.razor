@@ -4,11 +4,15 @@
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 
-@inject IConfiguration _config
-@inject IDatabaseAccess _data
-@inject IMarketplaceAccess _market
 
-<h1 div class="title-head">Market</h1>
+@inject IConfiguration _config
+
+@inject IDiscussionBoardAccess _temp
+
+<div class="my_headers">
+    <h1>Market</h1>
+    <h4>Chayson's' Note: Market page should be inside a course.</h4>
+</div>
 <hr />
 
 <h3>Purchasable Items</h3>
@@ -19,16 +23,12 @@
 }
 else
 {
-    <ul>
     @foreach (var p in transactions)
-        {
-            <li> 
-                <em>@p.Transaction_Name</em>
-                <p>@p.Transaction_Description</p>
-                <p>@p.Transaction_Cost <button type="button">+</button></p>
-            </li>
-        }
-    </ul>
+    {
+        <p>
+            @p.Name | @p.Description @p.Cost <button type="button">+</button>
+        </p>
+    }
 }
 
 @code{
@@ -41,9 +41,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Transaction";
+        string sql = "select * from transaction";
 
-        transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
+        transactions = await _temp.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("Marketplace"));
     }
 }
 

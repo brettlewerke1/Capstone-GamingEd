@@ -4,33 +4,67 @@
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
-@inject IDatabaseAccess _data
+@inject IAccountAccess _data
 @inject IConfiguration _config
 @inject RTXWebsite1.Data.Cookies Cookie;
 
+
+
 @inject NavigationManager NavManager
 
-<h1 div class="title-head">Classes</h1>
+
+<div class="my_headers">
+    <h1>Classes</h1>
+</div>
+
 <hr />
 
-@if (player == null)
+
+
+@if (account == null)
 {
-    <p><em>No classes found.</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-    @foreach (var p in player)
+    @foreach (var p in account)
     {
-        <p>
-            <button class="btn btn-primary">@p.Course_Name</button>
-        </p>
-    }
+        @if(p.ClassOne == null && p.ClassTwo == null)
+        {
+            <p>
+                You are currently not enrolled in any classes. Please reach out to your administrator to request a course.
+            </p>
+        }
+
+        @if(p.ClassOne == "cs450" || p.ClassTwo == "cs450")
+        {
+            <p>
+                <button class="btn btn-primary" @onclick="CS450">Computer Science 450</button>
+            </p>
+        }
+
+        @if(p.ClassOne == "cs486" || p.ClassTwo == "cs486")
+        {
+            <p>
+                <button class="btn btn-primary" @onclick="CS486">Computer Science 486</button>
+            </p>
+        }
+        @if(p.ClassOne == "cs100" || p.ClassTwo == "cs100")
+        {
+            <p>
+                <button class="btn btn-primary" @onclick="CS100">Computer Science 100</button>
+            </p>
+        }
+
+
+}
 }
 
 
 @code {
+
     List<Account>? account;
-    List<PlayerInformation>? player;
+
 
     private async Task GetData()
     {
@@ -39,27 +73,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string playerInfoJoin = @"
-        SELECT 
-            `Account`.`Account_ID` AS `Account_ID`,
-            `Account`.`Account_Username` AS `Account_Username`,
-            `Player`.`Player_Coins` AS `Player_Coins`,
-            `Player`.`Player_IGN` AS `Player_IGN`,
-            `Course`.`Course_ID` AS `Course_ID`,
-            `Course`.`Course_Name` AS `Course_Name`,
-            `Course`.`Course_Tag` AS `Course_Tag`
-        FROM
-            ((`Account`
-            JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
-            JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))";
+        string sql = "select * from people where Username = @Username";
 
-        string playerInfoSelect = "WHERE Account_ID = @Username";
-
-        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("Account"));
     }
 
+
+
     /*
-    Old Code
+     * Need a new method for each class in order to "navigate" to that specific class... no pun intended.
+     */
     public async Task CS450()
     {
         NavManager.NavigateTo("/cs450");
@@ -74,7 +97,6 @@ else
     {
         NavManager.NavigateTo("/cs100");
     }
-    */
 }
 
 

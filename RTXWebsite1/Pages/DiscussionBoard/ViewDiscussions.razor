@@ -4,13 +4,15 @@
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 @inject IDiscussionBoardAccess _discussion
-@inject IDatabaseAccess _data
 @inject IConfiguration _config
 @inject NavigationManager NavManager
 @inject RTXWebsite1.Data.Utils util
 
 
-<h1 div class="title-head">Discussion Board</h1>
+<div class="my_headers">
+    <h1>Discussion Board for all Classes</h1>
+</div>
+
 <hr />
 
 <h3>View Discussions</h3>
@@ -23,70 +25,52 @@ else
 {
     @foreach (var p in discussions)
     {
+        if(p.Type == "Original")
+        {
             <p>
-             Written at @p.Discussion_Date
+             Written by @p.PlayerName at @p.Date 
              
             </p>
             <p>
-                 <a href="marketplace" @onclick="(() => Reply(p))"> @p.Discussion_Title</a>
+                @p.DiscussionName
             </p>
 
             <p>
-                @p.Discussion_Desc
+                @p.DiscussionContent
             </p>
             <p>
             -----------------------------------------------
             </p>
-        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
-        <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
-        
+        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>    
+        }
 
     }
 }
 
 @code {
     List<DiscussionBoard>? discussions;
-    List<DiscussionBoard>? deletedDiscussion;
 
     public async Task Reply(DiscussionBoard discussionBoard)
     {
-        //**** special edge case ****//
-        // if the param passed has a question mark then it glitches
-        // so store the name temporarily until we get to the reply screen
-
-        util.paramDiscussionName = discussionBoard.Discussion_Title;
-
-        //util.AnchorId = discussionBoard.I;
-        NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.Discussion_Title}");
-
+        util.AnchorId = discussionBoard.Id;
+        NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
+        
     }
-
 
     public async Task NewDiscussion()
     {
         NavManager.NavigateTo("/newdiscussion");
     }
 
-
     private async Task GetData()
     {
         await OnInitializedAsync();
     }
 
-
-    protected override async Task OnInitializedAsync()
+     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from DiscussionHead"; // Where classID == currentclass
+        string sql = "select * from discussion";
 
-        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
-    }
-
-
-    public async Task DeleteDiscussion(DiscussionBoard discussionBoard)
-    {
-        string sql = "delete from discussion where DiscussionName = @DiscussionName";
-
-        deletedDiscussion = await _discussion.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionName = discussionBoard.Discussion_Title}, _config.GetConnectionString("Discussion"));
-         NavManager.NavigateTo("/viewdiscussions", forceLoad: true);
+        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("Discussion"));
     }
 }

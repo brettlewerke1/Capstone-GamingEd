@@ -4,14 +4,15 @@ namespace RTXWebsite1.Models
 {
     public class DiscussionBoard
     {
-       public int Discussion_ID { get; set; }
+        public int Id { get; set; }
+        public string PlayerName { get; set; }
+        public string DiscussionName { get; set; }
+        public string DiscussionContent { get; set; }
 
-        public string Discussion_Title { get; set;}
+        public string Date { get; set; }
 
-        public string Discussion_Desc { get; set; }
+        public string Type { get; set; }
 
-        public int Discussion_CourseID { get; set; }
-
-        public string Discussion_Date { get; set; }
+        public int DiscussionId { get; set; }
     }
 }
