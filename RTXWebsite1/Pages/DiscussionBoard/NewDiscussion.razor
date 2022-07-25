@@ -1,11 +1,12 @@
-﻿@page "/newdiscussion"
+﻿@*@page "/newdiscussion"
 
 @inject RTXWebsite1.IDbContext.IDiscussionBoardAccess _discussion;
 @inject IConfiguration _config;
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
-<h3>NewDiscussion</h3>
+<h1 div class="title-head">New Discussion</h1>
+<hr />
     <EditForm Model=@discussion OnValidSubmit="submitDiscussion">
         <DataAnnotationsValidator/>
         <div class="form-group">
@@ -27,11 +28,11 @@
     {
         // this is a test string
         discussion.Date = DateTime.Today.ToString().Split(' ')[0];
-        discussion.PlayerName = Cookie.CookieAuth;
+        discussion.PlayerID = 0; // Cookie.UserID;
         discussion.Type = "Original";
-        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date, Type) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type);";
+        string sql = "insert into DiscussionHead (Discussion_ID, Discussion_Title, Discussion_Desc, Discussion_CourseID, Discussion_Date) values (@Discussion_ID, @Discussion_Title, @Discussion_Desc, @Discussion_CourseID, @Discussion_Date);";
 
-        await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
+        await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerID, DiscussionName = discussion.DiscussionName,
             DiscussionContent = discussion.DiscussionContent, Date = discussion.Date, Type = discussion.Type }, _config.GetConnectionString("Discussion"));
 
             NavManager.NavigateTo("viewdiscussions");
@@ -40,3 +41,4 @@
 
 
 }
+*@
