@@ -29,10 +29,7 @@ namespace RTXWebsite1
             services.AddServerSideBlazor();
             // add services needed (IDb Contexts, and Db contexts)
             services.AddSingleton<IAccountAccess, AccountAccess>();
-            services.AddSingleton<IDatabaseAccess, DatabaseAccess>();
             services.AddSingleton<IDiscussionBoardAccess, DiscussionBoardAccess>();
-            services.AddSingleton<IMarketplaceAccess, MarketplaceAccess>();
-
             services.AddSingleton<Cookies>();
             services.AddSingleton<Utils>();
         }

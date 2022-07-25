@@ -1,11 +1,11 @@
 ﻿@page "/login"
 
 @using RTXWebsite1.Models;
-@using RTXWebsite1.Data;
 @inject RTXWebsite1.IDbContext.IAccountAccess _account;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
+@using RTXWebsite1.Data;
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
@@ -15,14 +15,14 @@
   <DataAnnotationsValidator/>
   <div class="form-group">
     <label for="Username">Username:</label>
-    <InputText @bind-Value=account.Account_Username class="form-control" id="Username" />
+    <InputText @bind-Value=account.Username class="form-control" id="Username" />
   </div>
-  <ValidationMessage For="@(() => account.Account_Username)"/>
+  <ValidationMessage For="@(() => account.Username)"/>
   <div class="form-group">
     <label for="Password">Password:</label>
-    <InputText @bind-Value=account.Account_Password class="form-control" id="Password" />
+    <InputText @bind-Value=account.Password class="form-control" id="Password" />
   </div>
-  <ValidationMessage For="@(() => account.Account_Password)"/>
+  <ValidationMessage For="@(() => account.Password)"/>
   <button type="submit" class="btn btn-primary"> Login</button>
 </EditForm>
 
@@ -30,19 +30,21 @@
 
 @code {
     Account account = new Account();
-    //public string myCookieValue { get; set; } = "";
+    public string myCookieValue { get; set; } = "";
 
     async Task ValidateAccount()
     {
-        int result = await _account.ValidateAccount(account, _config);
+        var result = await _account.ValidateAccount(account, _config);
 
-        if(result != 0)
+        if(result)
         {
-            await localStorage.SetItemAsync("username", account.Account_Username);
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Account_Username, DateTime.Now.AddMinutes(1000));
-            Cookie.UserID = result;
+            await localStorage.SetItemAsync("username", account.Username);
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Username, DateTime.Now.AddMinutes(1000));
+            Cookie.CookieAuth = account.Username;
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
+            
+
         }
     }
     //protected async Task ReadCookies()
