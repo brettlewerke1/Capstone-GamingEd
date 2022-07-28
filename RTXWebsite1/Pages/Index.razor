@@ -35,7 +35,7 @@ else
     <hr />
 
     <p>
-        You are signed in as: @Cookie.UserID
+        You are signed in as: @account.Account_Username
     </p>
      
     <p>
@@ -48,7 +48,6 @@ else
 
 @code {
     RTXWebsite1.Models.Account account = new RTXWebsite1.Models.Account();
-    //public string myCookieValue { get; set; } = "";
 
     async Task ValidateAccount()
     {
