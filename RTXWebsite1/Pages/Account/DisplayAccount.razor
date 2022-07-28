@@ -56,9 +56,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Account where Account_Username = @Username";
+        string sql = "select * from Account where Account_ID = @UserID";
 
-        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        account = await _data.LoadData<Account, dynamic>(sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
         string playerInfoJoin = @"
         SELECT 
@@ -74,8 +74,8 @@ else
             JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
             JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))";
 
-        string playerInfoSelect = "WHERE Account_Username = @Username";
+        string playerInfoSelect = "WHERE Account_ID = @UserID";
 
-        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
     }
 }
