@@ -35,8 +35,9 @@
 @code{
     public async Task Logout()
     {
-        Cookie.UserID = 0;
-        NavManager.NavigateTo("/");
+        
+        // Moved to logout.razor --> Cookie.UserID = 0;
+        NavManager.NavigateTo("/logout");
     }
 }
 

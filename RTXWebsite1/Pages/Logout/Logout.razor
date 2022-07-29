@@ -1,0 +1,33 @@
+﻿@page "/logout"
+
+
+@inherits LayoutComponentBase
+@inject RTXWebsite1.Data.Cookies Cookie;
+@inject NavigationManager NavManager;
+
+
+
+<h1 div class = "title-head">Logout</h1>
+
+<hr />
+
+
+
+<p> Are you sure you want to logout? </p>
+
+
+<a href = "login" @onclick = "(() => LogoutMethod())"> Yes</a>
+
+<a href="/"> No </a>
+
+
+@code {
+
+    // Method name must be different from class name
+    public async Task LogoutMethod()
+    {
+        Cookie.UserID = 0;
+        NavManager.NavigateTo("/login");
+    }
+
+}
