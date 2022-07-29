@@ -12,14 +12,15 @@
 <hr />
 
 
+<h5> Are you sure you want to logout? </h5>
 
-<p> Are you sure you want to logout? </p>
+
+        
+ <button class="btn btn-primary" @onclick= "(() => LogoutMethod())">Yes</button>
 
 
-<a href = "login" @onclick = "(() => LogoutMethod())"> Yes</a>
-
-<a href="/"> No </a>
-
+ <button class="btn btn-primary" @onclick= "(() => GoToHome())">No</button>
+   
 
 @code {
 
@@ -28,6 +29,11 @@
     {
         Cookie.UserID = 0;
         NavManager.NavigateTo("/login");
+    }
+
+    public async Task GoToHome()
+    {
+        NavManager.NavigateTo("/");
     }
 
 }
