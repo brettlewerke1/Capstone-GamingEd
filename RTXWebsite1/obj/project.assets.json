@@ -1355,11 +1355,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_18\\RTXWebsite1\\RTXWebsite1.csproj",
+      "projectUniqueName": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_21\\RTXWebsite1\\RTXWebsite1.csproj",
       "projectName": "RTXWebsite1",
-      "projectPath": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_18\\RTXWebsite1\\RTXWebsite1.csproj",
+      "projectPath": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_21\\RTXWebsite1\\RTXWebsite1.csproj",
       "packagesPath": "C:\\Users\\Chase\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_18\\RTXWebsite1\\obj\\",
+      "outputPath": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_21\\RTXWebsite1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
