@@ -67,10 +67,10 @@ main[b-flfmdw9yl9] {
 
     .top-row[b-flfmdw9yl9], article[b-flfmdw9yl9] {
         
-        /*
-           padding-left: 2rem !important;
+       
+        padding-left: 2rem !important;
         padding-right: 1.5rem !important;
-        */
+       
     }
 
     /* Link (Tab) Color */
@@ -97,10 +97,7 @@ main[b-flfmdw9yl9] {
 }
 
 .top-row[b-fn9io6309k] {
-    /*
-        height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
-    */
+    
     height: 3.5rem;
     background-color: rgba(0,0,0,0.4);
 }
