@@ -10,7 +10,11 @@
 
 @if (Cookie.UserID == 0)
 {
-    <h3>Login To Your Account</h3>
+    <h1 div class="title-head">Login</h1>
+    <hr />
+
+    <p>Please login to your account</p>
+
     <EditForm Model=@account OnValidSubmit="ValidateAccount">
 
         <DataAnnotationsValidator/>
