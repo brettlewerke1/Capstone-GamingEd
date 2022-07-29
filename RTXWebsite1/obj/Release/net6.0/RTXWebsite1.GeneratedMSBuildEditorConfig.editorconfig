@@ -8,11 +8,11 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RTXWebsite1
 build_property.RootNamespace = RTXWebsite1
-build_property.ProjectDir = C:\Users\hsieh\source\Repos\ShayDPanda\Capstone-GamingEd\RTXWebsite1\
+build_property.ProjectDir = C:\Users\hsieh\Source\Repos\ShayDPanda\Capstone-GamingEd\RTXWebsite1\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\hsieh\source\Repos\ShayDPanda\Capstone-GamingEd\RTXWebsite1
+build_property.MSBuildProjectDirectory = C:\Users\hsieh\Source\Repos\ShayDPanda\Capstone-GamingEd\RTXWebsite1
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/App.razor]
@@ -31,16 +31,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xDbGFzc2VzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/CS100_Folder/CS100.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ1MxMDBfRm9sZGVyXENTMTAwLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/cs450_folder/CS450.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcY3M0NTBfZm9sZGVyXENTNDUwLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/CS486_Folder/CS486.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ1M0ODZfRm9sZGVyXENTNDg2LnJhem9y
+[C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Classes/ClassHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xDbGFzc0hvbWUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/NewDiscussion.razor]
@@ -57,10 +49,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Logout/Logout.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0XExvZ291dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/Source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Marketplace/MarketplaceMenu.razor]
