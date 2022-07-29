@@ -65,8 +65,11 @@ main {
     }
 
     .top-row, article {
+        
+       
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+       
     }
 
     /* Link (Tab) Color */
@@ -87,10 +90,3 @@ main {
 
 
 
-.my_footer {
-    text-align: center;
-    /* Dark Grey */
-    background-color: #334d4d;
-    border-top: 4px solid black;
-    color: white;
-}
