@@ -65,8 +65,11 @@ main[b-flfmdw9yl9] {
     }
 
     .top-row[b-flfmdw9yl9], article[b-flfmdw9yl9] {
-        padding-left: 2rem !important;
+        
+        /*
+           padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+        */
     }
 
     /* Link (Tab) Color */
@@ -87,9 +90,3 @@ main[b-flfmdw9yl9] {
 
 
 
-.my_footer[b-flfmdw9yl9] {
-    text-align: center;
-    background-color: #334d4d;
-    border-top: 4px solid black;
-    color: white;
-}
