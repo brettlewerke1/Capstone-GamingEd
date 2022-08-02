@@ -79,13 +79,19 @@ a, .btn-link {
 
 
 .title-head {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px;
     text-align: center;
     font-weight: bold;
-    
     /*
-        Dark Grey
+        color: #334d4d;
     */
-    color: #334d4d;
+    color: black;
 }
 
+
+.header-head {
+    font-weight: bold;
+}
 
