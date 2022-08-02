@@ -14,7 +14,8 @@ a, .btn-link {
 
 .btn-primary {
     color: white;
-    /* Turquoise */
+
+    /* Dark Grey */
     background-color: #334d4d;
     border-color: black;
     font-weight: bold;
@@ -79,7 +80,12 @@ a, .btn-link {
 
 .title-head {
     text-align: center;
-    font-weight:bold;
+    font-weight: bold;
+    
+    /*
+        Dark Grey
+    */
+    color: #334d4d;
 }
 
 
