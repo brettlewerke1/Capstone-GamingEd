@@ -59,9 +59,9 @@ else
             JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
             JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))";
 
-        string playerInfoSelect = "WHERE Account_ID = @Username";
+        string playerInfoSelect = "WHERE Account_ID = @CurrentAccount";
 
-        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { CurrentAccount = @Cookie.UserID }, _config.GetConnectionString("RTX"));
     }
 }
 
