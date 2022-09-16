@@ -8,10 +8,15 @@
     }
 
 
+
+    $role = "admin";
+
+
+
     $username = $_POST["Username"];
 
-    // SQL query
-    $queryString = "SELECT * FROM RTX.Global_View WHERE Account_Username='".$username."';";
+    // SQL query for specific teacher
+    $queryString = "SELECT * FROM RTX.Global_View WHERE Account_Username='".$username."' AND Account_Role = '".$role."';";
 
     $teachers = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
     $userInfo = mysqli_fetch_assoc($teachers);
@@ -21,8 +26,7 @@
     $className = $userInfo["Course_Tag"];
 
 
-    // view only selects admins
-    $role = "admin";
+    
 
 
     // printing variables receieved from database
