@@ -7,9 +7,10 @@
         exit();
     }
 
+    $adminRole = "admin";
 
     // get all teachers in the database
-    $queryString = "SELECT * FROM RTX.Account WHERE Role='admin';";
+    $queryString = "SELECT * FROM RTX.Global_View WHERE Account_Role = '".$adminRole."';";
 
 
     $teachers = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
