@@ -1,5 +1,5 @@
 <?php
-    $con = mysqli_connect('gaminged-db.czq2j2udebs7.us-west-2.rds.amazonaws.com', 'superAdmin', 'ghahyat8', 'account');
+    $con = mysqli_connect('gaminged-db.czq2j2udebs7.us-west-2.rds.amazonaws.com', 'superAdmin', 'ghahyat8', 'RTX');
 
     //check for connection success
     if(mysqli_connect_error())
@@ -12,7 +12,7 @@
 
     $password = $_POST["Password"];
 
-    $nameCheckString = "SELECT * FROM account.people WHERE Username='" . $username . "';";
+    $nameCheckString = "SELECT * FROM RTX.Account WHERE Account_Username='" . $username . "';";
 
 
     $nameCheck = mysqli_query($con, $nameCheckString) or die("2: Name check query failed...DB issue"); // error code 2 = name already in Db
@@ -27,9 +27,10 @@
     // get log in info from DB
     $userInfo = mysqli_fetch_assoc($nameCheck);
 
-    $returnedPassword = $userInfo["Password"];
-    $returnedUsername = $userInfo["Username"];
-    $returnedRole = $userInfo["Role"];
+    $returnedPassword = $userInfo["Account_Password"];
+    $returnedUsername = $userInfo["Account_Username"];
+    $returnedRole = $userInfo["Account_Role"];
+    
     // check password
     if($password != $returnedPassword)
     {

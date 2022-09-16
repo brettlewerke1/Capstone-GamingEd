@@ -3,6 +3,7 @@
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
+@inject RTXWebsite1.Data.Cookies Cookie;
 
 @inject IConfiguration _config
 @inject IDatabaseAccess _data
@@ -13,6 +14,11 @@
 <br />
 
 <h3>Purchasable Items</h3>
+
+@if ( Cookie.CurrentClass == 0)
+{
+    // Navigate back to class selection screen
+}
 
 @if (transactions == null)
 {

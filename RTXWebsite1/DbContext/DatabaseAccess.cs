@@ -15,6 +15,7 @@ namespace RTXWebsite1.DbContext
 
                 return rows.ToList();
             }
+            return null;
         }
 
         public async Task<List<T>> DeleteData<T, U>(string sql, U parameters, string connectionString)

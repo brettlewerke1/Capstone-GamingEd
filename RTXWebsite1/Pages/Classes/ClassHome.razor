@@ -1,4 +1,4 @@
-﻿@page "/Classhome"
+﻿@page "/classhome"
 
 
 @using RTXWebsite1.IDbContext
@@ -10,17 +10,89 @@
 
 @inject NavigationManager NavManager
 
-<h1 div class="title-head">Classes</h1>
-<hr />
-
-<p>
-    Nothing Yet
-</p>
-
-@code {
-
+@if (Cookie.CurrentClass != 1)
+{
+    // Navigate back to class selection
+    <p>Nothing found</p>
+} 
+else
+{
+    // For things in the list, print the id, name, and desc
+    @foreach( var p in classInfo )
+    {
+        <h1 div class="title-head">
+           [@p.Course_Tag] @p.Course_Name
+        </h1>
+        <hr />
+    }
+    @foreach( var p in levelInfo )
+    {
+        <p>
+            @p.Level_Name | @p.Level_Desc
+        </p>
+    }
 }
 
+@code {
+    List<Course> classInfo = new List<Course>();
+    List<Level> levelInfo = new List<Level>();
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string classString = "SELECT * FROM Course WHERE Course_ID = @Class";
+        classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = 1 }, _config.GetConnectionString("RTX"));
+
+        // Initiate Variables
+        levelInfo = new List<Level>();      // Empty list
+        List<Level> nextLevel;              // Next level Part
+        List<Level> levelSection, levelHelp;// Help next level to not override nextLevel
+        string selectString;
+
+        // Head Node
+        string levelString = "SELECT * FROM Level WHERE Level_ID = @HeadNode";
+        nextLevel = await _data.LoadData<Level, dynamic>(levelString, new { HeadNode = 1 }, _config.GetConnectionString("RTX"));
+
+        // Recursive check rest of tree
+        while (nextLevel != null)
+        {
+            // Add previous recursion
+            levelInfo.AddRange( nextLevel );
+
+            // New recursion (next depth of tree)
+            levelSection = new List<Level>();
+            foreach( var p in nextLevel )
+            {
+                levelString = @"
+                    SELECT 
+                        `LevelTree`.`LevelTree_NextLevelID` AS `Level_ID`,
+                        `Level`.`Level_Name` AS `Level_Name`,
+                        `Level`.`Level_Desc` AS `Level_Desc`
+                    FROM
+                        (`LevelTree`
+                        JOIN `Level` ON ((`LevelTree`.`LevelTree_NextLevelID` = `Level`.`Level_ID`)))";
+
+                selectString = "WHERE LevelTree.LevelTree_CurrentLevelID = @Current";
+                levelHelp = await _data.LoadData<Level, dynamic>(levelString + selectString, new { Current = p.Level_ID }, _config.GetConnectionString("RTX"));
+                levelSection.AddRange( levelHelp );
+            }
+
+            // Pass final result
+            if (levelSection.Count() != 0 )
+            {
+                nextLevel = levelSection;
+            }
+            else
+            {
+                nextLevel = null;
+            }
+        } 
+    }
+}
 
 
 
