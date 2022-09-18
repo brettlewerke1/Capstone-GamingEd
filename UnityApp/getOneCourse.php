@@ -12,7 +12,8 @@
 
     $student = "student";
 
-    $queryString = "SELECT * FROM RTX.Account WHERE CurrentClass='".$classNum."' AND Role='".$student."';";
+
+    $queryString = "SELECT * FROM RTX.Global_View WHERE Account_Role='".$student."' AND Course_Tag='".$classNum."';";
 
     $students = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
     $rows = array();
@@ -24,7 +25,7 @@
     }
 
     foreach($rows as $row){
-        echo ($row["Firstname"] ."        ".$row["Account_Username"]."        ".$row["CurrentClass"]."/"); 
+        echo ($row["Account_Username"]."        ".$row["Course_Tag"]."/"); 
     }
 
 ?>

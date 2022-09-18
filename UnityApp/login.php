@@ -29,7 +29,8 @@
 
     $returnedPassword = $userInfo["Account_Password"];
     $returnedUsername = $userInfo["Account_Username"];
-    $returnedRole = $userInfo["Role"];
+    $returnedRole = $userInfo["Account_Role"];
+    
     // check password
     if($password != $returnedPassword)
     {

@@ -18,12 +18,14 @@
 
     $userId = $userInfo["Account_ID"];
 
-    $queryString = "DELETE FROM RTX.Account WHERE Account_ID='".$userId."';";
+
+    // deleting from RTX.Player
+    $queryString = "DELETE FROM RTX.Player WHERE Player_AccountID='".$userId."';";
 
     $teacher = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
     if($teacher == false)
     {
-        echo ("Deletion Error");
+        echo ("Deletion Error in Player DB Table");
 
         exit();
     }
@@ -34,6 +36,25 @@
     }
 
 
+    
+    
+    // deleting from RTX.Account
+    $queryString = "DELETE FROM RTX.Account WHERE Account_ID='".$userId."';";
+
+    $teacher = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
+    if($teacher == false)
+    {
+        echo ("Deletion Error in Account DB Table");
+
+        exit();
+    }
+    else
+    {
+        echo("Deletion successful!");
+
+    }
+
+    
 
 
 
