@@ -9,6 +9,7 @@
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
+<!-- THIS FILE IS NOT CURRENTLY IN USE; PLEASE SEE INDEX.RAZOR -->
 
 <h1 div class="title-head"> Login </h1>
 
@@ -46,7 +47,7 @@
         if(result != 0)
         {
             await localStorage.SetItemAsync("username", account.Account_Username);
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Account_Username, DateTime.Now.AddMinutes(1000));
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentUser", account.Account_Username, DateTime.Now.AddMinutes(1000));
             Cookie.UserID = result;
             Cookie.CurrentClass = 0;
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
