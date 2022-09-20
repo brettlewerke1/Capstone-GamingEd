@@ -27,7 +27,8 @@
     public async Task LogoutMethod()
     {
         Cookie.UserID = 0;
-        NavManager.NavigateTo("/login");
+        Cookie.CurrentClass = 0;
+        NavManager.NavigateTo("/");
     }
 
     public async Task GoToHome()

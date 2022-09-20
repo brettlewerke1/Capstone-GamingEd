@@ -10,7 +10,7 @@
 
 @inject NavigationManager NavManager
 
-@if (Cookie.CurrentClass != 1)
+@if (Cookie.CurrentClass == 0)
 {
     // Navigate back to class selection
     <p>Nothing found</p>
@@ -45,7 +45,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         string classString = "SELECT * FROM Course WHERE Course_ID = @Class";
-        classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = 1 }, _config.GetConnectionString("RTX"));
+        classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
         // Initiate Variables
         levelInfo = new List<Level>();      // Empty list
@@ -55,7 +55,7 @@ else
 
         // Head Node
         string levelString = "SELECT * FROM Level WHERE Level_ID = @HeadNode";
-        nextLevel = await _data.LoadData<Level, dynamic>(levelString, new { HeadNode = 1 }, _config.GetConnectionString("RTX"));
+        nextLevel = await _data.LoadData<Level, dynamic>(levelString, new { HeadNode = classInfo[0].Course_LevelHeadID }, _config.GetConnectionString("RTX"));
 
         // Recursive check rest of tree
         while (nextLevel != null)
