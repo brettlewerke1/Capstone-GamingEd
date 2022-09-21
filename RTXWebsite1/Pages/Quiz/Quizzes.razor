@@ -23,32 +23,32 @@
 
 
 
+
 <center><h3>Quizzes</h3></center>
+
+
+
+
+
 @if(quizList == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    @foreach( var p in quizList )
+    @foreach (var p in quizList)
     {
-        <h4>@p.Quiz_Question</h4>
-    }    
+        <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+    }
 }
-
-
-
 
 
 
     <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
 
         <DataAnnotationsValidator/>
-        <ValidationSummary />
-
-
-            
-            
+        <ValidationSummary />            
+  
             <InputText name="iamthename" @bind-Value=quiz.Quiz_Answer_A   />
         
 
@@ -58,7 +58,9 @@ else
     </EditForm>
 
     
-    
+
+
+
 
 
 
@@ -67,6 +69,9 @@ else
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
 
     List<Quiz>? quizList;
+
+
+
 
     private int dothis()
     {
@@ -88,7 +93,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Quiz where Quiz_Number = 1 AND Quiz_Question_Number = 1";
+        string sql = "select * from Quiz where Quiz_Number = 1";
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
