@@ -29,37 +29,97 @@
 
 
 
-
-@if(quizList == null)
+<!-- Loading -->
+@if(quizList != null)
 {
-    <p><em>Loading...</em></p>
-}
-else
-{
+    // go through list made from SQL at bottom of file
     @foreach (var p in quizList)
     {
         <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
     }
+    
+}
+else
+{
+    <p><em>Loading...</em></p>
 }
 
 
 
     <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
 
-        <DataAnnotationsValidator/>
-        <ValidationSummary />            
+    <DataAnnotationsValidator/>
+    <ValidationSummary />            
   
-            <InputText name="iamthename" @bind-Value=quiz.Quiz_Answer_A   />
-        
-
-        <ValidationMessage For="@(() => quiz.Quiz_Answer_A)"/>
+        <label for="q1">Question 1 Answer: </label>
+        <InputText name="iamthename" @bind-Value=quiz.Quiz_Answer_1   />
+        <ValidationMessage For="@(() => quiz.Quiz_Answer_1)"/>
         
         <button type="submit" class="btn btn-primary"> Submit</button>
+
     </EditForm>
 
-    
 
 
+
+    <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary />            
+  
+        <label for="q2">Question 2 Answer: </label>
+        <InputText name="iamthename2" @bind-Value=quiz.Quiz_Answer_2   />
+        <ValidationMessage For="@(() => quiz.Quiz_Answer_2)"/>
+        
+        <button type="submit" class="btn btn-primary"> Submit</button>
+
+    </EditForm>
+
+
+
+
+   <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
+
+   <DataAnnotationsValidator/>
+   <ValidationSummary />            
+  
+       <label for="q3">Question 3 Answer: </label>
+       <InputText name="iamthename3" @bind-Value=quiz.Quiz_Answer_3   />
+       <ValidationMessage For="@(() => quiz.Quiz_Answer_3)"/>
+        
+       <button type="submit" class="btn btn-primary"> Submit</button>
+
+   </EditForm>
+
+
+
+   <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
+
+   <DataAnnotationsValidator/>
+   <ValidationSummary />            
+  
+       <label for="q4">Question 4 Answer: </label>
+       <InputText name="iamthename4" @bind-Value=quiz.Quiz_Answer_4   />
+       <ValidationMessage For="@(() => quiz.Quiz_Answer_4)"/>
+        
+       <button type="submit" class="btn btn-primary"> Submit</button>
+
+   </EditForm>
+
+
+
+   <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
+
+   <DataAnnotationsValidator/>
+   <ValidationSummary />            
+  
+       <label for="q4">Question 5 Answer: </label>
+       <InputText name="iamthename5" @bind-Value=quiz.Quiz_Answer_5   />
+       <ValidationMessage For="@(() => quiz.Quiz_Answer_5)"/>
+        
+       <button type="submit" class="btn btn-primary"> Submit</button>
+
+   </EditForm>
 
 
 
@@ -67,28 +127,13 @@ else
 @code {
 
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
-
     List<Quiz>? quizList;
 
-
-
-
-    private int dothis()
-    {
-        NavManager.NavigateTo("/correctpage");
-        return 0;
-    }
-
-
-    
-
-    
+  
     private async Task GetData()
     {
         await OnInitializedAsync();
     }
-
-
 
 
     protected override async Task OnInitializedAsync()
@@ -100,16 +145,9 @@ else
     }
 
 
-
-
-
     async Task ValidateAnswer()
-    {
-        
-        
+    {     
         int result = await _quiz.ValidateAnswer(quiz, _config);
-
-        
 
         if( result == 0 )
         {
@@ -119,7 +157,6 @@ else
         {
             NavManager.NavigateTo("/incorrectpage");
         }
-
 
     }
 
