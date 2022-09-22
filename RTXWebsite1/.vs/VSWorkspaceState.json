@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Models",
-    "\\Pages"
+    "\\Pages",
+    "\\Pages\\Account"
   ],
   "SelectedNode": "\\RTXWebsite1.sln",
   "PreviewInSolutionExplorer": false

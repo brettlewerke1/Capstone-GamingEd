@@ -63,16 +63,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFya2V0cGxhY2VcVHJhbnNhY3Rpb25EZXRhaWxzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/CorrectPage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxDb3JyZWN0UGFnZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/IncorrectPage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxJbmNvcnJlY3RQYWdlLnJhem9y
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/Quizzes.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxRdWl6emVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/Results.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxSZXN1bHRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/ResultsFifth.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxSZXN1bHRzRmlmdGgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/ResultsFirst.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxSZXN1bHRzRmlyc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/ResultsFourth.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxSZXN1bHRzRm91cnRoLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/ResultsSecond.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxSZXN1bHRzU2Vjb25kLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/ResultsThird.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxSZXN1bHRzVGhpcmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Chase/OneDrive/Desktop/CS476_486/ChaseSpigarelli__GitHub/Capstone-GamingEd/RTXWebsite1/_Imports.razor]

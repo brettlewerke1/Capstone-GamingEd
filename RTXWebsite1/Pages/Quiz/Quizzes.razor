@@ -51,75 +51,39 @@ else
     <DataAnnotationsValidator/>
     <ValidationSummary />            
   
+        <p>
         <label for="q1">Question 1 Answer: </label>
         <InputText name="iamthename" @bind-Value=quiz.Quiz_Answer_1   />
         <ValidationMessage For="@(() => quiz.Quiz_Answer_1)"/>
-        
-        <button type="submit" class="btn btn-primary"> Submit</button>
+        </p>
 
-    </EditForm>
-
-
-
-
-    <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
-
-    <DataAnnotationsValidator/>
-    <ValidationSummary />            
-  
+        <p>
         <label for="q2">Question 2 Answer: </label>
         <InputText name="iamthename2" @bind-Value=quiz.Quiz_Answer_2   />
         <ValidationMessage For="@(() => quiz.Quiz_Answer_2)"/>
+        </p>
+
+        <p>
+        <label for="q3">Question 3 Answer: </label>
+        <InputText name="iamthename3" @bind-Value=quiz.Quiz_Answer_3   />
+        <ValidationMessage For="@(() => quiz.Quiz_Answer_3)"/>
+        </p>
+
+        <p>
+        <label for="q4">Question 4 Answer: </label>
+        <InputText name="iamthename4" @bind-Value=quiz.Quiz_Answer_4   />
+        <ValidationMessage For="@(() => quiz.Quiz_Answer_4)"/>
+        </p>
+
+        <p>
+        <label for="q4">Question 5 Answer: </label>
+        <InputText name="iamthename5" @bind-Value=quiz.Quiz_Answer_5   />
+        <ValidationMessage For="@(() => quiz.Quiz_Answer_5)"/>
+        </p>
         
         <button type="submit" class="btn btn-primary"> Submit</button>
 
     </EditForm>
-
-
-
-
-   <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
-
-   <DataAnnotationsValidator/>
-   <ValidationSummary />            
-  
-       <label for="q3">Question 3 Answer: </label>
-       <InputText name="iamthename3" @bind-Value=quiz.Quiz_Answer_3   />
-       <ValidationMessage For="@(() => quiz.Quiz_Answer_3)"/>
-        
-       <button type="submit" class="btn btn-primary"> Submit</button>
-
-   </EditForm>
-
-
-
-   <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
-
-   <DataAnnotationsValidator/>
-   <ValidationSummary />            
-  
-       <label for="q4">Question 4 Answer: </label>
-       <InputText name="iamthename4" @bind-Value=quiz.Quiz_Answer_4   />
-       <ValidationMessage For="@(() => quiz.Quiz_Answer_4)"/>
-        
-       <button type="submit" class="btn btn-primary"> Submit</button>
-
-   </EditForm>
-
-
-
-   <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
-
-   <DataAnnotationsValidator/>
-   <ValidationSummary />            
-  
-       <label for="q4">Question 5 Answer: </label>
-       <InputText name="iamthename5" @bind-Value=quiz.Quiz_Answer_5   />
-       <ValidationMessage For="@(() => quiz.Quiz_Answer_5)"/>
-        
-       <button type="submit" class="btn btn-primary"> Submit</button>
-
-   </EditForm>
 
 
 
@@ -129,7 +93,8 @@ else
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
     List<Quiz>? quizList;
 
-  
+
+
     private async Task GetData()
     {
         await OnInitializedAsync();
@@ -142,6 +107,7 @@ else
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
+
     }
 
 
@@ -151,13 +117,42 @@ else
 
         if( result == 0 )
         {
-            NavManager.NavigateTo("/correctpage");
+
+            NavManager.NavigateTo("/results");
+
+        }
+        else if( result == 1 )
+        {
+            NavManager.NavigateTo("/resultsfirst");
+        }
+        else if( result == 2 )
+        {
+            NavManager.NavigateTo("/resultssecond");
+        }
+        else if( result == 3 )
+        {
+            NavManager.NavigateTo("/resultsthird");
+        }
+        else if( result == 4 )
+        {
+            NavManager.NavigateTo("/resultsfourth");
+        }
+        else if( result == 5 )
+        {
+            NavManager.NavigateTo("/resultsfifth");
+        }
+        else if( result == -1 )
+        {
+            NavManager.NavigateTo("/error");
         }
         else
         {
-            NavManager.NavigateTo("/incorrectpage");
+            NavManager.NavigateTo("/error");
         }
 
+
     }
+
+
 
 }

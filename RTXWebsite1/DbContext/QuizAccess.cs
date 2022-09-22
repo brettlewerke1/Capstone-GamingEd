@@ -36,7 +36,9 @@ namespace RTXWebsite1.DbContext
             // call load data and check for account information
             string sqlString = "select * from Quiz where Quiz_Number = 1";
 
-            int correct = 0;
+            // number for amount of questions correct
+            int numberOfCorrect = 0;
+
 
             List<Quiz> registeredQuiz = await LoadData<Quiz, dynamic>(sqlString, new { }, configuration.GetConnectionString("RTX"));
 
@@ -54,11 +56,10 @@ namespace RTXWebsite1.DbContext
                             // check if answer is correct
                             if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_1)
                             {
-                                // increment number of correct
-                                correct++;
 
-                                // you got it right
-                                return 0;
+                                // increment number of correct
+                                numberOfCorrect++;
+
                             }
 
                         }
@@ -74,11 +75,9 @@ namespace RTXWebsite1.DbContext
                             // check if answer is correct
                             if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_2)
                             {
-                                // increment number of correct
-                                correct++;
 
-                                // you got it right
-                                return 0;
+                                // increment number of correct
+                                numberOfCorrect++;
 
                             }
 
@@ -95,11 +94,10 @@ namespace RTXWebsite1.DbContext
                             // check if answer is correct
                             if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_3)
                             {
-                                // increment number of correct
-                                correct++;
 
-                                // you got it right
-                                return 0;
+                                // increment number of correct
+                                numberOfCorrect++;
+
                             }
 
                         }
@@ -115,11 +113,10 @@ namespace RTXWebsite1.DbContext
                             // check if answer is correct
                             if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_4)
                             {
-                                // increment number of correct
-                                correct++;
 
-                                // you got it right
-                                return 0;
+                                // increment number of correct
+                                numberOfCorrect++;
+
                             }
 
                         }
@@ -137,10 +134,8 @@ namespace RTXWebsite1.DbContext
                             if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_5)
                             {
                                 // increment number of correct
-                                correct++;
+                                numberOfCorrect++;
 
-                                // you got it right
-                                return 0;
                             }
 
                         }
@@ -148,13 +143,14 @@ namespace RTXWebsite1.DbContext
                     }
 
 
-
-
-
                 }
+
+                // succesul operation
+                return numberOfCorrect;
             }
-            // return false is the username and password are not there
-            return 1;
+
+            // registeredQuiz is null
+            return -1;
 
         }
     }

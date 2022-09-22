@@ -22,11 +22,17 @@ namespace RTXWebsite1.Models
 
         public string Quiz_Answer_5 { get; set; } = "";
 
-
-
         public string Quiz_Answer_A { get; set; } = "";
         
         public string Quiz_Correct_Answer { get; set; } = "";
+
+
+        // Quiz Results table
+        public int QuizResults_ID { get; set; }
+
+        public int QuizResults_AccountID { get; set; }
+
+        public int Results { get; set; }
 
     }
 
