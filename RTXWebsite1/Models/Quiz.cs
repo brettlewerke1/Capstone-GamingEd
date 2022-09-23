@@ -12,6 +12,8 @@ namespace RTXWebsite1.Models
         
         public string Quiz_Question { get; set; } = "";
 
+        public string Quiz_Answers { get; set; } = "";
+
         public string Quiz_Answer_1 { get; set; } = "";
 
         public string Quiz_Answer_2 { get; set; } = "";
@@ -21,6 +23,8 @@ namespace RTXWebsite1.Models
         public string Quiz_Answer_4 { get; set; } = "";
 
         public string Quiz_Answer_5 { get; set; } = "";
+
+        public string Quiz_Answer_6 { get; set; } = "";
 
         public string Quiz_Answer_A { get; set; } = "";
         

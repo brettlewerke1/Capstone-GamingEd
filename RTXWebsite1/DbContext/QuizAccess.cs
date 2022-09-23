@@ -143,6 +143,25 @@ namespace RTXWebsite1.DbContext
                     }
 
 
+                    // if it is question 6
+                    if (item.Quiz_Question_Number == 6)
+                    {
+                        // if quesion has been answered
+                        if (quiz.Quiz_Answer_6 != "")
+                        {
+                            // check if answer is correct
+                            if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_6)
+                            {
+                                // increment number of correct
+                                numberOfCorrect++;
+
+                            }
+
+                        }
+
+                    }
+
+
                 }
 
                 // succesul operation

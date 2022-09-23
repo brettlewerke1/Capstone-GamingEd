@@ -18,26 +18,82 @@
 
 
 
-
-
-
-
-
-
 <h1 div class="title-head">Quizzes</h1>
 <br />
 
 
 
 
-<!-- Loading -->
+<!-- If quizList exists -->
 @if(quizList != null)
 {
-    // go through list made from SQL at bottom of file
+    // form begins
+    <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary />    
+
+ 
+    <!-- go through list made from SQL at bottom of file -->
     @foreach (var p in quizList)
     {
-        <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+            <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+
+            // edit form here
+            if( @p.Quiz_Question_Number == 1 )
+            {
+                <p>
+                    <label for="answer">Answer: </label>
+                    <InputText name="@p.Quiz_Question" @bind-Value=quiz.Quiz_Answer_1   />
+                    <ValidationMessage For="@(() => quiz.Quiz_Answer_1)"/>
+                </p>
+            }
+            else if( @p.Quiz_Question_Number == 2 )
+            {
+                <p>
+                    <label for="answer"> Answer: </label>
+                    <InputText name="@p.Quiz_Question" @bind-Value=quiz.Quiz_Answer_2   />
+                    <ValidationMessage For ="@(() => quiz.Quiz_Answer_2)"/>
+                </p>
+            }
+            else if( @p.Quiz_Question_Number == 3 )
+            {
+                <p>
+                    <label for="answer"> Answer: </label>
+                    <InputText name="@p.Quiz_Question" @bind-Value=quiz.Quiz_Answer_3   />
+                    <ValidationMessage For ="@(() => quiz.Quiz_Answer_3)"/>
+                </p>
+            }
+            else if( @p.Quiz_Question_Number == 4 )
+            {
+                <p>
+                    <label for="answer"> Answer: </label>
+                    <InputText name="@p.Quiz_Question" @bind-Value=quiz.Quiz_Answer_4    />
+                    <ValidationMessage For ="@(() => quiz.Quiz_Answer_4)"/>
+                </p>
+            }
+            else if( @p.Quiz_Question_Number == 5 )
+            {
+                <p>
+                    <label for="answer"> Answer: </label>
+                    <InputText name="@p.Quiz_Question" @bind-Value=quiz.Quiz_Answer_5   />
+                    <ValidationMessage For ="@(() => quiz.Quiz_Answer_5)"/>
+                </p>
+            }
+            else if( @p.Quiz_Question_Number == 6 )
+            {
+                <p>
+                    <label for="answer"> Answer: </label>
+                    <InputText DisplayName="@p.Quiz_Question" @bind-Value=quiz.Quiz_Answer_6   />
+                    <ValidationMessage For = "@(() => quiz.Quiz_Answer_6)"/>
+                </p>
+            }
+
     }
+
+    <button type="submit" class="btn btn-primary"> Submit</button>
+
+    </EditForm>
     
 }
 else
@@ -46,7 +102,7 @@ else
 }
 
 
-
+@*
     <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
 
     <DataAnnotationsValidator/>
@@ -86,7 +142,7 @@ else
 
     </EditForm>
 
-
+*@
 
 
 @code {
@@ -139,6 +195,10 @@ else
         else if( result == 5 )
         {
             NavManager.NavigateTo("/resultsfifth");
+        }
+        else if( result == 6 )
+        {
+            NavManager.NavigateTo("/resultssixth");
         }
         else if( result == -1 )
         {
