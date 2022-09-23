@@ -6,6 +6,8 @@ namespace RTXWebsite1.Models
     {
         
         public int Quiz_ID { get; set; }
+
+        public string Quiz_Word_Val { get; set; } = "";
         public int Quiz_Number { get; set; }
 
         public int Quiz_Question_Number { get; set; }
@@ -36,7 +38,7 @@ namespace RTXWebsite1.Models
 
         public int QuizResults_AccountID { get; set; }
 
-        public int Results { get; set; }
+        public int numCorrect { get; set; }
 
     }
 

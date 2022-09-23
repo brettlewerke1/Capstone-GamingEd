@@ -37,7 +37,7 @@ namespace RTXWebsite1.DbContext
             string sqlString = "select * from Quiz where Quiz_Number = 1";
 
             // number for amount of questions correct
-            int numberOfCorrect = 0;
+            // int numberOfCorrect = 0;
 
 
             List<Quiz> registeredQuiz = await LoadData<Quiz, dynamic>(sqlString, new { }, configuration.GetConnectionString("RTX"));
@@ -47,25 +47,19 @@ namespace RTXWebsite1.DbContext
                 foreach (Quiz item in registeredQuiz)
                 {
 
-                    // if it is question 1
-                    if( item.Quiz_Question_Number == 1 )
+                    // if( quiz.Quiz_Answers == item.Quiz_Correct_Answer )
+                    if( item.Quiz_Correct_Answer == "14" && item.Quiz_Answers == "" )
                     {
-                        // if quesion has been answered
-                        if (quiz.Quiz_Answer_1 != "")
-                        {
-                            // check if answer is correct
-                            if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_1)
-                            {
-
-                                // increment number of correct
-                                numberOfCorrect++;
-
-                            }
-
-                        }
-
+                        // you got one question right
+                        return 1;
+                    }
+                    else
+                    {
+                        // you got zero questions right
+                        return 0;
                     }
 
+                    /*
                     // if it is question 2
                     if( item.Quiz_Question_Number == 2 )
                     {
@@ -160,12 +154,13 @@ namespace RTXWebsite1.DbContext
                         }
 
                     }
+                    */
 
 
                 }
 
-                // succesul operation
-                return numberOfCorrect;
+                // not successful
+                return -1;
             }
 
             // registeredQuiz is null
