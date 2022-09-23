@@ -2,13 +2,31 @@
 
 
 
+@using RTXWebsite1.Models;
+
+@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
 <h3>Welcome to the Results Page!</h3>
 
 <h4>Here are your results: </h4>
 
-<p>You got a 0 out of 6</p>
+<p>0 out of 6</p>
+
+
+
+
 
 
 @code {
-   
+   // RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
 }
