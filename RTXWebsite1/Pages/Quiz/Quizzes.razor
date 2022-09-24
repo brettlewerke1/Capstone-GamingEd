@@ -96,36 +96,9 @@ else
 
 
 
-        // NavManager.NavigateTo("/results");
+        NavManager.NavigateTo($"/results/{quiz.numCorrect}");
         
-        if( quiz.numCorrect == 0 )
-        {
-            NavManager.NavigateTo("/results");
-        }
-        else if( quiz.numCorrect == 1 )
-        {
-            NavManager.NavigateTo("/resultsfirst");
-        }
-        else if( quiz.numCorrect == 2 )
-        {
-            NavManager.NavigateTo("/resultssecond");
-        }
-        else if( quiz.numCorrect == 3 )
-        {
-            NavManager.NavigateTo("/resultsthird");
-        }
-        else if( quiz.numCorrect == 4 )
-        {
-            NavManager.NavigateTo("/resultsfourth");
-        }
-        else if( quiz.numCorrect == 5 )
-        {
-            NavManager.NavigateTo("/resultsfifth");
-        }
-        else if( quiz.numCorrect == 6 )
-        {
-            NavManager.NavigateTo("/resultssixth");
-        }
+      
         
 
     }

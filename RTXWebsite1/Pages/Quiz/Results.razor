@@ -1,4 +1,4 @@
-﻿@page "/results"
+﻿@page "/results/{Value}"
 
 
 
@@ -20,7 +20,7 @@
 
 <h4>Here are your results: </h4>
 
-<p>0 out of 6</p>
+<p>You scored: @Value</p>
 
 
 
@@ -28,5 +28,6 @@
 
 
 @code {
-   // RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
+    [Parameter]
+    public string Value { get; set; }
 }
