@@ -18,7 +18,7 @@
 
 
 
-<h1 div class="title-head">Quizzes</h1>
+<h1 div class="title-head"> Quizzes </h1>
 <br />
 
 
@@ -27,7 +27,10 @@
 <!-- If quizList exists -->
 @if(quizList != null)
 {
+    // initialize variables
     quiz.numCorrect = 0;
+    quiz.numberOfQuestions = 0;
+
     <EditForm Model="@quiz" OnValidSubmit="@CalcGrade" >
 
     <DataAnnotationsValidator/>
@@ -35,19 +38,28 @@
     <!-- go through list made from SQL at bottom of file -->
     @foreach (var p in quizList)
     {
-              
+            
+        
             <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+             
+            // increment answered questions count
+            quiz.numberOfQuestions++;
+
 
              <p>
              <label for="answer">Answer: </label>              
-             <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />            
-             
+             <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
              </p>
 
+            <!-- If question has been answered -->
             @if( @p.Quiz_Answers != "" )
             {
-               @if( @p.Quiz_Answers == @p.Quiz_Correct_Answer )
+
+
+                // if answered correctly
+                @if( @p.Quiz_Answers == @p.Quiz_Correct_Answer )
                {
+                    // increment number correct count
                     quiz.numCorrect++;
                     
                }
@@ -55,6 +67,7 @@
             }
 
     }
+    <!-- Submits to CalcGrade() -->
     <button type="submit" class="btn btn-primary"> Submit</button>
 
     </EditForm>
@@ -94,13 +107,9 @@ else
     async Task CalcGrade( )
     {
 
-
-
-        NavManager.NavigateTo($"/results/{quiz.numCorrect}");
+        // navigate to results page while passing in 2 parameters
+        NavManager.NavigateTo($"/results/{quiz.numCorrect}/{quiz.numberOfQuestions}");
         
-      
-        
-
     }
 
 

@@ -26,6 +26,8 @@ namespace RTXWebsite1.Models
 
         public int numCorrect { get; set; }
 
+        public int numberOfQuestions { get; set; }
+
     }
 
 }

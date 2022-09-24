@@ -1,4 +1,4 @@
-﻿@page "/results/{Value}"
+﻿@page "/results/{NumberCorrect}/{NumberQuestions}"
 
 
 
@@ -16,11 +16,14 @@
 @inject IDatabaseAccess _data
 
 
-<h3>Welcome to the Results Page!</h3>
+<h1 div class="title-head"> Quiz Results </h1>
+<br />
 
-<h4>Here are your results: </h4>
 
-<p>You scored: @Value</p>
+
+<p> Your Score: @NumberCorrect out of @NumberQuestions </p>
+
+
 
 
 
@@ -29,5 +32,8 @@
 
 @code {
     [Parameter]
-    public string Value { get; set; }
+    public string NumberCorrect { get; set; }
+
+    [Parameter]
+    public string NumberQuestions { get; set; }
 }
