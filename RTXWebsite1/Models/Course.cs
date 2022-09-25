@@ -9,11 +9,7 @@ namespace RTXWebsite1.Models
         public string? Course_Name;
         public string? Course_Tag;
         public int Course_LevelHeadID;
-
-        public int getHeadID()
-        {
-            return (int)Course_LevelHeadID;
-        }
+        public bool Course_MarketFlag;
     }
     public class Level
     {
@@ -23,3 +19,4 @@ namespace RTXWebsite1.Models
         public string? Level_Desc;
     }
 }
+

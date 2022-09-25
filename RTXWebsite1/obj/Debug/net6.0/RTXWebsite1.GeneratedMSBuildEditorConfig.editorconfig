@@ -23,8 +23,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxEaXNwbGF5QWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Account/Login.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxMb2dpbi5yYXpvcg==
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Account/Grades.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxHcmFkZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Classes/Assignment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xBc3NpZ25tZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Classes/Classes.razor]
@@ -35,12 +39,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xDbGFzc0hvbWUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/NewDiscussion.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzY3Vzc2lvbkJvYXJkXE5ld0Rpc2N1c3Npb24ucmF6b3I=
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Classes/Quiz.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xRdWl6LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/ReplyToDiscussion.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzY3Vzc2lvbkJvYXJkXFJlcGx5VG9EaXNjdXNzaW9uLnJhem9y
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/NewDiscussion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzY3Vzc2lvbkJvYXJkXE5ld0Rpc2N1c3Npb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/ViewDiscussions.razor]
@@ -65,6 +69,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/.ArchivedFiles/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcLkFyY2hpdmVkRmlsZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/.ArchivedFiles/ReplyToDiscussion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcLkFyY2hpdmVkRmlsZXNcUmVwbHlUb0Rpc2N1c3Npb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Shared/MainLayout.razor]

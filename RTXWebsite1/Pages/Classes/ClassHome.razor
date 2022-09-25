@@ -10,10 +10,10 @@
 
 @inject NavigationManager NavManager
 
-@if (Cookie.CurrentClass == 0)
+@if (classInfo == null)
 {
     // Navigate back to class selection
-    <p>Nothing found</p>
+    <p>Loading...</p>
 } 
 else
 {
@@ -24,6 +24,11 @@ else
            [@p.Course_Tag] @p.Course_Name
         </h1>
         <hr />
+        if (@p.Course_MarketFlag)
+        {
+            <a href = "/marketplace">Marketplace</a>
+            <a href="/viewdiscussions">Discussion</a>
+        }
     }
     @foreach( var p in levelInfo )
     {
@@ -44,6 +49,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        if(Cookie.CurrentClass == 0)
+        {
+            NavManager.NavigateTo("/");
+        }
+
         string classString = "SELECT * FROM Course WHERE Course_ID = @Class";
         classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
