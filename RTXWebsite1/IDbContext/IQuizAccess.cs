@@ -10,7 +10,7 @@ namespace RTXWebsite1.IDbContext
     public interface IQuizAccess
     {
         Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString);
-        Task<int> ValidateAnswer(Quiz quiz, IConfiguration configuration);
     }
 }
+
 
