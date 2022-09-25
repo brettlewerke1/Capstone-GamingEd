@@ -18,48 +18,65 @@
 
 
 
+<h1 div class="title-head"> Quizzes </h1>
+<br />
 
 
 
 
-
-
-<center><h3>Quizzes</h3></center>
-
-
-
-
-
-@if(quizList == null)
+<!-- If quizList exists -->
+@if(quizList != null)
 {
-    <p><em>Loading...</em></p>
+    // initialize variables
+    quiz.numCorrect = 0;
+    quiz.numberOfQuestions = 0;
+
+    <EditForm Model="@quiz" OnValidSubmit="@CalcGrade" >
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary />   
+    <!-- go through list made from SQL at bottom of file -->
+    @foreach (var p in quizList)
+    {
+            
+        
+            <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+             
+            // increment answered questions count
+            quiz.numberOfQuestions++;
+
+
+             <p>
+             <label for="answer">Answer: </label>              
+             <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
+             </p>
+
+            <!-- If question has been answered -->
+            @if( @p.Quiz_Answers != "" )
+            {
+
+
+                // if answered correctly
+                @if( @p.Quiz_Answers == @p.Quiz_Correct_Answer )
+               {
+                    // increment number correct count
+                    quiz.numCorrect++;
+                    
+               }
+                             
+            }
+
+    }
+    <!-- Submits to CalcGrade() -->
+    <button type="submit" class="btn btn-primary"> Submit</button>
+
+    </EditForm>
+    
 }
 else
 {
-    @foreach (var p in quizList)
-    {
-        <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
-    }
+    <p><em>Loading...</em></p>
 }
-
-
-
-    <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
-
-        <DataAnnotationsValidator/>
-        <ValidationSummary />            
-  
-            <InputText name="iamthename" @bind-Value=quiz.Quiz_Answer_A   />
-        
-
-        <ValidationMessage For="@(() => quiz.Quiz_Answer_A)"/>
-        
-        <button type="submit" class="btn btn-primary"> Submit</button>
-    </EditForm>
-
-    
-
-
 
 
 
@@ -67,28 +84,14 @@ else
 @code {
 
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
-
     List<Quiz>? quizList;
 
 
 
-
-    private int dothis()
-    {
-        NavManager.NavigateTo("/correctpage");
-        return 0;
-    }
-
-
-    
-
-    
     private async Task GetData()
     {
         await OnInitializedAsync();
     }
-
-
 
 
     protected override async Task OnInitializedAsync()
@@ -97,30 +100,18 @@ else
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
+
     }
 
 
-
-
-
-    async Task ValidateAnswer()
+    async Task CalcGrade( )
     {
+
+        // navigate to results page while passing in 2 parameters
+        NavManager.NavigateTo($"/results/{quiz.numCorrect}/{quiz.numberOfQuestions}");
         
-        
-        int result = await _quiz.ValidateAnswer(quiz, _config);
-
-        
-
-        if( result == 0 )
-        {
-            NavManager.NavigateTo("/correctpage");
-        }
-        else
-        {
-            NavManager.NavigateTo("/incorrectpage");
-        }
-
-
     }
+
+
 
 }

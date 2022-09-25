@@ -1,0 +1,35 @@
+﻿@page "/results/{NumberCorrect}/{NumberQuestions}"
+
+
+
+@using RTXWebsite1.Models;
+
+@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+<h1 div class="title-head"> Quiz Results </h1>
+<br />
+
+
+
+<p> Your Score: @NumberCorrect out of @NumberQuestions </p>
+
+
+
+
+@code {
+    [Parameter]
+    public string NumberCorrect { get; set; }
+
+    [Parameter]
+    public string NumberQuestions { get; set; }
+}

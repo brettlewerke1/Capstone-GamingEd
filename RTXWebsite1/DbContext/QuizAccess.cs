@@ -31,33 +31,7 @@ namespace RTXWebsite1.DbContext
             }
         }
 
-        public async Task<int> ValidateAnswer(Quiz quiz, IConfiguration configuration)
-        {
-            // call load data and check for account information
-            string sqlString = "select * from Quiz where Quiz_Number = 1 AND Quiz_Question_Number = 1";
 
-            List<Quiz> registeredQuiz = await LoadData<Quiz, dynamic>(sqlString, new { }, configuration.GetConnectionString("RTX"));
-
-            if (registeredQuiz != null)
-            {
-                foreach (Quiz item in registeredQuiz)
-                {
-                    if (item.Quiz_Correct_Answer == quiz.Quiz_Answer_A)
-                    {
-                        // you got it right
-                        return 0;
-                    }
-                    else
-                    {
-                        // you got it wrong
-                        return 1;
-                    }
-                }
-            }
-            // return false is the username and password are not there
-            return 1;
-
-        }
     }
 }
 
