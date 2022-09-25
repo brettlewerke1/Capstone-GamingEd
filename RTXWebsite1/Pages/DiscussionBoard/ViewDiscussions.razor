@@ -29,15 +29,15 @@ else
     @foreach (var p in discussions)
     {
         <p>
-            <a href="" @onclick = "(() => Reply(p))"> @p.Discussion_Title</a>
+            @p.Discussion_Title
         </p>
 
         <p>
             @p.Discussion_Date | @p.Discussion_Desc
         </p>
        
-        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
-        if(Cookie.CurrentClass == p.Discussion_AccountID)
+        <button class="btn btn-primary" @onclick="(() => Reply(p))">Open</button>
+        if(Cookie.UserID == p.Discussion_AccountID)
         {
             <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
         }
@@ -59,22 +59,28 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "Select * from DiscussionHead where Discussion_CourseID = @Class"; // Where classID == currentclass
+        string sql = @"
+        SELECT 
+            `DiscussionHead`.`Discussion_ID` AS `Discussion_ID`,
+            `DiscussionHead`.`Discussion_Title` AS `Discussion_Title`,
+            `DiscussionHead`.`Discussion_Desc` AS `Discussion_Desc`,
+            `DiscussionHead`.`Discussion_CourseID` AS `Discussion_CourseID`,
+            `DiscussionHead`.`Discussion_Date` AS `Discussion_Date`,
+            `DiscussionHead`.`Discussion_AccountID` AS `Discussion_AccountID`,
+            `Player`.`Player_IGN` AS `Player_IGN`
+        FROM
+            (`DiscussionHead`
+            JOIN `Player` ON ((`DiscussionHead`.`Discussion_AccountID` = `Player`.`Player_ID`)))";
 
-        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+        string selector = "Where DiscussionHead.Discussion_CourseID = @Class";
+
+        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql + selector, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
     }
 
     public async Task Reply(DiscussionBoard discussionBoard)
     {
-        //**** special edge case ****//
-        // if the param passed has a question mark then it glitches
-        // so store the name temporarily until we get to the reply screen
-
-        util.paramDiscussionName = discussionBoard.Discussion_Title;
-
-        //util.AnchorId = discussionBoard.I;
+        Cookie.CurrentDiscussion = discussionBoard.Discussion_ID;
         NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.Discussion_Title}");
-
     }
 
     public async Task NewDiscussion()
@@ -82,10 +88,6 @@ else
         NavManager.NavigateTo("/newdiscussion");
     }
 
-    public async Task ViewPosts()
-    {
-        
-    }
 
     public async Task DeleteDiscussion(DiscussionBoard discussionBoard)
     {
