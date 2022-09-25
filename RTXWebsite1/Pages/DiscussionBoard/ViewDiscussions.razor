@@ -37,7 +37,7 @@ else
         </p>
        
         <button class="btn btn-primary" @onclick="(() => Reply(p))">Open</button>
-        if(Cookie.UserID == p.Discussion_AccountID)
+        if(Cookie.UserID == p.Discussion_PlayerID)
         {
             <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
         }
@@ -66,11 +66,11 @@ else
             `DiscussionHead`.`Discussion_Desc` AS `Discussion_Desc`,
             `DiscussionHead`.`Discussion_CourseID` AS `Discussion_CourseID`,
             `DiscussionHead`.`Discussion_Date` AS `Discussion_Date`,
-            `DiscussionHead`.`Discussion_AccountID` AS `Discussion_AccountID`,
+            `DiscussionHead`.`Discussion_PlayerID` AS `Discussion_PlayerID`,
             `Player`.`Player_IGN` AS `Player_IGN`
         FROM
             (`DiscussionHead`
-            JOIN `Player` ON ((`DiscussionHead`.`Discussion_AccountID` = `Player`.`Player_ID`)))";
+            JOIN `Player` ON ((`DiscussionHead`.`Discussion_PlayerID` = `Player`.`Player_ID`)))";
 
         string selector = "Where DiscussionHead.Discussion_CourseID = @Class";
 
