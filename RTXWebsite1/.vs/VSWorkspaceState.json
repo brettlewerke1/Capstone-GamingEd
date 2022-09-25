@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Pages"
+    "\\Pages",
+    "\\Pages\\Quiz"
   ],
-  "SelectedNode": "\\RTXWebsite1.sln",
+  "SelectedNode": "\\Pages\\Quiz\\Quizzes.razor",
   "PreviewInSolutionExplorer": false
 }

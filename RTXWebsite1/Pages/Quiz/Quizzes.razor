@@ -1,0 +1,126 @@
+﻿@page "/quizzes"
+
+
+@using RTXWebsite1.Models;
+
+@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+
+
+
+
+
+
+
+
+
+<center><h3>Quizzes</h3></center>
+
+
+
+
+
+@if(quizList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in quizList)
+    {
+        <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+    }
+}
+
+
+
+    <EditForm Model="@quiz" OnValidSubmit="@ValidateAnswer">
+
+        <DataAnnotationsValidator/>
+        <ValidationSummary />            
+  
+            <InputText name="iamthename" @bind-Value=quiz.Quiz_Answer_A   />
+        
+
+        <ValidationMessage For="@(() => quiz.Quiz_Answer_A)"/>
+        
+        <button type="submit" class="btn btn-primary"> Submit</button>
+    </EditForm>
+
+    
+
+
+
+
+
+
+@code {
+
+    RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
+
+    List<Quiz>? quizList;
+
+
+
+
+    private int dothis()
+    {
+        NavManager.NavigateTo("/correctpage");
+        return 0;
+    }
+
+
+    
+
+    
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from Quiz where Quiz_Number = 1";
+
+        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+    }
+
+
+
+
+
+    async Task ValidateAnswer()
+    {
+        
+        
+        int result = await _quiz.ValidateAnswer(quiz, _config);
+
+        
+
+        if( result == 0 )
+        {
+            NavManager.NavigateTo("/correctpage");
+        }
+        else
+        {
+            NavManager.NavigateTo("/incorrectpage");
+        }
+
+
+    }
+
+}

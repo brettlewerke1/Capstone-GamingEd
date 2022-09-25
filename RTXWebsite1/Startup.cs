@@ -31,6 +31,7 @@ namespace RTXWebsite1
             services.AddSingleton<IAccountAccess, AccountAccess>();
             services.AddSingleton<IDatabaseAccess, DatabaseAccess>();
             services.AddSingleton<IMarketplaceAccess, MarketplaceAccess>();
+            services.AddSingleton<IQuizAccess, QuizAccess>();
 
             services.AddSingleton<Cookies>();
             services.AddSingleton<Utils>();

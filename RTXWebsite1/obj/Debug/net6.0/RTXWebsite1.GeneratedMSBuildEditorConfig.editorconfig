@@ -67,6 +67,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFya2V0cGxhY2VcVHJhbnNhY3Rpb25EZXRhaWxzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/CorrectPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxDb3JyZWN0UGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/IncorrectPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxJbmNvcnJlY3RQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/Pages/Quiz/Quizzes.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpelxRdWl6emVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/hsieh/source/Repos/ShayDPanda/Capstone-GamingEd/RTXWebsite1/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
