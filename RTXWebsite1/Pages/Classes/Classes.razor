@@ -34,7 +34,14 @@ else
 
     private async Task GetData()
     {
-        await OnInitializedAsync();
+        if( Cookie.UserID == 0 )
+        {
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            await OnInitializedAsync();
+        }
     }
 
     private async Task AccessClass( int CourseID )
@@ -46,9 +53,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         string playerInfoJoin = @"
-        SELECT 
+         SELECT 
             `Account`.`Account_ID` AS `Account_ID`,
             `Account`.`Account_Username` AS `Account_Username`,
+            `Player`.`Player_ID` AS `Player_ID`,
             `Player`.`Player_Coins` AS `Player_Coins`,
             `Player`.`Player_IGN` AS `Player_IGN`,
             `Course`.`Course_ID` AS `Course_ID`,

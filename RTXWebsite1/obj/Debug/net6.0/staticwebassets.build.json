@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QQcMtSuFzdz6uGUSEve6+Op/R3s6vtEO0jK76jPG3F0=",
+  "Hash": "DTCcfzUJtAuINyLhxEk2DdOcZItOfx30FbjLLEDYmu4=",
   "Source": "RTXWebsite1",
   "BasePath": "_content/RTXWebsite1",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "RTXWebsite1\\wwwroot",
       "Source": "RTXWebsite1",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "RTXWebsite1.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css"
+      "OriginalItemSpec": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "RTXWebsite1.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\site.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\favicon.ico",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",

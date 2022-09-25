@@ -15,6 +15,7 @@ namespace RTXWebsite1.Models
     {
         public int Account_ID { get; set; }
         public string Account_Username { get; set; }
+        public int Player_ID { get; set; }
         public int Player_Coins { get; set; }
         public string Player_IGN { get; set; }
         public int Course_ID { get; set; }
