@@ -18,6 +18,14 @@ namespace RTXWebsite1.Models
 
         public string Quiz_Answer { get; set; } = "";
 
+        public string Quiz_Answer_A { get; set; }
+
+        public string Quiz_Answer_B { get; set; }
+        public string Quiz_Answer_C { get; set; }
+        public string Quiz_Answer_D { get; set; }
+        public string Quiz_Answer_E { get; set; }
+
+        public string Quiz_Answer_F { get; set; }
         public string Quiz_Correct_Answer { get; set; } = "";
 
 
