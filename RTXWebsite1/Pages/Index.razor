@@ -62,9 +62,10 @@ else
             await localStorage.SetItemAsync("username", account.Account_Username);
             Cookie.UserID = result;
             Cookie.CurrentClass = 0;
+            /*
             await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentUser", account.Account_ID, DateTime.Now.AddMinutes(1000));
             await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentClass", course.Course_ID, DateTime.Now.AddMinutes(1000));
-            
+            */
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
         }
