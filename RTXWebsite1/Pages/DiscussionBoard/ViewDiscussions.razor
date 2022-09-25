@@ -29,7 +29,7 @@ else
     @foreach (var p in discussions)
     {
         <p>
-                <a href="marketplace" @onclick="(() => Reply(p))"> @p.Discussion_Title</a>
+            <a href="" @onclick = "(() => Reply(p))"> @p.Discussion_Title</a>
         </p>
 
         <p>
@@ -82,6 +82,10 @@ else
         NavManager.NavigateTo("/newdiscussion");
     }
 
+    public async Task ViewPosts()
+    {
+        
+    }
 
     public async Task DeleteDiscussion(DiscussionBoard discussionBoard)
     {

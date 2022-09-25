@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Content Include="Pages\.ArchivedFiles\Login.razor" />
-    <Content Include="Pages\.ArchivedFiles\ReplyToDiscussion.razor" />
   </ItemGroup>
 
   <ItemGroup>
