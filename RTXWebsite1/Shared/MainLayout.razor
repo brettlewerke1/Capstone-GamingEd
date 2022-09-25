@@ -10,8 +10,16 @@
     </div>
 
     <main>
+        <div class="top-row px-4">
         @if(Cookie.UserID != 0)
         {
+<<<<<<< HEAD
+            <a href="/">Home</a>
+            <a href="/classes">Classes</a>
+            <a href="/account">Account</a>
+            <a href="logout" @onclick="(() => Logout())">Logout</a>
+            
+=======
             <div class="top-row px-4">
                 <a href="/"> Home</a>
                 <a href="/classes"> Classes</a>
@@ -21,11 +29,13 @@
                 <a href="/quizzes"> Quizzes</a>
                 <a href="logout" @onclick="(() => Logout())"> Logout</a>
             </div>
+>>>>>>> 9af116b268e2c68398a323f78328d17cfb82e09b
         }
         else
         {
-            <a href="/" div class="top-row px-4"> Login</a>     
+            <a href="/">Login</a>     
         }
+        </div>
 
         <article class="content px-4">
             @Body
@@ -36,7 +46,6 @@
 @code{
     public async Task Logout()
     {
-        // Moved to logout.razor --> Cookie.UserID = 0;
         NavManager.NavigateTo("/logout");
     }
 }

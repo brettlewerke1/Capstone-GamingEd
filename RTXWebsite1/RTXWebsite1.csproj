@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Pages\.ArchivedFiles\Login.razor" />
+    <Content Include="Pages\.ArchivedFiles\ReplyToDiscussion.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />

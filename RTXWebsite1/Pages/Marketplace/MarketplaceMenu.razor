@@ -49,9 +49,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Transaction";
+        string sql = "select * from Transaction where Transaction_CourseID = @CourseNum";
 
-        transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
+        transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { CourseNum = Cookie.CurrentClass}, _config.GetConnectionString("RTX"));
     }
 }
 

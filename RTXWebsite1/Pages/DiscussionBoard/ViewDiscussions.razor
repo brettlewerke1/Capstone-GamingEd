@@ -3,11 +3,12 @@
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
-@inject IDiscussionBoardAccess _discussion
+
 @inject IDatabaseAccess _data
 @inject IConfiguration _config
 @inject NavigationManager NavManager
 @inject RTXWebsite1.Data.Utils util
+@inject RTXWebsite1.Data.Cookies Cookie;
 
 
 <h1 div class="title-head">Discussion Board</h1>
@@ -16,38 +17,52 @@
 
 <h3>View Discussions</h3>
 <button class="btn btn-primary" @onclick="NewDiscussion">Post New Discussion</button>
+<p>
+    -----------------------------------------------
+</p>
 @if (discussions == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Nothing here. Start a new post?</em></p>
 }
 else
 {
     @foreach (var p in discussions)
     {
-            <p>
-             Written at @p.Discussion_Date
-             
-            </p>
-            <p>
-                 <a href="marketplace" @onclick="(() => Reply(p))"> @p.Discussion_Title</a>
-            </p>
+        <p>
+                <a href="marketplace" @onclick="(() => Reply(p))"> @p.Discussion_Title</a>
+        </p>
 
-            <p>
-                @p.Discussion_Desc
-            </p>
-            <p>
-            -----------------------------------------------
-            </p>
+        <p>
+            @p.Discussion_Date | @p.Discussion_Desc
+        </p>
+       
         <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
-        <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
+        if(Cookie.CurrentClass == p.Discussion_AccountID)
+        {
+            <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
+        }
+         <p>
+             -----------------------------------------------
+        </p>
         
-
     }
 }
 
 @code {
     List<DiscussionBoard>? discussions;
     List<DiscussionBoard>? deletedDiscussion;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "Select * from DiscussionHead where Discussion_CourseID = @Class"; // Where classID == currentclass
+
+        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+    }
 
     public async Task Reply(DiscussionBoard discussionBoard)
     {
@@ -62,32 +77,21 @@ else
 
     }
 
-
     public async Task NewDiscussion()
     {
         NavManager.NavigateTo("/newdiscussion");
     }
 
 
-    private async Task GetData()
-    {
-        await OnInitializedAsync();
-    }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        string sql = "select * from DiscussionHead"; // Where classID == currentclass
-
-        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
-    }
-
-
     public async Task DeleteDiscussion(DiscussionBoard discussionBoard)
     {
-        string sql = "delete from discussion where DiscussionName = @DiscussionName";
+        // Delete the posts in the discussion
+        string sql = "Delete from DiscussionPost where Post_HeadPostID = @DiscussionID";
+        deletedDiscussion = await _data.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionID = discussionBoard.Discussion_ID}, _config.GetConnectionString("RTX"));
 
-        deletedDiscussion = await _discussion.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionName = discussionBoard.Discussion_Title}, _config.GetConnectionString("Discussion"));
-         NavManager.NavigateTo("/viewdiscussions", forceLoad: true);
+        // Delete the actual discussion
+        sql = "Delete from DiscussionHead where Discussion_ID = @DiscussionID";
+        deletedDiscussion = await _data.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionID = discussionBoard.Discussion_ID}, _config.GetConnectionString("RTX"));
+        NavManager.NavigateTo("/viewdiscussions", forceLoad: true);
     }
 }

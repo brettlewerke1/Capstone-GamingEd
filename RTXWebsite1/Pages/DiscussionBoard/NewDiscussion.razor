@@ -1,9 +1,15 @@
-﻿@*@page "/newdiscussion"
+﻿@page "/newdiscussion"
 
-@inject RTXWebsite1.IDbContext.IDiscussionBoardAccess _discussion;
-@inject IConfiguration _config;
-@inject NavigationManager NavManager;
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject NavigationManager NavManager
+@inject RTXWebsite1.Data.Utils util
 @inject RTXWebsite1.Data.Cookies Cookie;
+
 
 <h1 div class="title-head">New Discussion</h1>
 <hr />
@@ -11,34 +17,28 @@
         <DataAnnotationsValidator/>
         <div class="form-group">
             <label for="DiscussionName">Title:</label>
-            <InputText @bind-Value=discussion.DiscussionName class="form-control" id="DiscussionName" />
+            <InputText @bind-Value=discussion.Discussion_Title class="form-control" id="DiscussionName" />
         </div>
-        <ValidationMessage For="@(() => discussion.DiscussionName)"/>
+        <ValidationMessage For="@(() => discussion.Discussion_Title)"/>
+
         <div class="form-group">
             <label for="DiscussionContent">Content:</label>
-            <InputText @bind-Value=discussion.DiscussionContent class="form-control" id="DiscussionContent" />
+            <InputText @bind-Value=discussion.Discussion_Desc class="form-control" id="DiscussionContent" />
         </div>
-        <ValidationMessage For="@(() => discussion.DiscussionContent)"/>
-        <button type="submit" class="btn btn-primary"> Submit</button>
+        <ValidationMessage For="@(() => discussion.Discussion_Desc)"/>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
+
 @code {
-    RTXWebsite1.Models.DiscussionBoard discussion = new  RTXWebsite1.Models.DiscussionBoard();
+    RTXWebsite1.Models.DiscussionBoard discussion = new RTXWebsite1.Models.DiscussionBoard();
 
     async Task submitDiscussion()
     {
-        // this is a test string
-        discussion.Date = DateTime.Today.ToString().Split(' ')[0];
-        discussion.PlayerID = 0; // Cookie.UserID;
-        discussion.Type = "Original";
-        string sql = "insert into DiscussionHead (Discussion_ID, Discussion_Title, Discussion_Desc, Discussion_CourseID, Discussion_Date) values (@Discussion_ID, @Discussion_Title, @Discussion_Desc, @Discussion_CourseID, @Discussion_Date);";
+        discussion.Discussion_Date = DateTime.Today; // Does not work in current DB
+        string sql = "INSERT INTO `RTX`.`DiscussionHead` (`Discussion_Title`, `Discussion_Desc`, `Discussion_CourseID`, `Discussion_AccountID`) VALUES (@Title, @Desc, @Course, @Account);";
 
-        await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerID, DiscussionName = discussion.DiscussionName,
-            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date, Type = discussion.Type }, _config.GetConnectionString("Discussion"));
-
-            NavManager.NavigateTo("viewdiscussions");
+        await _data.SaveData(sql, new { Title = @discussion.Discussion_Title, Desc = @discussion.Discussion_Desc, Course = @Cookie.CurrentClass, Account = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        NavManager.NavigateTo("/viewdiscussions");
 
     }
-
-
 }
-*@
