@@ -14,6 +14,8 @@
 @using Microsoft.Extensions.Configuration
 @inject IDatabaseAccess _data
 
+@using System;
+
 
 
 
@@ -53,6 +55,9 @@
                 <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
                 </p>
             }
+
+            // otherwise it is multiple choice
+            // check answers
             if(@p.Quiz_Answer_A != null)
             {
                 
@@ -113,7 +118,7 @@
 
 
                 // if answered correctly
-                @if( @p.Quiz_Answers == @p.Quiz_Correct_Answer )
+                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer.ToLower() )
                {
                     // increment number correct count
                     quiz.numCorrect++;
