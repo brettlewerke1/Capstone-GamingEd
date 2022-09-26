@@ -9,6 +9,7 @@ namespace RTXWebsite1.Models
         public string Account_Username { get; set; } = "";
         [Required]
         public string Account_Password { get; set; } = "";
+        public string Account_Role { get; set; } = "student";
 
     }
     public class PlayerInformation
