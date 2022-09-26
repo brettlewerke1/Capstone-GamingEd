@@ -110,9 +110,9 @@ else
     async Task postReply()
     {
         string date = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
-        string sql = "insert into DiscussionPost (Post_Content, Post_Time, Post_AccountID, Post_HeadPostID) values (@Content, @Time, @User, @Discussion);";
+        string sql = "insert into DiscussionPost (Post_Content, Post_Time, Post_PlayerID, Post_HeadPostID) values (@Content, @Time, @User, @Discussion);";
 
-        await _data.SaveData(sql, new { Content = @disPost.Post_Content, Time = @date, User = @Cookie.UserID, Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
+        await _data.SaveData(sql, new { Content = @disPost.Post_Content, Time = @date, User = @Cookie.PlayerID, Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
             NavManager.NavigateTo($"/replytodiscussion/{paramDiscussion}", forceLoad: true);
 

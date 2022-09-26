@@ -23,7 +23,7 @@ else
     @foreach (var p in player)
     {
         <p>
-            <button class="btn btn-primary" @onclick="(() => AccessClass(p.Course_ID))" id="@p.Course_ID">@p.Course_Name</button>
+            <button class="btn btn-primary" @onclick="(() => AccessClass(p.Course_ID, p.Player_ID))" id="@p.Course_ID">@p.Course_Name</button>
         </p>
     }
 }
@@ -34,19 +34,13 @@ else
 
     private async Task GetData()
     {
-        if( Cookie.UserID == 0 )
-        {
-            NavManager.NavigateTo("/");
-        }
-        else
-        {
-            await OnInitializedAsync();
-        }
+        await OnInitializedAsync();
     }
 
-    private async Task AccessClass( int CourseID )
+    private async Task AccessClass( int CourseID, int PlayerID )
     {
         Cookie.CurrentClass = CourseID;
+        Cookie.PlayerID = PlayerID;
         NavManager.NavigateTo("/ClassHome");
     }
 
