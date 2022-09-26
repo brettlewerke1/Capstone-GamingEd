@@ -27,6 +27,8 @@ namespace RTXWebsite1.Models
 
         public string Quiz_Answer_F { get; set; }
         public string Quiz_Correct_Answer { get; set; } = "";
+        public string Quiz_Correct_Answer_A { get; set; } = "";
+        public string Quiz_Correct_Answer_B { get; set; } = "";
 
 
         // Quiz Results table

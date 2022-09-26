@@ -50,10 +50,10 @@
             // if not multiple choice
             if( @p.Quiz_Answer_A == null )
             {
-                <p>
+                
                 <label for="answer">Answer: </label>              
                 <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
-                </p>
+                
             }
 
             // otherwise it is multiple choice
@@ -72,7 +72,7 @@
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
-                        <InputRadio Value="@p.Quiz_Answer_B" /> @p.Quiz_Answer_B  <br/>
+                        <InputRadio Value="@p.Quiz_Answer_B" /> @p.Quiz_Answer_B  &nbsp;
                     
                 </InputRadioGroup>
             }
@@ -88,7 +88,7 @@
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
-                        <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  <br/>
+                        <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  &nbsp;
                     
                 </InputRadioGroup>                
             }
@@ -96,7 +96,7 @@
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
-                        <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  <br/>
+                        <InputRadio Value="@p.Quiz_Answer_E" /> @p.Quiz_Answer_E  &nbsp;
                     
                 </InputRadioGroup>                
             }
@@ -104,11 +104,12 @@
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
-                        <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  <br/>
+                        <InputRadio Value="@p.Quiz_Answer_F" /> @p.Quiz_Answer_F  &nbsp;
                     
                 </InputRadioGroup>                
             }
 
+            <br/>
 
 
 
@@ -118,7 +119,7 @@
 
 
                 // if answered correctly
-                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer.ToLower() )
+                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() || @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_B.ToLower() )
                {
                     // increment number correct count
                     quiz.numCorrect++;
