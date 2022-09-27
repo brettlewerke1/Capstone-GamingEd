@@ -52,7 +52,7 @@
             {
                 
                 <label for="answer">Answer: </label>              
-                <InputText  @bind-Value=@p.Quiz_Answers   />                     
+                <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
                 
             }
 
@@ -61,7 +61,7 @@
             if(@p.Quiz_Answer_A != null)
             {
                 
-                <InputRadioGroup @bind-Value=@p.Entered_Answer_A  >
+                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
                         <InputRadio Value="@p.Quiz_Answer_A" /> @p.Quiz_Answer_A  &nbsp;
                     
@@ -70,15 +70,15 @@
             }
             if(@p.Quiz_Answer_B != null)
             {
-                <InputRadioGroup @bind-Value=@p.Entered_Answer_B  >
+                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
-                        <InputRadio Value="@p.Quiz_Answer_B"  /> @p.Quiz_Answer_B  &nbsp;
+                        <InputRadio Value="@p.Quiz_Answer_B" /> @p.Quiz_Answer_B  &nbsp;
                     
                 </InputRadioGroup>
             }
             if(@p.Quiz_Answer_C != null)
             {
-                <InputRadioGroup @bind-Value=@p.Entered_Answer_C >
+                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
                         <InputRadio Value="@p.Quiz_Answer_C" /> @p.Quiz_Answer_C  &nbsp;
                     
@@ -86,7 +86,7 @@
             }
             if(@p.Quiz_Answer_D != null)
             {
-                <InputRadioGroup @bind-Value=@p.Entered_Answer_D  >
+                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
                         <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  &nbsp;
                     
@@ -94,7 +94,7 @@
             }
             if(@p.Quiz_Answer_E != null)
             {
-                <InputRadioGroup @bind-Value=@p.Entered_Answer_E >
+                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
                         <InputRadio Value="@p.Quiz_Answer_E" /> @p.Quiz_Answer_E  &nbsp;
                     
@@ -102,9 +102,9 @@
             }
             if(@p.Quiz_Answer_F != null)
             {
-                <InputRadioGroup @bind-Value=@p.Entered_Answer_F  >
+                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
-                        <InputRadio Value="@p.Quiz_Answer_F"  /> @p.Quiz_Answer_F  &nbsp;
+                        <InputRadio Value="@p.Quiz_Answer_F" /> @p.Quiz_Answer_F  &nbsp;
                     
                 </InputRadioGroup>                
             }
@@ -114,66 +114,20 @@
 
 
             <!-- If question has been answered -->
-            @if( @p.Entered_Answer_A != null )
+            @if( @p.Quiz_Answers != "" )
             {
 
 
-               // if answered correctly
-               @if( @p.Entered_Answer_A.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() )
+                // if answered correctly
+                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() || @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_B.ToLower() )
                {
                     // increment number correct count
                     quiz.numCorrect++;
                     
                }
-               
                              
             }
-            @if( @p.Entered_Answer_B != null )
-            {
-                // if answered correctly
-                @if( @p.Entered_Answer_B.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() )
-                {
-                    // increment number correct
-                    quiz.numCorrect++;
-                }
-            }
-            @if( @p.Entered_Answer_C != null )
-            {
-                @if( @p.Entered_Answer_C.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() )
-                {
-                    // increment number correct
-                    quiz.numCorrect++;
-                }
-            }
-            @if( @p.Entered_Answer_D != null )
-            {
-                @if( @p.Entered_Answer_D.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() )
-                {
-                    // increment number correct
-                    quiz.numCorrect++;
-                }
-            }
-            @if( @p.Entered_Answer_E != null )
-            {
-                @if( @p.Entered_Answer_E.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() )
-                {
-                    // increment number correct
-                    quiz.numCorrect++;
-                }
-            }
-            @if( @p.Entered_Answer_F != null )
-            {
-                @if( @p.Entered_Answer_F.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() )
-                {
-                    // increment number correct
-                    quiz.numCorrect++;
-                }
-            }
-            @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer )
-            {
-                // increment number correct
-                quiz.numCorrect++;
-            }
+
             <br/>
             
 
@@ -199,6 +153,9 @@ else
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
     List<Quiz>? quizList;
 
+    List<string> rdOptions = new List<string> { "12", "13", "14", "15"};
+
+    
 
 
 

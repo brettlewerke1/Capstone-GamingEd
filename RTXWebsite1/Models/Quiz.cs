@@ -29,10 +29,6 @@ namespace RTXWebsite1.Models
         public string Quiz_Correct_Answer { get; set; } = "";
         public string Quiz_Correct_Answer_A { get; set; } = "";
         public string Quiz_Correct_Answer_B { get; set; } = "";
-        public string Quiz_Correct_Answer_C { get; set; } = "";
-        public string Quiz_Correct_Answer_D { get; set; } = "";
-        public string Quiz_Correct_Answer_E { get; set; } = "";
-        public string Quiz_Correct_Answer_F { get; set; } = "";
 
 
         // Quiz Results table
@@ -43,16 +39,6 @@ namespace RTXWebsite1.Models
         public int numCorrect { get; set; }
 
         public int numberOfQuestions { get; set; }
-
-
-
-        public string Entered_Answer_A { get; set; }
-
-        public string Entered_Answer_B { get; set; }
-        public string Entered_Answer_C { get; set; }
-        public string Entered_Answer_D { get; set; }
-        public string Entered_Answer_E { get; set; }
-        public string Entered_Answer_F { get; set; }
 
     }
 
