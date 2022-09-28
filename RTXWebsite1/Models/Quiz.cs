@@ -40,6 +40,8 @@ namespace RTXWebsite1.Models
 
         public int numberOfQuestions { get; set; }
 
+        public string Account_Role { get; set; }
+
     }
 
 }

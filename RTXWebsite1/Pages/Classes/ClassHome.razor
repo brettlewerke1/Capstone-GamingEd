@@ -59,9 +59,9 @@ else
         classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
         // Initiate Variables
-        levelInfo = new List<Level>();      // Empty list
-        List<Level> nextLevel;              // Next level Part
-        List<Level> levelSection, levelHelp;// Help next level to not override nextLevel
+        levelInfo = new List<Level>();          // Empty list
+        List<Level> nextLevel;                  // Next level Part
+        List<Level> levelSection, levelHelp;    // Help next level to not override nextLevel
         string selectString;
 
         // Head Node

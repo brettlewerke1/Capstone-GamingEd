@@ -18,11 +18,8 @@
 
 
 
-
-
 <h1 div class="title-head"> Quizzes </h1>
 <br />
-
 
 
 
@@ -66,6 +63,7 @@
                         <InputRadio Value="@p.Quiz_Answer_A" /> @p.Quiz_Answer_A  &nbsp;
                     
                 </InputRadioGroup>
+                
 
             }
             if(@p.Quiz_Answer_B != null)
@@ -106,12 +104,12 @@
                     
                         <InputRadio Value="@p.Quiz_Answer_F" /> @p.Quiz_Answer_F  &nbsp;
                     
-                </InputRadioGroup>                
+                </InputRadioGroup>
             }
 
             <br/>
-
-
+            
+        
 
             <!-- If question has been answered -->
             @if( @p.Quiz_Answers != "" )
@@ -132,6 +130,9 @@
             
 
     }
+
+
+
     <!-- Submits to CalcGrade() -->
     <button type="submit" class="btn btn-primary"> Submit</button>
     <br/>
@@ -139,6 +140,8 @@
     </EditForm>
     <br/>
     <br/>
+
+
 }
 else
 {
@@ -150,12 +153,9 @@ else
 
 @code {
 
+
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
     List<Quiz>? quizList;
-
-    List<string> rdOptions = new List<string> { "12", "13", "14", "15"};
-
-    
 
 
 
@@ -167,9 +167,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+
         string sql = "select * from Quiz where Quiz_Number = 1";
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+
 
 
     }
@@ -180,8 +182,11 @@ else
 
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/results/{quiz.numCorrect}/{quiz.numberOfQuestions}");
-        
+
     }
+
+
+
 
 
 

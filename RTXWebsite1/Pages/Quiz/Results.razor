@@ -20,16 +20,84 @@
 <br />
 
 
-
 <p> Your Score: @NumberCorrect out of @NumberQuestions </p>
+
+
+<!-- Showing correct answers -->
+@if( showCorrect() )
+{
+
+    <br/>
+    <br/>
+    <p>Correct Answers listed below: </p>
+    <br/>
+
+    <!-- go through list made from SQL at bottom of file -->
+    @foreach (var p in quizList)
+    {
+            
+        <p>@p.Quiz_Question_Number) @p.Quiz_Question </p>
+        <p>Correct Answer: <b>@p.Quiz_Correct_Answer</b> </p>
+        <br/>
+
+    }
+
+}
+
+<br/>
 
 
 
 
 @code {
+
     [Parameter]
     public string NumberCorrect { get; set; }
 
     [Parameter]
     public string NumberQuestions { get; set; }
+
+    List<Quiz>? quizList;
+
+    List<Account>? accountList;
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        string sql = "select * from Quiz where Quiz_Number = 1";
+
+        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+        string sqlAgain = "select * from Account where Account_ID = @UserID";
+
+        accountList = await _data.LoadData<Account, dynamic>(sqlAgain, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+
+    }
+
+    // toggle to show correct answers
+    private Boolean showCorrect()
+    {
+        if (accountList != null)
+        {
+           @foreach( var p in accountList )
+           {
+               // if superAdmin or admin
+               if( @p.Account_Role == "superadmin" || @p.Account_Role == "admin" )
+               {
+                   // return success
+                   return true;
+               }
+           }
+        }
+        // otherwise return unsuccess
+        return false;
+
+    }
 }
