@@ -45,7 +45,7 @@
             quiz.numberOfQuestions++;
 
             // if not multiple choice
-            if( @p.Quiz_Answer_A == null )
+            if( @p.Quiz_Answer_A == null && @p.Question_Type != "Matching" )
             {
                 
                 <label for="answer">Answer: </label>              
@@ -55,7 +55,7 @@
 
             // otherwise it is multiple choice
             // check answers
-            if(@p.Quiz_Answer_A != null)
+            if(@p.Quiz_Answer_A != null && @p.Question_Type != "Matching" )
             {
                 
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
@@ -66,7 +66,7 @@
                 
 
             }
-            if(@p.Quiz_Answer_B != null)
+            if(@p.Quiz_Answer_B != null && @p.Question_Type != "Matching" )
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
@@ -74,7 +74,7 @@
                     
                 </InputRadioGroup>
             }
-            if(@p.Quiz_Answer_C != null)
+            if(@p.Quiz_Answer_C != null && @p.Question_Type != "Matching" )
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
@@ -82,7 +82,7 @@
                     
                 </InputRadioGroup>                
             }
-            if(@p.Quiz_Answer_D != null)
+            if(@p.Quiz_Answer_D != null && @p.Question_Type != "Matching" )
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
@@ -90,7 +90,7 @@
                     
                 </InputRadioGroup>                
             }
-            if(@p.Quiz_Answer_E != null)
+            if(@p.Quiz_Answer_E != null && @p.Question_Type != "Matching" )
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
@@ -98,7 +98,7 @@
                     
                 </InputRadioGroup>                
             }
-            if(@p.Quiz_Answer_F != null)
+            if(@p.Quiz_Answer_F != null && @p.Question_Type != "Matching" )
             {
                 <InputRadioGroup @bind-Value=@p.Quiz_Answers >
                     
@@ -107,30 +107,266 @@
                 </InputRadioGroup>
             }
 
+
+            
+            
+            @if( @p.Question_Type == "Matching" )
+            {
+
+                // quiz answer A
+                if( @p.Quiz_Answer_A != null )
+                {
+                    <InputSelect @bind-Value=@p.Entered_Answer_A>
+                                if( @p.Quiz_Answer_A != null )
+                                {
+                                    <option> @p.Quiz_Answer_A  </option>
+                                }
+
+                                if( @p.Quiz_Answer_B != null )
+                                {
+                                    <option> @p.Quiz_Answer_B  </option>
+                                }
+ 
+                                if( @p.Quiz_Answer_C != null )
+                                {
+                                    <option> @p.Quiz_Answer_C  </option>
+                                }
+   
+                                if( @p.Quiz_Answer_D != null )
+                                {
+                                    <option> @p.Quiz_Answer_D  </option>
+                                }
+
+                                if( @p.Quiz_Answer_E != null )
+                                {
+                                    <option> @p.Quiz_Answer_E  </option>
+                                }
+
+
+                                if( @p.Quiz_Answer_F != null )
+                                {
+                                    <option> @p.Quiz_Answer_F  </option>
+                                }
+                   </InputSelect>                    
+                }
+
+
+                // quiz answer B
+                if( @p.Quiz_Answer_B != null )
+                {
+                    <InputSelect @bind-Value=@p.Entered_Answer_B>
+                                if( @p.Quiz_Answer_A != null )
+                                {
+                                    <option> @p.Quiz_Answer_A  </option>
+                                }
+
+                                if( @p.Quiz_Answer_B != null )
+                                {
+                                    <option> @p.Quiz_Answer_B  </option>
+                                }
+ 
+                                if( @p.Quiz_Answer_C != null )
+                                {
+                                    <option> @p.Quiz_Answer_C  </option>
+                                }
+   
+                                if( @p.Quiz_Answer_D != null )
+                                {
+                                    <option> @p.Quiz_Answer_D  </option>
+                                }
+
+                                if( @p.Quiz_Answer_E != null )
+                                {
+                                    <option> @p.Quiz_Answer_E  </option>
+                                }
+                                
+                                if( @p.Quiz_Answer_F != null )
+                                {
+                                    <option> @p.Quiz_Answer_F  </option>
+                                }
+
+                    </InputSelect>                    
+                }
+
+
+                // quiz answer C
+                if( @p.Quiz_Answer_C != null )
+                {
+                    <InputSelect @bind-Value=@p.Entered_Answer_C>
+                                if( @p.Quiz_Answer_A != null )
+                                {
+                                    <option> @p.Quiz_Answer_A  </option>
+                                }
+
+                                if( @p.Quiz_Answer_B != null )
+                                {
+                                    <option> @p.Quiz_Answer_B  </option>
+                                }
+ 
+                                if( @p.Quiz_Answer_C != null )
+                                {
+                                    <option> @p.Quiz_Answer_C  </option>
+                                }
+   
+                                if( @p.Quiz_Answer_D != null )
+                                {
+                                    <option> @p.Quiz_Answer_D  </option>
+                                }
+
+                                if( @p.Quiz_Answer_E != null )
+                                {
+                                    <option> @p.Quiz_Answer_E  </option>
+                                }
+
+                                if( @p.Quiz_Answer_F != null )
+                                {
+                                    <option> @p.Quiz_Answer_F  </option>
+                                }
+                    </InputSelect>                    
+                }
+
+
+                // quiz answer D
+                if( @p.Quiz_Answer_D != null )
+                {
+                    <InputSelect @bind-Value=@p.Entered_Answer_D>
+                                if( @p.Quiz_Answer_A != null )
+                                {
+                                    <option> @p.Quiz_Answer_A  </option>
+                                }
+
+                                if( @p.Quiz_Answer_B != null )
+                                {
+                                    <option> @p.Quiz_Answer_B  </option>
+                                }
+ 
+                                if( @p.Quiz_Answer_C != null )
+                                {
+                                    <option> @p.Quiz_Answer_C  </option>
+                                }
+   
+                                if( @p.Quiz_Answer_D != null )
+                                {
+                                    <option> @p.Quiz_Answer_D  </option>
+                                }
+
+
+                                if( @p.Quiz_Answer_E != null )
+                                {
+                                    <option> @p.Quiz_Answer_E  </option>
+                                }
+                                
+                                if( @p.Quiz_Answer_F != null )
+                                {
+                                    <option> @p.Quiz_Answer_F  </option>
+                                }
+
+
+         
+                    </InputSelect>                    
+                }
+
+
+                // quiz answer E
+                if( @p.Quiz_Answer_E != null )
+                {
+                    <InputSelect @bind-Value=@p.Entered_Answer_E>
+
+                                if( @p.Quiz_Answer_A != null )
+                                {
+                                    <option> @p.Quiz_Answer_A  </option>
+                                }
+
+                                if( @p.Quiz_Answer_B != null )
+                                {
+                                    <option> @p.Quiz_Answer_B  </option>
+                                }
+ 
+                                if( @p.Quiz_Answer_C != null )
+                                {
+                                    <option> @p.Quiz_Answer_C  </option>
+                                }
+   
+                                if( @p.Quiz_Answer_D != null )
+                                {
+                                    <option> @p.Quiz_Answer_D  </option>
+                                }
+
+                                if( @p.Quiz_Answer_E != null )
+                                {
+                                    <option> @p.Quiz_Answer_E  </option>
+                                }
+                                
+                                if( @p.Quiz_Answer_F != null )
+                                {
+                                    <option> @p.Quiz_Answer_F  </option>
+                                }
+                                
+                    </InputSelect>                    
+                }
+
+
+                // quiz answer F
+                if( @p.Quiz_Answer_F != null )
+                {
+                    <InputSelect @bind-Value=@p.Entered_Answer_F>
+
+                                if( @p.Quiz_Answer_A != null )
+                                {
+                                    <option> @p.Quiz_Answer_A  </option>
+                                }
+
+                                if( @p.Quiz_Answer_B != null )
+                                {
+                                    <option> @p.Quiz_Answer_B  </option>
+                                }
+ 
+                                if( @p.Quiz_Answer_C != null )
+                                {
+                                    <option> @p.Quiz_Answer_C  </option>
+                                }
+   
+                                if( @p.Quiz_Answer_D != null )
+                                {
+                                    <option> @p.Quiz_Answer_D  </option>
+                                }
+
+                                if( @p.Quiz_Answer_E != null )
+                                {
+                                    <option> @p.Quiz_Answer_E  </option>
+                                }
+
+                                if( @p.Quiz_Answer_F != null )
+                                {
+                                    <option> @p.Quiz_Answer_F  </option>
+                                }
+                                
+                    </InputSelect>                    
+                }
+         
+            }
+            
             <br/>
             
-        
 
             <!-- If question has been answered -->
             @if( @p.Quiz_Answers != "" )
             {
 
-
-                // if answered correctly
-                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() || @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_B.ToLower() )
+               // if answered correctly
+               @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() || @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_B.ToLower() )
                {
+
                     // increment number correct count
                     quiz.numCorrect++;
                     
                }
-                             
+                          
             }
 
             <br/>
-            
-
+        
     }
-
 
 
     <!-- Submits to CalcGrade() -->
@@ -171,8 +407,6 @@ else
         string sql = "select * from Quiz where Quiz_Number = 1";
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
-
-
 
     }
 
