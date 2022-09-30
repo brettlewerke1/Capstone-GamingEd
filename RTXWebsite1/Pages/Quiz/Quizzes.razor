@@ -30,6 +30,8 @@
     quiz.numCorrect = 0;
     quiz.numberOfQuestions = 0;
 
+    bool isText = false;
+
     <EditForm Model="@quiz" OnValidSubmit="@CalcGrade" >
 
     <DataAnnotationsValidator/>
@@ -37,517 +39,96 @@
     <!-- go through list made from SQL at bottom of file -->
     @foreach (var p in quizList)
     {
+
             
-        
+
+
+
+
+
+
             <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
 
-            // increment answered questions count
-            quiz.numberOfQuestions++;
+  
 
-            // if not multiple choice
-            if( @p.Quiz_Answer_A == null && @p.Question_Type != "Matching" )
-            {
-                
-                <label for="answer">Answer: </label>              
-                <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
-                
-            }
 
-            // otherwise it is multiple choice
-            // check answers
-            if(@p.Quiz_Answer_A != null && @p.Question_Type != "Matching" )
-            {
-                
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_A" /> @p.Quiz_Answer_A  &nbsp;
-                    
-                </InputRadioGroup>
-                
 
-            }
-            if(@p.Quiz_Answer_B != null && @p.Question_Type != "Matching" )
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_B" /> @p.Quiz_Answer_B  &nbsp;
-                    
-                </InputRadioGroup>
-            }
-            if(@p.Quiz_Answer_C != null && @p.Question_Type != "Matching" )
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_C" /> @p.Quiz_Answer_C  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-            if(@p.Quiz_Answer_D != null && @p.Question_Type != "Matching" )
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-            if(@p.Quiz_Answer_E != null && @p.Question_Type != "Matching" )
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_E" /> @p.Quiz_Answer_E  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-            if(@p.Quiz_Answer_F != null && @p.Question_Type != "Matching" )
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_F" /> @p.Quiz_Answer_F  &nbsp;
-                    
-                </InputRadioGroup>
-            }
+ 
+                foreach( var a in answerList )
+                {
+           
+                   // if question type is: multiple choice
+                   if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "mc" )
+                   {
+                        <InputRadioGroup @bind-Value=@p.Quiz_Answers >
+                        <InputRadio Value="@a.Quiz_Answers" /> @a.Quiz_Answers &nbsp;
+                        </InputRadioGroup>
+
+
+                   }
+
+                   // if question type is: matching
+                   if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "Matching")
+                   {
+                        <InputSelect @bind-Value=@a.Selected_Answers >
+                            <option value="">Select an Answer</option>
+                            @foreach (var z in answerList )
+                            {
+                                if( @z.Quiz_ID == @p.Quiz_ID )
+                                {
+
+                                      <option>@z.Quiz_Answers</option>
+                                      
+                                 }
+
+
+
+                            }
+
+                       
+                            quiz.numberOfQuestions++;
+                         
+
+                        </InputSelect>
+
+                            if(  @a.Selected_Answers == @a.Correct_Answers )
+                            {
+                                quiz.numCorrect++;
+                                
+                                
+                            }
+                            
+                        
+                        @a.Matching_Answer
+
+                        quiz.numberOfQuestions++;
+
+                        <br/>
+
+
+
+                        <br/>
+                   }
+
+
+                }
+
+                // if question type is: text
+                if( @p.Question_Type == "text" )
+                {
+                    <label for="answer">Answer: </label>
+                    <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />
+                    isText = true;
+                }
+            
 
 
             <br/>
+
             
-            @if( @p.Question_Type == "Matching" )
-            {
-                <br/>
 
-                // quiz answer A
-                if( @p.Quiz_Answer_A != null )
-                {
-                       // don't need to increment the first option because it is has already incremented once when the question was printed
-                       
-
-                    <InputSelect @bind-Value=@p.Entered_Answer_A>
-                                @if( @p.Quiz_Answer_A != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_A  </option>
-                                   
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_B != null )
-                                {
-                                   
-                                        <option > @p.Quiz_Answer_B  </option>
-                                    
-                                    
-                                }
- 
-                                @if( @p.Quiz_Answer_C != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_C  </option>
-                                   
-                                    
-                                }
-   
-                                @if( @p.Quiz_Answer_D != null )
-                                {
-                                
-                                        <option > @p.Quiz_Answer_D  </option>
-                                  
-                                   
-                                }
-
-
-
-
-                                @if( @p.Quiz_Answer_E != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_E  </option>
-                                  
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_F != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_F  </option>
-                                   
-                                    
-                                }
-
- 
-                    </InputSelect>
-                    @if(@p.Entered_Answer_A == @p.Matching_Correct_Option_A )
-                    {
-                        quiz.numCorrect++;
-                    }
-                    <p>@p.Matching_Option_A</p>
-
-
-                    <br/>
-                }
-
-       
-
-      
-
-               
-
-                // quiz answer B
-                if( @p.Quiz_Answer_B != null )
-                {
-             
-                                 // increment answered questions count
-                                 quiz.numberOfQuestions++;
-
-                    <InputSelect @bind-Value=@p.Entered_Answer_B>
-                                @if( @p.Quiz_Answer_A != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_A  </option>
-                                 
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_B != null )
-                                {
-
-                                        <option > @p.Quiz_Answer_B  </option>
-                                  
-                                    
-                                }
- 
-                                @if( @p.Quiz_Answer_C != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_C  </option>
-                                  
-                                    
-                                }
-   
-                                @if( @p.Quiz_Answer_D != null )
-                                {
-                                   
-                                        <option > @p.Quiz_Answer_D  </option>
-                                  
-                                   
-                                }
-
-                                @if( @p.Quiz_Answer_E != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_E  </option>
-                                  
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_F != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_F  </option>
-                                   
-                                    
-                                }
-
-
-                    </InputSelect>  
-
-                    @if(@p.Entered_Answer_B == @p.Matching_Correct_Option_B )
-                    {
-                        quiz.numCorrect++;
-                    }
-                    <p>@p.Matching_Option_B</p>
-                    
-                     <br/>
-                }
-
-                
-
-               
-
-                // quiz answer C
-                if( @p.Quiz_Answer_C != null )
-                {
             
-                                // increment answered questions count
-                                quiz.numberOfQuestions++;
-
-                    <InputSelect @bind-Value=@p.Entered_Answer_C>
-                                @if( @p.Quiz_Answer_A != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_A  </option>
-                                    
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_B != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_B  </option>
-                                  
-                                    
-                                }
- 
-                                @if( @p.Quiz_Answer_C != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_C  </option>
-                                
-                                    
-                                }
-   
-                                @if( @p.Quiz_Answer_D != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_D  </option>
-                                 
-                                   
-                                }
-
-                                @if( @p.Quiz_Answer_E != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_E  </option>
-                                  
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_F != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_F  </option>
-                                   
-                                    
-                                }
-
-
-                    </InputSelect>  
-                    
-                    @if(@p.Entered_Answer_C == @p.Matching_Correct_Option_C )
-                    {
-                        quiz.numCorrect++;
-                    }
-                    <p>@p.Matching_Option_C</p>
-                    
-                    <br/>
-                }
-
-                
-
-             
-
-                // quiz answer D
-                if( @p.Quiz_Answer_D != null )
-                {
-           
-                       // increment answered questions count
-                       quiz.numberOfQuestions++;
-
-                    <InputSelect @bind-Value=@p.Entered_Answer_D>
-                                @if( @p.Quiz_Answer_A != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_A  </option>
-                                  
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_B != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_B  </option>
-                                 
-                                    
-                                }
- 
-                                @if( @p.Quiz_Answer_C != null )
-                                {
-                                   
-                                        <option > @p.Quiz_Answer_C  </option>
-                                  
-                                    
-                                }
-   
-                                @if( @p.Quiz_Answer_D != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_D  </option>
-                                   
-                                   
-                                }
-
-                                @if( @p.Quiz_Answer_E != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_E  </option>
-                                  
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_F != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_F  </option>
-                                   
-                                    
-                                }
-
-
-         
-                    </InputSelect>  
-
-                    @if(@p.Entered_Answer_D == @p.Matching_Correct_Option_D )
-                    {
-                        quiz.numCorrect++;
-                    }
-                    <p>@p.Matching_Option_D</p>
-                    
-                    <br/>
-                }
-
-               
-
-                
-
-                // quiz answer E
-                if( @p.Quiz_Answer_E != null )
-                {
-     
-                       // increment answered questions count
-                       quiz.numberOfQuestions++;
-
-                    <InputSelect @bind-Value=@p.Entered_Answer_E>
-
-                                @if( @p.Quiz_Answer_A != null )
-                                {
-                                
-                                        <option > @p.Quiz_Answer_A  </option>
-                         
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_B != null )
-                                {
-                                
-                                        <option > @p.Quiz_Answer_B  </option>
-                                  
-                                    
-                                }
- 
-                                @if( @p.Quiz_Answer_C != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_C  </option>
-                               
-                                    
-                                }
-   
-                                @if( @p.Quiz_Answer_D != null )
-                                {
-                             
-                                        <option > @p.Quiz_Answer_D  </option>
-                      
-                                   
-                                }
-
-                                @if( @p.Quiz_Answer_E != null )
-                                {
-                                 
-                                        <option > @p.Quiz_Answer_E  </option>
-                                
-                                }
-
-                                @if( @p.Quiz_Answer_F != null )
-                                {
-                                  
-                                        <option > @p.Quiz_Answer_F  </option>
-                              
-                                }
-                                
-                    </InputSelect>       
-                    
-                    @if(@p.Entered_Answer_E == @p.Matching_Correct_Option_E )
-                    {
-                        quiz.numCorrect++;
-                    }
-                    <p>@p.Matching_Option_E</p>
-                    
-                    <br/>
-                }
-
-               
-
-                // quiz answer F
-                if( @p.Quiz_Answer_F != null )
-                {
-          
-                        // increment answered questions count
-                        quiz.numberOfQuestions++;
-                   
-                    <InputSelect @bind-Value=@p.Entered_Answer_F>
-
-                                @if( @p.Quiz_Answer_A != null )
-                                {
-                                   
-                                        <option > @p.Quiz_Answer_A  </option>
-                                    
-                                    
-                                }
-
-                                @if( @p.Quiz_Answer_B != null )
-                                {
-                                   
-                                        <option > @p.Quiz_Answer_B  </option>
-                                    
-                                    
-                                }
- 
-                                @if( @p.Quiz_Answer_C != null )
-                                {
-                                   
-                                        <option > @p.Quiz_Answer_C  </option>
-                              
-                                    
-                                }
-   
-                                @if( @p.Quiz_Answer_D != null )
-                                {
-                            
-                                        <option > @p.Quiz_Answer_D  </option>
-                               
-                                   
-                                }
-
-                                @if( @p.Quiz_Answer_E != null )
-                                {
-                         
-                                        <option > @p.Quiz_Answer_E  </option>
-                             
-                                    
-                                }
-                            
-
-                                @if( @p.Quiz_Answer_F != null )
-                                {
-                              
-                                        <option > @p.Quiz_Answer_F  </option>
-                                
-                                    
-                                }
-                                
-                    </InputSelect>      
-                 
-                    @if(@p.Entered_Answer_F == @p.Matching_Correct_Option_F )
-                    {
-                        quiz.numCorrect++;
-                    }
-                    <p>@p.Matching_Option_F</p>
-                    
-                    
-
-                }
-
-         
-         
-            } 
+            
             
          
             
@@ -563,10 +144,16 @@
                     // increment number correct count
                     quiz.numCorrect++;
                     
+
                }
+               
+
+               
                           
             }
 
+            
+            quiz.numberOfQuestions++;
             <br/>
         
     } <!--End master loop-->
@@ -579,6 +166,11 @@
     </EditForm>
     <br/>
     <br/>
+
+
+    
+
+
 
 
 }
@@ -596,6 +188,8 @@ else
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
     List<Quiz>? quizList;
 
+    List<QuizAnswers>? answerList;
+
 
 
     private async Task GetData()
@@ -610,6 +204,10 @@ else
         string sql = "select * from Quiz where Quiz_Number = 1";
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+        string answersSQL = "select * from Quiz_Answers_Table";
+
+        answerList = await _data.LoadData<QuizAnswers, dynamic>(answersSQL, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
     }
 
