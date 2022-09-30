@@ -108,14 +108,18 @@
             }
 
 
-            
+            <br/>
             
             @if( @p.Question_Type == "Matching" )
             {
+                <br/>
 
                 // quiz answer A
                 if( @p.Quiz_Answer_A != null )
                 {
+                       // don't need to increment the first option because it is has already incremented once when the question was printed
+                       
+
                     <InputSelect @bind-Value=@p.Entered_Answer_A>
                                 @if( @p.Quiz_Answer_A != null )
                                 {
@@ -149,11 +153,14 @@
                                    
                                 }
 
+
+
+
                                 @if( @p.Quiz_Answer_E != null )
                                 {
-                                  
+                                 
                                         <option > @p.Quiz_Answer_E  </option>
-                              
+                                  
                                     
                                 }
 
@@ -164,9 +171,14 @@
                                    
                                     
                                 }
-                                
-                   </InputSelect>
-                   <p>Arizona</p>
+
+ 
+                    </InputSelect>
+                    @if(@p.Entered_Answer_A == @p.Matching_Correct_Option_A )
+                    {
+                        quiz.numCorrect++;
+                    }
+                    <p>@p.Matching_Option_A</p>
 
 
                     <br/>
@@ -181,6 +193,10 @@
                 // quiz answer B
                 if( @p.Quiz_Answer_B != null )
                 {
+             
+                                 // increment answered questions count
+                                 quiz.numberOfQuestions++;
+
                     <InputSelect @bind-Value=@p.Entered_Answer_B>
                                 @if( @p.Quiz_Answer_A != null )
                                 {
@@ -216,23 +232,28 @@
 
                                 @if( @p.Quiz_Answer_E != null )
                                 {
-                                  
+                                 
                                         <option > @p.Quiz_Answer_E  </option>
-                                   
+                                  
                                     
                                 }
 
                                 @if( @p.Quiz_Answer_F != null )
                                 {
-                                   
-                                        <option > @p.Quiz_Answer_F  </option>
                                   
+                                        <option > @p.Quiz_Answer_F  </option>
+                                   
                                     
                                 }
 
+
                     </InputSelect>  
 
-                    <p>New York</p>
+                    @if(@p.Entered_Answer_B == @p.Matching_Correct_Option_B )
+                    {
+                        quiz.numCorrect++;
+                    }
+                    <p>@p.Matching_Option_B</p>
                     
                      <br/>
                 }
@@ -244,6 +265,10 @@
                 // quiz answer C
                 if( @p.Quiz_Answer_C != null )
                 {
+            
+                                // increment answered questions count
+                                quiz.numberOfQuestions++;
+
                     <InputSelect @bind-Value=@p.Entered_Answer_C>
                                 @if( @p.Quiz_Answer_A != null )
                                 {
@@ -279,9 +304,9 @@
 
                                 @if( @p.Quiz_Answer_E != null )
                                 {
-                                  
+                                 
                                         <option > @p.Quiz_Answer_E  </option>
-                               
+                                  
                                     
                                 }
 
@@ -289,12 +314,18 @@
                                 {
                                   
                                         <option > @p.Quiz_Answer_F  </option>
-                                  
+                                   
                                     
                                 }
+
+
                     </InputSelect>  
                     
-                    <p>California</p>
+                    @if(@p.Entered_Answer_C == @p.Matching_Correct_Option_C )
+                    {
+                        quiz.numCorrect++;
+                    }
+                    <p>@p.Matching_Option_C</p>
                     
                     <br/>
                 }
@@ -306,6 +337,10 @@
                 // quiz answer D
                 if( @p.Quiz_Answer_D != null )
                 {
+           
+                       // increment answered questions count
+                       quiz.numberOfQuestions++;
+
                     <InputSelect @bind-Value=@p.Entered_Answer_D>
                                 @if( @p.Quiz_Answer_A != null )
                                 {
@@ -359,7 +394,11 @@
          
                     </InputSelect>  
 
-                     <p>Missouri</p>
+                    @if(@p.Entered_Answer_D == @p.Matching_Correct_Option_D )
+                    {
+                        quiz.numCorrect++;
+                    }
+                    <p>@p.Matching_Option_D</p>
                     
                     <br/>
                 }
@@ -371,6 +410,10 @@
                 // quiz answer E
                 if( @p.Quiz_Answer_E != null )
                 {
+     
+                       // increment answered questions count
+                       quiz.numberOfQuestions++;
+
                     <InputSelect @bind-Value=@p.Entered_Answer_E>
 
                                 @if( @p.Quiz_Answer_A != null )
@@ -410,7 +453,6 @@
                                  
                                         <option > @p.Quiz_Answer_E  </option>
                                 
-                                    
                                 }
 
                                 @if( @p.Quiz_Answer_F != null )
@@ -418,10 +460,16 @@
                                   
                                         <option > @p.Quiz_Answer_F  </option>
                               
-                                    
                                 }
                                 
                     </InputSelect>       
+                    
+                    @if(@p.Entered_Answer_E == @p.Matching_Correct_Option_E )
+                    {
+                        quiz.numCorrect++;
+                    }
+                    <p>@p.Matching_Option_E</p>
+                    
                     <br/>
                 }
 
@@ -430,6 +478,9 @@
                 // quiz answer F
                 if( @p.Quiz_Answer_F != null )
                 {
+          
+                        // increment answered questions count
+                        quiz.numberOfQuestions++;
                    
                     <InputSelect @bind-Value=@p.Entered_Answer_F>
 
@@ -484,6 +535,12 @@
                                 
                     </InputSelect>      
                  
+                    @if(@p.Entered_Answer_F == @p.Matching_Correct_Option_F )
+                    {
+                        quiz.numCorrect++;
+                    }
+                    <p>@p.Matching_Option_F</p>
+                    
                     
 
                 }
@@ -499,7 +556,7 @@
             @if( @p.Quiz_Answers != "" )
             {
 
-               // if answered correctly
+               // if answered correctly (multiple correct answers)
                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() || @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_B.ToLower() )
                {
 

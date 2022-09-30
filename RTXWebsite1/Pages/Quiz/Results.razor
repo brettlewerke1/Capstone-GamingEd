@@ -20,29 +20,81 @@
 <br />
 
 
+
 <p> Your Score: @NumberCorrect out of @NumberQuestions </p>
 
 
-<!-- Showing correct answers -->
-@if( showCorrect() )
-{
 
-    <br/>
-    <br/>
-    <p>Correct Answers listed below: </p>
-    <br/>
 
-    <!-- go through list made from SQL at bottom of file -->
-    @foreach (var p in quizList)
+
+
+
+
+    @if( quizList != null )
     {
+        <!-- go through list made from SQL at bottom of file -->
+        @foreach (var p in quizList )
+        {
+            if( accountList != null )
+            {
+                
+                    @if( @p.Show_Answer_Bool == "True" && gainAccess()  )
+                    {
+
+                        <br/>
+                        <br/>
+                        <p>Correct Answers listed below: </p>
+                        <br/>
+
+                        <p>@p.Quiz_Question_Number) @p.Quiz_Question </p>
+                            
+                        @if( @p.Question_Type != "Matching")
+                        {
+                            <p>Correct Answer: <b>@p.Quiz_Correct_Answer</b> </p>
             
-        <p>@p.Quiz_Question_Number) @p.Quiz_Question </p>
-        <p>Correct Answer: <b>@p.Quiz_Correct_Answer</b> </p>
+                        }
+                        else if (@p.Question_Type == "Matching" )
+                        {
+                            if( @p.Quiz_Answer_A != null )
+                            {
+                                <p>Matching Answer #1: <b>@p.Matching_Correct_Option_A</b></p>
+                            }
+                            if( @p.Quiz_Answer_B != null )
+                            {
+                                <p>Matching Answer #2: <b>@p.Matching_Correct_Option_B</b></p>
+                            }
+                            if( @p.Quiz_Answer_C != null )
+                            {
+                               <p>Matching Answer #3: <b>@p.Matching_Correct_Option_C</b></p>
+                            }
+                            if( @p.Quiz_Answer_D != null )
+                            {
+                               <p>Matching answer #4: <b>@p.Matching_Correct_Option_D</b></p>
+                            }
+                            if( @p.Quiz_Answer_E != null )
+                            {
+                               <p>Matching Answer #5: <b>@p.Matching_Correct_Option_E</b></p>
+                            }
+                            if( @p.Quiz_Answer_F != null )
+                            {
+                                <p>Matching Answer #6: <b>@p.Matching_Correct_Option_F</b></p>
+                            }
+           
+                        }
+                    }
+                 
+           }
+
+ 
+
+
         <br/>
 
+        }
     }
 
-}
+
+
 
 <br/>
 
@@ -82,7 +134,7 @@
     }
 
     // toggle to show correct answers
-    private Boolean showCorrect()
+    private Boolean gainAccess()
     {
         if (accountList != null)
         {

@@ -53,9 +53,34 @@ namespace RTXWebsite1.Models
 
 
         // Quiz results
-        public int numCorrect { get; set; }
+        public double numCorrect { get; set; }
         public int numberOfQuestions { get; set; }
         public string Account_Role { get; set; }
+
+
+
+
+        // matching options
+        public string Matching_Option_A { get; set; }
+        public string Matching_Option_B { get; set; }
+        public string Matching_Option_C { get; set; }
+        public string Matching_Option_D { get; set; }
+        public string Matching_Option_E { get; set; }
+        public string Matching_Option_F { get; set; }
+
+
+        // matching correct options
+        public string Matching_Correct_Option_A { get; set; }
+        public string Matching_Correct_Option_B { get; set; }
+        public string Matching_Correct_Option_C { get; set; }
+        public string Matching_Correct_Option_D { get; set; }
+        public string Matching_Correct_Option_E { get; set; }
+        public string Matching_Correct_Option_F { get; set; }
+
+
+        // boolean to decide whether to show answers or not
+        public string Show_Answer_Bool { get; set; }
+        
 
     }
 
