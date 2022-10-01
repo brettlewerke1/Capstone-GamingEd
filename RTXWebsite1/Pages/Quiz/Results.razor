@@ -34,6 +34,9 @@
     {
         // tracking number of answers to print labels for matching questions
     int numberOfAnswers = 0;
+    int questionNumber = 0;
+
+    int answerNumber = 0;
     <!-- go through list made from SQL at bottom of file -->
     if( gainAccess() )
     {
@@ -46,32 +49,48 @@
     }
     @foreach (var p in quizList )
         {
-            if( accountList != null )
+        questionNumber++;
+        if( accountList != null )
             {
                 
-                    @if( @p.Show_Answer_Bool == "True" && gainAccess()  )
+                    @if( @p.Show_Answer_Bool == "True" && gainAccess() )
                     {
 
-    
+                        
 
-                        <b><p>@p.Quiz_Question_Number. @p.Quiz_Question </p></b>
+                        <b><p> @questionNumber. @p.Quiz_Question </p></b>
                             
                         @if( @p.Question_Type != "Matching")
                         {
-                           <p>Correct Answer: @p.Quiz_Correct_Answer </p>
+
+                            foreach( var correctAnswer in answerList )
+                            {
+                                if( @correctAnswer.Quiz_ID == p.Quiz_ID && @correctAnswer.Correct_Answers != null && correctAnswer.Correct_Answers != "" )
+                                {
+                                      <p>Answer: @correctAnswer.Correct_Answers</p>    
+                                }
+                        
+                            }
+                    
 
                            <br/>
 
                         }
                         @if (@p.Question_Type == "Matching"  )
                         {
-                           
+                          // reset answer number display value
+                          answerNumber = 0;
+
                            foreach( var answer in answerList )
                            {
+
+
                                if( @answer.Correct_Answers!= null && answer.Quiz_ID == p.Quiz_ID )
                                {
                                    numberOfAnswers++;
-                                   <p> Answer #@numberOfAnswers: @answer.Correct_Answers</p>
+
+                                   answerNumber++;
+                                   <p> Answer #@answerNumber: @answer.Correct_Answers</p>
                                }
                            }
 
@@ -139,7 +158,6 @@
         answerList = await _data.LoadData<QuizAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
     }
-
 
     // toggle to show correct answers
     private Boolean gainAccess()

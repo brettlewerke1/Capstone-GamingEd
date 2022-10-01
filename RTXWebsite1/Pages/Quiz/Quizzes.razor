@@ -33,7 +33,7 @@
     // initialize variables
     quiz.numCorrect = 0;
     quiz.numberOfQuestions = 0;
-    
+    int questionNumber = 0;
 
     
 
@@ -57,13 +57,17 @@
             // reset matching boolean to false
             isMatchingBool = false;
 
+            
+
             // increment number of questions count
             quiz.numberOfQuestions++;
 
+            questionNumber++;
+
+            
 
 
-
-            <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+            <h4>@questionNumber) @p.Quiz_Question</h4>
 
 
 
