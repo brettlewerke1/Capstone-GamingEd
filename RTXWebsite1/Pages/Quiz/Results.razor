@@ -38,22 +38,21 @@
 
     int answerNumber = 0;
     <!-- go through list made from SQL at bottom of file -->
-    if( gainAccess() )
-    {
+   
 
         <br/> 
         <br/>
         <br/>
         <p>Correct Answers</p>
         <p>===============</p>
-    }
+    
     @foreach (var p in quizList )
         {
         questionNumber++;
         if( accountList != null )
             {
                 
-                    @if( @p.Show_Answer_Bool == "True" && gainAccess() )
+                    @if( @p.Show_Answer_Bool == "True"  )
                     {
 
                         
@@ -159,25 +158,7 @@
 
     }
 
-    // toggle to show correct answers
-    private Boolean gainAccess()
-    {
-        if (accountList != null)
-        {
-           @foreach( var p in accountList )
-           {
-               // if superAdmin or admin
-               if( @p.Account_Role == "superadmin" || @p.Account_Role == "admin" )
-               {
-                   // return success
-                   return true;
-               }
-            }
-        }
-        // otherwise return unsuccess
-        return false;
 
-    }
 
 
 }
