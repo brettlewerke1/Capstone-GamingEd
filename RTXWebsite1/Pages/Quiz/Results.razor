@@ -32,8 +32,19 @@
 
     @if( quizList != null )
     {
-        <!-- go through list made from SQL at bottom of file -->
-        @foreach (var p in quizList )
+        // tracking number of answers to print labels for matching questions
+    int numberOfAnswers = 0;
+    <!-- go through list made from SQL at bottom of file -->
+    if( gainAccess() )
+    {
+
+        <br/> 
+        <br/>
+        <br/>
+        <p>Correct Answers</p>
+        <p>===============</p>
+    }
+    @foreach (var p in quizList )
         {
             if( accountList != null )
             {
@@ -41,46 +52,36 @@
                     @if( @p.Show_Answer_Bool == "True" && gainAccess()  )
                     {
 
-                        <br/>
-                        <br/>
-                        <p>Correct Answers listed below: </p>
-                        <br/>
+    
 
-                        <p>@p.Quiz_Question_Number) @p.Quiz_Question </p>
+                        <b><p>@p.Quiz_Question_Number. @p.Quiz_Question </p></b>
                             
                         @if( @p.Question_Type != "Matching")
                         {
-                            <p>Correct Answer: <b>@p.Quiz_Correct_Answer</b> </p>
-            
+                           <p>Correct Answer: @p.Quiz_Correct_Answer </p>
+
+                           <br/>
+
                         }
-                        else if (@p.Question_Type == "Matching" )
+                        @if (@p.Question_Type == "Matching"  )
                         {
-                            if( @p.Quiz_Answer_A != null )
-                            {
-                                <p>Matching Answer #1: <b>@p.Matching_Correct_Option_A</b></p>
-                            }
-                            if( @p.Quiz_Answer_B != null )
-                            {
-                                <p>Matching Answer #2: <b>@p.Matching_Correct_Option_B</b></p>
-                            }
-                            if( @p.Quiz_Answer_C != null )
-                            {
-                               <p>Matching Answer #3: <b>@p.Matching_Correct_Option_C</b></p>
-                            }
-                            if( @p.Quiz_Answer_D != null )
-                            {
-                               <p>Matching answer #4: <b>@p.Matching_Correct_Option_D</b></p>
-                            }
-                            if( @p.Quiz_Answer_E != null )
-                            {
-                               <p>Matching Answer #5: <b>@p.Matching_Correct_Option_E</b></p>
-                            }
-                            if( @p.Quiz_Answer_F != null )
-                            {
-                                <p>Matching Answer #6: <b>@p.Matching_Correct_Option_F</b></p>
-                            }
-           
+                           
+                           foreach( var answer in answerList )
+                           {
+                               if( @answer.Correct_Answers!= null && answer.Quiz_ID == p.Quiz_ID )
+                               {
+                                   numberOfAnswers++;
+                                   <p> Answer #@numberOfAnswers: @answer.Correct_Answers</p>
+                               }
+                           }
+
+                           
                         }
+
+
+           
+           
+                        
                     }
                  
            }
@@ -88,7 +89,7 @@
  
 
 
-        <br/>
+     
 
         }
     }
@@ -96,7 +97,7 @@
 
 
 
-<br/>
+
 
 
 
@@ -112,6 +113,8 @@
     List<Quiz>? quizList;
 
     List<Account>? accountList;
+
+    List<QuizAnswers>? answerList;
 
 
     private async Task GetData()
@@ -131,7 +134,12 @@
 
         accountList = await _data.LoadData<Account, dynamic>(sqlAgain, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
+        string sqlAnswersTable = "select * from Quiz_Answers_Table";
+
+        answerList = await _data.LoadData<QuizAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+
     }
+
 
     // toggle to show correct answers
     private Boolean gainAccess()
@@ -146,10 +154,12 @@
                    // return success
                    return true;
                }
-           }
+            }
         }
         // otherwise return unsuccess
         return false;
 
     }
+
+
 }

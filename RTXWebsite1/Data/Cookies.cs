@@ -8,5 +8,7 @@
         public int CurrentDiscussion { get; set; } = 0;
 
         public string Account_Role { get; set; }
+
+        public int Quiz_LevelID { get; set; }
     }
 }

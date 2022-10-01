@@ -53,8 +53,11 @@ namespace RTXWebsite1.Models
 
 
         // Quiz results
-        public double numCorrect { get; set; }
+        public int numCorrect { get; set; }
         public int numberOfQuestions { get; set; }
+
+        // number of multiple choice questions
+        public int numberOfOtherQuestions { get; set; }
         public string Account_Role { get; set; }
 
 

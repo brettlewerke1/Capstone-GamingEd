@@ -28,7 +28,8 @@ else
         {
             <a href = "/marketplace">Marketplace</a>
             <a href="/viewdiscussions">Discussion</a>
-            <a href="/quizzes">Quizzes</a>
+            <!-- TODO: Change one -->
+            <a href="/quizzes" @onclick="(() => AccessQuiz(1))" id="@p.Course_ID">Quizzes</a>
         }
     }
     @foreach( var p in levelInfo )
@@ -103,6 +104,28 @@ else
             }
         } 
     }
+
+
+
+
+
+
+    private async Task AccessQuiz( int number )
+    {
+        /*
+        Cookie.CurrentClass = CourseID;
+        Cookie.PlayerID = PlayerID;
+        NavManager.NavigateTo("/ClassHome");
+        */
+
+
+        Cookie.Quiz_LevelID = number;
+    }
+
+
+
+
+
 }
 
 
