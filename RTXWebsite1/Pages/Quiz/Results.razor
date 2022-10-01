@@ -49,8 +49,7 @@
     @foreach (var p in quizList )
         {
         questionNumber++;
-        if( accountList != null )
-            {
+        
                 
                     @if( @p.Show_Answer_Bool == "True"  )
                     {
@@ -102,7 +101,7 @@
                         
                     }
                  
-           }
+           
 
  
 
@@ -148,9 +147,7 @@
 
         quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
-        string sqlAgain = "select * from Account where Account_ID = @UserID";
 
-        accountList = await _data.LoadData<Account, dynamic>(sqlAgain, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
         string sqlAnswersTable = "select * from Quiz_Answers_Table";
 
