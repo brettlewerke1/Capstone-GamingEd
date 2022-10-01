@@ -3,15 +3,23 @@
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
+@inject RTXWebsite1.Data.Cookies Cookie;
 
 @inject IConfiguration _config
 @inject IDatabaseAccess _data
 @inject IMarketplaceAccess _market
 
 <h1 div class="title-head">Market</h1>
-<hr />
+
+<br />
 
 <h3>Purchasable Items</h3>
+
+@if ( Cookie.CurrentClass == 0)
+{
+    // Navigate back to class selection screen
+    <p>What happend? How are you here?</p>
+}
 
 @if (transactions == null)
 {
@@ -41,9 +49,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Transaction";
+        string sql = "select * from Transaction where Transaction_CourseID = @CourseNum";
 
-        transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
+        transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { CourseNum = Cookie.CurrentClass}, _config.GetConnectionString("RTX"));
     }
 }
 

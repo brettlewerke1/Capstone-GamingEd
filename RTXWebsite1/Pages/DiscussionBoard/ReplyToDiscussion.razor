@@ -1,11 +1,12 @@
 ﻿@page "/replytodiscussion/{paramDiscussion}"
 @using RTXWebsite1.IDbContext
-@inject IDiscussionBoardAccess _discussion;
 @using RTXWebsite1.Models
-@inject IConfiguration _config;
-@inject NavigationManager NavManager;
+@using Microsoft.Extensions.Configuration
+
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject NavigationManager NavManager
 @inject RTXWebsite1.Data.Cookies Cookie;
-@inject RTXWebsite1.Data.Utils util;
 
 
 @if (discussions == null)
@@ -14,16 +15,15 @@
 }
 else
 {
-    
-    <h2> Discussion Post by: @discussions[0].PlayerName</h2>
-    <h2>@this.paramDiscussion</h2>
     @foreach (var p in discussions)
     {
-        <p>@p.DiscussionContent</p>
+        <h2> Discussion Post by: @p.Player_IGN</h2>
+        <h2> @p.Discussion_Title </h2>
+        <p>@p.Discussion_Desc</p>
 
         <p>
-            -----------------------------------------------
-            <div>@discussions[0].Date</div>
+            <div>@p.Discussion_Date</div>
+            -----------------------------------------------    
         </p>
     }
     if(replies != null)
@@ -31,64 +31,90 @@ else
         @foreach (var r in replies)
         {
             <div>
-                @r.DiscussionContent
+                @r.Post_Content
             </div>
             <p>
-                By: @r.PlayerName at @r.Date
+                By: @r.Player_IGN at @r.Post_Time
+            </p>
+            <p>
+                -----------------------------------------------    
             </p>
          }    
     }
-
-    <EditForm Model=@discussion OnValidSubmit="submitDiscussion">
+    <EditForm Model=@disPost OnValidSubmit="postReply">
         <DataAnnotationsValidator/>
         <div class="form-group">
             <label for="DiscussionContent">Content:</label>
-            <InputText @bind-Value=discussion.DiscussionContent class="form-control" id="DiscussionContent" />
+            <InputText @bind-Value=disPost.Post_Content class="form-control" id="DiscussionContent" />
         </div>
-        <ValidationMessage For="@(() => discussion.DiscussionContent)"/>
+        <ValidationMessage For="@(() => disPost.Post_Content)"/>
         <button type="submit" class="btn btn-primary"> Submit</button>
     </EditForm>
 }
 
 @code {
     [Parameter]
-    public string paramDiscussion{ get; set; }
-    //
-    List<DiscussionBoard>? discussions;
-    List<DiscussionBoard>? replies;
-    DiscussionBoard discussion = new DiscussionBoard();
+    public string paramDiscussion { get; set; } = "";
 
+    List<DiscussionBoard>? discussions;
+    List<DiscussionPost>? replies;
+    
+    RTXWebsite1.Models.DiscussionPost disPost = new RTXWebsite1.Models.DiscussionPost();
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        // param might have illegal character, take the value from utils
-        paramDiscussion = util.paramDiscussionName;
-        string sql = "select * from discussion where DiscussionName= @DiscussionName and Type= @Type";
+        string sql, selection;
 
-        discussions = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new {DiscussionName = this.paramDiscussion, Type = "Original"}, _config.GetConnectionString("Discussion"));
+        // Get Head Post
+        sql = @"
+        SELECT 
+            `DiscussionHead`.`Discussion_ID` AS `Discussion_ID`,
+            `DiscussionHead`.`Discussion_Title` AS `Discussion_Title`,
+            `DiscussionHead`.`Discussion_Desc` AS `Discussion_Desc`,
+            `DiscussionHead`.`Discussion_CourseID` AS `Discussion_CourseID`,
+            `DiscussionHead`.`Discussion_Date` AS `Discussion_Date`,
+            `DiscussionHead`.`Discussion_PlayerID` AS `Discussion_PlayerID`,
+            `Player`.`Player_IGN` AS `Player_IGN`
+        FROM
+            (`DiscussionHead`
+            JOIN `Player` ON ((`DiscussionHead`.`Discussion_PlayerID` = `Player`.`Player_ID`)))";
 
-        sql = "select * from discussion where DiscussionId= @DiscussionId";
+        selection = "Where `DiscussionHead`.Discussion_ID = @Discussion";
 
-        replies = await _discussion.LoadData<DiscussionBoard, dynamic>(sql, new { DiscussionId = util.AnchorId}, _config.GetConnectionString("Discussion"));
+        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql + selection, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
+        // Get Replies
+        sql = @"
+        SELECT 
+            `DiscussionPost`.`Post_ID` AS `Post_ID`,
+            `DiscussionPost`.`Post_Content` AS `Post_Content`,
+            `DiscussionPost`.`Post_Time` AS `Post_Time`,
+            `DiscussionPost`.`Post_PlayerID` AS `Post_PlayerID`,
+            `DiscussionPost`.`Post_HeadPostID` AS `Post_HeadPostID`,
+            `Player`.`Player_IGN` AS `Player_IGN`
+        FROM
+            (`DiscussionHead`
+            JOIN `DiscussionPost` ON ((`DiscussionHead`.`Discussion_ID` = `DiscussionPost`.`Post_HeadPostID`))
+            JOIN `Player` ON ((`DiscussionPost`.`Post_PlayerID` = `Player`.`Player_ID`)))";
 
+        selection = "Where `DiscussionHead`.`Discussion_ID` = @Discussion";
+
+        replies = await _data.LoadData<DiscussionPost, dynamic>(sql + selection, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
     }
 
-
-    async Task submitDiscussion()
+    async Task postReply()
     {
-        discussion.DiscussionName = this.paramDiscussion;
-        discussion.Date = DateTime.Today.ToString().Split(' ')[0];
-        discussion.PlayerName = Cookie.CookieAuth;
-        discussion.Type = "Reply";
-        discussion.DiscussionId = util.AnchorId;
-        string sql = "insert into discussion (PlayerName, DiscussionName, DiscussionContent, Date, Type, DiscussionId) values (@PlayerName, @DiscussionName, @DiscussionContent, @Date, @Type, @DiscussionId);";
+        string date = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+        string sql = "insert into DiscussionPost (Post_Content, Post_Time, Post_PlayerID, Post_HeadPostID) values (@Content, @Time, @User, @Discussion);";
 
-        await _discussion.SaveData(sql, new { PlayerName = discussion.PlayerName, DiscussionName = discussion.DiscussionName,
-            DiscussionContent = discussion.DiscussionContent, Date = discussion.Date, Type = discussion.Type, DiscussionId = discussion.DiscussionId }, _config.GetConnectionString("Discussion"));
+        await _data.SaveData(sql, new { Content = @disPost.Post_Content, Time = @date, User = @Cookie.PlayerID, Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
-            NavManager.NavigateTo("viewdiscussions");
+            NavManager.NavigateTo($"/replytodiscussion/{paramDiscussion}", forceLoad: true);
 
     }
-
 }

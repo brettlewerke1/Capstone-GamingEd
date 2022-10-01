@@ -10,13 +10,13 @@ main[b-flfmdw9yl9] {
 }
 
 .sidebar[b-flfmdw9yl9] {
-    background-color: red; 
+    background-image: linear-gradient(180deg, #002454 65%, #FAC01A 95%);
 }
 
 .top-row[b-flfmdw9yl9] {
     /* Dark Grey */
-    background-color: #334d4d;
-    border-bottom: 4px solid black;
+    background-color: #aaaaaa;
+    border-bottom: 1px solid black;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
@@ -68,6 +68,7 @@ main[b-flfmdw9yl9] {
     .top-row[b-flfmdw9yl9], article[b-flfmdw9yl9] {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+       
     }
 
     /* Link (Tab) Color */
@@ -78,28 +79,20 @@ main[b-flfmdw9yl9] {
 
     /* On Hover Color */
     a:hover[b-flfmdw9yl9] {
-        color: red;
+        color: deepskyblue;
     }
 
- 
-    
-
 }
 
 
 
-.my_footer[b-flfmdw9yl9] {
-    text-align: center;
-    background-color: #334d4d;
-    border-top: 4px solid black;
-    color: white;
-}
 /* _content/RTXWebsite1/Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-fn9io6309k] {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 .top-row[b-fn9io6309k] {
+    
     height: 3.5rem;
     background-color: rgba(0,0,0,0.4);
 }

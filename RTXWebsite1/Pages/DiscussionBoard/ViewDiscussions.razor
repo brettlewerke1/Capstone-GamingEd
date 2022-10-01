@@ -3,46 +3,48 @@
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
-@inject IDiscussionBoardAccess _discussion
+
 @inject IDatabaseAccess _data
 @inject IConfiguration _config
 @inject NavigationManager NavManager
 @inject RTXWebsite1.Data.Utils util
+@inject RTXWebsite1.Data.Cookies Cookie;
 
 
 <h1 div class="title-head">Discussion Board</h1>
-<hr />
+
+<br />
 
 <h3>View Discussions</h3>
 <button class="btn btn-primary" @onclick="NewDiscussion">Post New Discussion</button>
+<p>
+    -----------------------------------------------
+</p>
 @if (discussions == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Nothing here. Start a new post?</em></p>
 }
 else
 {
     @foreach (var p in discussions)
     {
-        if(p.Type == "Original")
+        <p>
+            @p.Discussion_Title
+        </p>
+
+        <p>
+            @p.Discussion_Date | @p.Discussion_Desc
+        </p>
+       
+        <button class="btn btn-primary" @onclick="(() => Reply(p))">Open</button>
+        if(Cookie.UserID == p.Discussion_PlayerID)
         {
-            <p>
-             Written by @p.PlayerName at @p.Date 
-             
-            </p>
-            <p>
-                 <a href="marketplace" @onclick="(() => Reply(p))"> @p.DiscussionName</a>
-            </p>
-
-            <p>
-                @p.DiscussionContent
-            </p>
-            <p>
-            -----------------------------------------------
-            </p>
-        <button class="btn btn-primary" @onclick="(() => Reply(p))">Reply</button>
-        <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
+            <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
         }
-
+         <p>
+             -----------------------------------------------
+        </p>
+        
     }
 }
 
@@ -50,19 +52,36 @@ else
     List<DiscussionBoard>? discussions;
     List<DiscussionBoard>? deletedDiscussion;
 
-    public async Task Reply(DiscussionBoard discussionBoard)
+    private async Task GetData()
     {
-        //**** special edge case ****//
-        // if the param passed has a question mark then it glitches
-        // so store the name temporarily until we get to the reply screen
-
-        util.paramDiscussionName = discussionBoard.DiscussionName;
-
-        util.AnchorId = discussionBoard.Id;
-        NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.DiscussionName}");
-
+        await OnInitializedAsync();
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = @"
+        SELECT 
+            `DiscussionHead`.`Discussion_ID` AS `Discussion_ID`,
+            `DiscussionHead`.`Discussion_Title` AS `Discussion_Title`,
+            `DiscussionHead`.`Discussion_Desc` AS `Discussion_Desc`,
+            `DiscussionHead`.`Discussion_CourseID` AS `Discussion_CourseID`,
+            `DiscussionHead`.`Discussion_Date` AS `Discussion_Date`,
+            `DiscussionHead`.`Discussion_PlayerID` AS `Discussion_PlayerID`,
+            `Player`.`Player_IGN` AS `Player_IGN`
+        FROM
+            (`DiscussionHead`
+            JOIN `Player` ON ((`DiscussionHead`.`Discussion_PlayerID` = `Player`.`Player_ID`)))";
+
+        string selector = "Where DiscussionHead.Discussion_CourseID = @Class";
+
+        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql + selector, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+    }
+
+    public async Task Reply(DiscussionBoard discussionBoard)
+    {
+        Cookie.CurrentDiscussion = discussionBoard.Discussion_ID;
+        NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.Discussion_Title}");
+    }
 
     public async Task NewDiscussion()
     {
@@ -70,25 +89,15 @@ else
     }
 
 
-    private async Task GetData()
-    {
-        await OnInitializedAsync();
-    }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        string sql = "select * from DiscussionHead"; // Where classID == currentclass
-
-        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql, new { }, _config.GetConnectionString("RTX"));
-    }
-
-
     public async Task DeleteDiscussion(DiscussionBoard discussionBoard)
     {
-        string sql = "delete from discussion where DiscussionName = @DiscussionName";
+        // Delete the posts in the discussion
+        string sql = "Delete from DiscussionPost where Post_HeadPostID = @DiscussionID";
+        deletedDiscussion = await _data.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionID = discussionBoard.Discussion_ID}, _config.GetConnectionString("RTX"));
 
-        deletedDiscussion = await _discussion.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionName = discussionBoard.DiscussionName}, _config.GetConnectionString("Discussion"));
-         NavManager.NavigateTo("/viewdiscussions", forceLoad: true);
+        // Delete the actual discussion
+        sql = "Delete from DiscussionHead where Discussion_ID = @DiscussionID";
+        deletedDiscussion = await _data.DeleteData<DiscussionBoard, dynamic>(sql, new { DiscussionID = discussionBoard.Discussion_ID}, _config.GetConnectionString("RTX"));
+        NavManager.NavigateTo("/viewdiscussions", forceLoad: true);
     }
 }

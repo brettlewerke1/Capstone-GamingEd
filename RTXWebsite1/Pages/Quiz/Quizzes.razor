@@ -1,0 +1,256 @@
+﻿@page "/quizzes"
+
+
+@using RTXWebsite1.Models;
+
+@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+@using System;
+
+
+
+<h1 div class="title-head"> Quizzes </h1>
+<br />
+
+
+
+
+
+
+
+<!-- If quizList exists -->
+@if(quizList != null)
+{
+    // initialize variables
+    quiz.numCorrect = 0;
+    quiz.numberOfQuestions = 0;
+    
+
+    
+
+
+    // boolean to see if it a matching question. 
+    bool isMatchingBool = false;
+
+
+
+    
+
+
+    <EditForm Model="@quiz" OnValidSubmit="@goToResults" >
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary />   
+    <!-- go through list made from SQL at bottom of file -->
+    @foreach (var p in quizList)
+    {
+
+            // reset matching boolean to false
+            isMatchingBool = false;
+
+            // increment number of questions count
+            quiz.numberOfQuestions++;
+
+
+
+
+            <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
+
+
+
+
+
+
+            foreach( var a in answerList )
+            {
+
+                // if question type is: multiple choice
+                if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "mc" )
+                {
+
+                    
+
+                    
+                    <InputRadioGroup @bind-Value=@p.Quiz_Answers >
+                        <InputRadio Value="@a.Quiz_Answers" /> @a.Quiz_Answers &nbsp;
+                    </InputRadioGroup>
+
+
+
+                }
+
+                // if question type is: matching
+                if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "Matching")
+                {
+
+                    // don't want to add first set of options to total number of questions because it was already included when the question was asked
+                    if( isMatchingBool )
+                    {
+                        quiz.numberOfQuestions++;
+                    }
+
+                    isMatchingBool = true;
+
+                        // bind value to Quiz_Answers_Table column: Selected_Answers
+                        <InputSelect @bind-Value=@a.Selected_Answers >
+                            <option value="">Select an Answer</option>
+                            
+                            @foreach (var z in answerList )
+                            {
+                                if( @z.Quiz_ID == @p.Quiz_ID )
+                                {
+
+                                    <option>@z.Quiz_Answers</option>
+
+                                    
+
+                                }
+
+
+
+                            }
+
+                       
+                            
+                         
+
+                        </InputSelect>
+
+                            // if selected matching question is correct increment number of correct quiz questions
+                            if(  @a.Selected_Answers == @a.Correct_Answers )
+                            {
+                                quiz.numCorrect++;
+                                
+                            }
+                            
+                        // print a value to be matched with
+                        @a.Matching_Answer
+
+                      
+
+                        <br/>
+
+
+
+                        <br/>
+                   }
+
+
+                }
+
+                // if question type is: text
+                if( @p.Question_Type == "text" )
+                {
+              
+                    <label for="answer">Answer: </label>
+                    <InputText  @bind-Value=@p.Quiz_Answers   />
+               
+                }
+            
+
+
+            <br/>
+
+
+
+
+            // calculate number of questions answered correctly except for matching questions
+            foreach( var myVar in answerList )
+            {
+                if(  myVar.Correct_Answers != null && @myVar.Correct_Answers != "" && myVar.Correct_Answers.ToLower() == @p.Quiz_Answers.ToLower() )
+                {
+                    quiz.numCorrect++;
+                }
+            }
+
+            
+           
+
+            
+            
+            <br/>
+        
+    } <!--End master loop-->
+
+    
+
+    
+    <!-- Submits to CalcGrade() -->
+    <button type="submit" class="btn btn-primary"> Submit</button>
+    <br/>
+
+    </EditForm>
+    <br/>
+    <br/>
+
+
+    
+
+
+
+
+}
+else
+{
+    <p><em>Loading...</em></p>
+}
+
+
+
+
+@code {
+
+
+    RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
+    List<Quiz>? quizList;
+
+    List<QuizAnswers>? answerList;
+
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        string sql = "select * from Quiz where Quiz_LevelID = @iamLevelID";
+
+        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { iamLevelID = @Cookie.Quiz_LevelID }, _config.GetConnectionString("RTX"));
+
+        string answersSQL = "select * from Quiz_Answers_Table";
+
+        answerList = await _data.LoadData<QuizAnswers, dynamic>(answersSQL, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+    }
+
+
+    async Task goToResults( )
+    {
+
+
+
+        // navigate to results page while passing in 2 parameters
+
+        NavManager.NavigateTo($"/results/{quiz.numCorrect}/{quiz.numberOfQuestions}");
+
+    }
+
+
+
+
+
+
+}

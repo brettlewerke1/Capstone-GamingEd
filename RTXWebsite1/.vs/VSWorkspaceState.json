@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Pages"
+    "\\Pages",
+    "\\Pages\\.ArchivedFiles",
+    "\\Pages\\Quiz"
   ],
   "SelectedNode": "\\RTXWebsite1.sln",
   "PreviewInSolutionExplorer": false

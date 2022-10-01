@@ -1,0 +1,16 @@
+This is a list of the scene order in Unity...
+To go to scene order hit "file", "build settings"...
+
+
+
+mainMenu: 0
+registerMenu: 1
+logInMenu: 2
+game: 3
+homeSuperAdminMenu: 4
+viewTeachers: 5
+homeAdminMenu: 6
+viewTeacher: 7
+deleteAdmin: 8
+viewCourses: 9
+viewCourse: 10

@@ -9,9 +9,7 @@
 @inject RTXWebsite1.Data.Cookies Cookie;
 
 <h1 div class="title-head">Account</h1>
-<hr />
-
-<h3>@Cookie.CookieAuth 's Profile</h3>
+<br />
  
 @if (account == null)
 {
@@ -19,10 +17,9 @@
 }
 else
 {
-    
     @foreach (var p in account)
     {
-        
+        <h3>@p.Account_Username 's Profile</h3>
         <p>
             Username: @p.Account_Username
         </p>
@@ -59,15 +56,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Account where Account_Username = @Username";
+        string sql = "select * from Account where Account_ID = @UserID";
 
-        account = await _data.LoadData<Account, dynamic>(sql, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("RTX"));
+        account = await _data.LoadData<Account, dynamic>(sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
         string playerInfoJoin = @"
         SELECT 
             `Account`.`Account_ID` AS `Account_ID`,
             `Account`.`Account_Username` AS `Account_Username`,
-            `Account`.`Account_Password` AS `Account_Password`,
+            `Player`.`Player_ID` AS `Player_ID`,
             `Player`.`Player_Coins` AS `Player_Coins`,
             `Player`.`Player_IGN` AS `Player_IGN`,
             `Course`.`Course_ID` AS `Course_ID`,
@@ -78,37 +75,8 @@ else
             JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
             JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))";
 
-        string playerInfoSelect = "WHERE Account_Username = @Username";
+        string playerInfoSelect = "WHERE Account_ID = @UserID";
 
-        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { Username = @Cookie.CookieAuth}, _config.GetConnectionString("RTX"));
+        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
     }
-
-    @*
-    private async Task InsertData()
-    {
-        string sql = "insert into people (FirstName, LastName) values (@FirstName, @LastName);";
-
-        await _data.SaveData(sql, new { FirstName = "Billy", LastName = "Bob" }, _config.GetConnectionString("Account"));
-
-        await OnInitializedAsync();
-    }
-
-    private async Task UpdateData()
-    {
-        string sql = "update people set FirstName = @FirstName where LastName = @LastName";
-
-        await _data.SaveData(sql, new { FirstName = "Timothy", LastName = "Corey" }, _config.GetConnectionString("Account"));
-
-        await OnInitializedAsync();
-    }
-
-    private async Task DeleteData()
-    {
-        string sql = "delete from people where LastName = @LastName";
-
-        await _data.SaveData(sql, new { LastName = "Bob" }, _config.GetConnectionString("Account"));
-
-        await OnInitializedAsync();
-    }
-    *@
 }

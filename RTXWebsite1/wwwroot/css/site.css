@@ -14,7 +14,8 @@ a, .btn-link {
 
 .btn-primary {
     color: white;
-    /* Turquoise */
+
+    /* Dark Grey */
     background-color: #334d4d;
     border-color: black;
     font-weight: bold;
@@ -25,7 +26,7 @@ a, .btn-link {
     When cursor is hovering over the button
 */
 .btn-primary:hover {
-   background-color: red;
+   background-color: deepskyblue;
 }
 
 .content {
@@ -42,7 +43,7 @@ a, .btn-link {
 }
 
 .validation-message {
-    color: red;
+    color: deepskyblue;
 }
 
 #blazor-error-ui {
@@ -77,9 +78,20 @@ a, .btn-link {
     }
 
 
-.title_head {
+.title-head {
+    border: 1px solid;
+    padding: 5px;
+    box-shadow: 5px 10px;
     text-align: center;
-    font-weight:bold;
+    font-weight: bold;
+    /*
+        color: #334d4d;
+    */
+    color: black;
 }
 
+
+.header-head {
+    font-weight: bold;
+}
 

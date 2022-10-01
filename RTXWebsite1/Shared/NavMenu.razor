@@ -2,14 +2,17 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">RTXWebsite</a>
+        <a class="navbar-brand" href="">RTXWebsite
+            <!-- Note: should be sized relative to the screen
+                <img src="https://iili.io/SWcWRn.png" alt="RTX Image" />
+            -->
+        </a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
-
-
+    
 @code {
     private bool collapseNavMenu = true;
 

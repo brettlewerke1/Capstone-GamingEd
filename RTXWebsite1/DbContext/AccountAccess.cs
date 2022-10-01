@@ -31,36 +31,29 @@ namespace RTXWebsite1.DbContext
             }
         }
 
-        public async Task<Boolean> ValidateAccount(Account account, IConfiguration configuration)
+        public async Task<int> ValidateAccount(Account account, IConfiguration configuration)
         {
-;            
             // call load data and check for account information
-            string username = account.Username;
-            string password = account.Password;
-            string sqlString = "select * from people where Username='" +username+"' AND Password='" + password+ "';";
+            string sqlString = "select * from Account where Account_Username='" + account.Account_Username + "' AND Account_Password='" + account.Account_Password + "' Limit 1;";
 
-            List<Account> registeredAccount = await LoadData<Account, dynamic>(sqlString, new { }, configuration.GetConnectionString("Account"));
+            List<Account> registeredAccount = await LoadData<Account, dynamic>(sqlString, new { }, configuration.GetConnectionString("RTX"));
 
             if (registeredAccount != null)
             {
                 foreach (Account item in registeredAccount)
                 {
-                    if (item.Username == username)
+                    if (item.Account_Username == account.Account_Username)
                     {
-
-
-                        //await HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims, "Cookies", "name")));
-
-                        return true;
+                        return item.Account_ID;
                     }
                     else
                     {
-                        return false;
+                        return 0;
                     }
                 }
             }
             // return false is the username and password are not there
-            return false;
+            return 0;
 
         }
     }

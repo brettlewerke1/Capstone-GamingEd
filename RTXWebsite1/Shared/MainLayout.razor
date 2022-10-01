@@ -10,21 +10,19 @@
     </div>
 
     <main>
-        @if(Cookie.CookieAuth != "")
+        <div class="top-row px-4">
+        @if(Cookie.UserID != 0)
         {
-            <div class="top-row px-4">
-                <a href="/"> Home</a>
-                <a href="classes"> Classes</a>
-                <a href="account"> Account</a>
-                <a href="viewdiscussions"> Discussions</a>
-                <a href="marketplace"> Market</a>
-                <a href="logout" @onclick="(() => Logout())"> Logout</a>
-            </div>
+            <a href="/">Home</a>
+            <a href="/classes">Classes</a>
+            <a href="/account">Account</a>
+            <a href="logout" @onclick="(() => Logout())">Logout</a>
         }
         else
         {
-            <a href="login" div class="top-row px-4"> Login</a>     
+            <a href="/">Login</a>     
         }
+        </div>
 
         <article class="content px-4">
             @Body
@@ -35,8 +33,7 @@
 @code{
     public async Task Logout()
     {
-        Cookie.CookieAuth = "";
-        NavManager.NavigateTo("/");
+        NavManager.NavigateTo("/logout");
     }
 }
 

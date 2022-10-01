@@ -1,0 +1,165 @@
+﻿@page "/results/{NumberCorrect}/{NumberQuestions}"
+
+
+
+@using RTXWebsite1.Models;
+
+@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+<h1 div class="title-head"> Quiz Results </h1>
+<br />
+
+
+
+<p> Your Score: @NumberCorrect out of @NumberQuestions </p>
+
+
+
+
+
+
+
+
+    @if( quizList != null )
+    {
+        // tracking number of answers to print labels for matching questions
+    int numberOfAnswers = 0;
+    <!-- go through list made from SQL at bottom of file -->
+    if( gainAccess() )
+    {
+
+        <br/> 
+        <br/>
+        <br/>
+        <p>Correct Answers</p>
+        <p>===============</p>
+    }
+    @foreach (var p in quizList )
+        {
+            if( accountList != null )
+            {
+                
+                    @if( @p.Show_Answer_Bool == "True" && gainAccess()  )
+                    {
+
+    
+
+                        <b><p>@p.Quiz_Question_Number. @p.Quiz_Question </p></b>
+                            
+                        @if( @p.Question_Type != "Matching")
+                        {
+                           <p>Correct Answer: @p.Quiz_Correct_Answer </p>
+
+                           <br/>
+
+                        }
+                        @if (@p.Question_Type == "Matching"  )
+                        {
+                           
+                           foreach( var answer in answerList )
+                           {
+                               if( @answer.Correct_Answers!= null && answer.Quiz_ID == p.Quiz_ID )
+                               {
+                                   numberOfAnswers++;
+                                   <p> Answer #@numberOfAnswers: @answer.Correct_Answers</p>
+                               }
+                           }
+
+                           
+                        }
+
+
+           
+           
+                        
+                    }
+                 
+           }
+
+ 
+
+
+     
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+@code {
+
+    [Parameter]
+    public string NumberCorrect { get; set; }
+
+    [Parameter]
+    public string NumberQuestions { get; set; }
+
+    List<Quiz>? quizList;
+
+    List<Account>? accountList;
+
+    List<QuizAnswers>? answerList;
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        string sql = "select * from Quiz where Quiz_Number = 1";
+
+        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+        string sqlAgain = "select * from Account where Account_ID = @UserID";
+
+        accountList = await _data.LoadData<Account, dynamic>(sqlAgain, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+
+        string sqlAnswersTable = "select * from Quiz_Answers_Table";
+
+        answerList = await _data.LoadData<QuizAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+
+    }
+
+
+    // toggle to show correct answers
+    private Boolean gainAccess()
+    {
+        if (accountList != null)
+        {
+           @foreach( var p in accountList )
+           {
+               // if superAdmin or admin
+               if( @p.Account_Role == "superadmin" || @p.Account_Role == "admin" )
+               {
+                   // return success
+                   return true;
+               }
+            }
+        }
+        // otherwise return unsuccess
+        return false;
+
+    }
+
+
+}

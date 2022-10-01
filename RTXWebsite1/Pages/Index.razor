@@ -8,41 +8,42 @@
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
-@if (Cookie.CookieAuth == "")
+@if (Cookie.UserID == 0)
 {
-    <h3>Login To Your Account</h3>
+
+    <h1 div class="title-head"> Login </h1>
+    <br />
+
     <EditForm Model=@account OnValidSubmit="ValidateAccount">
+
         <DataAnnotationsValidator/>
         <div class="form-group">
             <label for="Username">Username:</label>
-            <InputText @bind-Value=account.Username class="form-control" id="Username" />
+            <InputText @bind-Value=account.Account_Username class="form-control" id="Username" />
         </div>
-        <ValidationMessage For="@(() => account.Username)"/>
+
+        <ValidationMessage For="@(() => account.Account_Username)"/>
         <div class="form-group">
             <label for="Password">Password:</label>
-            <InputText @bind-Value=account.Password class="form-control" id="Password" />
+            <InputText @bind-Value=account.Account_Password class="form-control" id="Password" />
         </div>
-        <ValidationMessage For="@(() => account.Password)"/>
+
+        <ValidationMessage For="@(() => account.Account_Password)"/>
         <button type="submit" class="btn btn-primary"> Login</button>
     </EditForm>
 }
 else
 {
-     <div class="my_headers">
-         <h1>
-             Home
-         </h1>
-     </div>
+    <h1 div class="title-head">Home</h1>
+    <br />
 
-     <hr />
-
-     <p>
-        You are signed in as: @Cookie.CookieAuth
-     </p>
+    <p>
+        You are signed in as: @account.Account_Username
+    </p>
      
-     <p>
+    <p>
         Welcome to the RTX Gamification Learning Management System... take a look around!
-     </p>
+    </p>
         
     
 }
@@ -50,18 +51,20 @@ else
 
 @code {
     RTXWebsite1.Models.Account account = new RTXWebsite1.Models.Account();
-    public string myCookieValue { get; set; } = "";
 
     async Task ValidateAccount()
     {
-        // tes string
-        var result = await _account.ValidateAccount(account, _config);
+        int result = await _account.ValidateAccount(account, _config);
 
-        if(result)
+        if(result != 0)
         {
-            await localStorage.SetItemAsync("username", account.Username);
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "cookieName", account.Username, DateTime.Now.AddMinutes(1000));
-            Cookie.CookieAuth = account.Username;
+            await localStorage.SetItemAsync("username", account.Account_Username);
+            Cookie.UserID = result;
+            Cookie.CurrentClass = 0;
+            /*
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentUser", account.Account_ID, DateTime.Now.AddMinutes(1000));
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentClass", course.Course_ID, DateTime.Now.AddMinutes(1000));
+            */
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
         }
