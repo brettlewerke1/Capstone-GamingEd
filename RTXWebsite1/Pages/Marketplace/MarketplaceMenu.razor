@@ -7,7 +7,8 @@
 
 @inject IConfiguration _config
 @inject IDatabaseAccess _data
-@inject IMarketplaceAccess _market
+
+@inject NavigationManager NavManager
 
 <h1 div class="title-head">Market</h1>
 
@@ -15,20 +16,28 @@
 
 <h3>Purchasable Items</h3>
 
-@if ( Cookie.CurrentClass == 0)
+@if ( Cookie.CurrentClass == 0 )
 {
-    // Navigate back to class selection screen
-    <p>What happend? How are you here?</p>
+    NavManager.NavigateTo("/");
 }
-
-@if (transactions == null)
+else if (transactions == null)
 {
-    <p>Empty. Please check back later.</p>
+    <em>Loading...</em>
 }
 else
 {
-    <ul>
-    @foreach (var p in transactions)
+    if( transactions.Count() == 0)
+    {
+        <p>No transactions found.</p>
+    }
+    else
+    {
+        <ul>
+            <li>
+                <em>Purchase More Avatars</em>
+                <p><button type="button" @onclick="(() => ViewAvatars())">View</button></p>
+            </li>
+        @foreach (var p in transactions)
         {
             <li> 
                 <em>@p.Transaction_Name</em>
@@ -36,7 +45,8 @@ else
                 <p>@p.Transaction_Cost <button type="button">+</button></p>
             </li>
         }
-    </ul>
+        </ul>
+    }
 }
 
 @code{
@@ -52,6 +62,11 @@ else
         string sql = "select * from Transaction where Transaction_CourseID = @CourseNum";
 
         transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { CourseNum = Cookie.CurrentClass}, _config.GetConnectionString("RTX"));
+    }
+
+    private void ViewAvatars()
+    {
+        NavManager.NavigateTo("/avatars");
     }
 }
 
