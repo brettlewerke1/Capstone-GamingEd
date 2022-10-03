@@ -1,0 +1,49 @@
+@page "/avatars"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject IConfiguration _config
+@inject IDatabaseAccess _data
+
+<h1 div class="title-head">Market</h1>
+
+<br />
+
+
+@if( avatars == null)
+{
+    <em>Loading...</em>
+}
+else
+{
+    @if(avatars.Count() == 0)
+    {
+        <p>No avatars found.</p>
+    }
+    else
+    {
+        @foreach(var p in avatars)
+        {
+            <p>Object Found</p>
+        }
+    }
+}
+
+@code{
+    List<AvatarMarket>? avatars;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "Where ACLibrary_CourseID = @CourseNum";
+
+        avatars = await _data.LoadData<AvatarMarket, dynamic>(AvatarMarket.GetSQL() + sql, new { CourseNum = Cookie.CurrentClass}, _config.GetConnectionString("RTX"));
+    }
+}

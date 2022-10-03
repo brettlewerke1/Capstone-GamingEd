@@ -35,7 +35,6 @@
     async Task submitDiscussion()
     {
         discussion.Discussion_Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
-        //discussion.Discussion_Date = "9/24/2022";
         string sql = "INSERT INTO `RTX`.`DiscussionHead` (`Discussion_Title`, `Discussion_Desc`, `Discussion_CourseID`, `Discussion_PlayerID`, `Discussion_Date`) VALUES (@Title, @Desc, @Course, @Account, @Time);";
 
         await _data.SaveData(sql, new { Title = @discussion.Discussion_Title, Desc = @discussion.Discussion_Desc, Course = @Cookie.CurrentClass, Account = @Cookie.PlayerID, Time = @discussion.Discussion_Date}, _config.GetConnectionString("RTX"));

@@ -10,6 +10,11 @@
 
 @inject NavigationManager NavManager
 
+@if (Cookie.UserID == 0 || Cookie.CurrentClass == 0)
+{
+    NavManager.NavigateTo("/");
+}
+
 @if (classInfo == null)
 {
     // Navigate back to class selection
@@ -27,9 +32,11 @@ else
         if (@p.Course_MarketFlag)
         {
             <a href = "/marketplace">Marketplace</a>
-            <a href="/viewdiscussions">Discussion</a>
-            <a href="/quizzes">Quizzes</a>
+            
+           
         }
+        <a href="/quizzes">Quizzes</a> // TO BE REMOVED
+        <a href="/viewdiscussions">Discussion</a>
     }
     @foreach( var p in levelInfo )
     {
