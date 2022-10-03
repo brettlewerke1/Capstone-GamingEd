@@ -28,7 +28,8 @@ else
         {
             <a href = "/marketplace">Marketplace</a>
             <a href="/viewdiscussions">Discussion</a>
-            <a href="/quizzes">Quizzes</a>
+            <!-- TODO: Change one -->
+            <a href="/quizzes" @onclick="(() => AccessQuiz(1))" id="@p.Course_ID">Quizzes</a>
         }
     }
     @foreach( var p in levelInfo )
@@ -59,9 +60,9 @@ else
         classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
         // Initiate Variables
-        levelInfo = new List<Level>();      // Empty list
-        List<Level> nextLevel;              // Next level Part
-        List<Level> levelSection, levelHelp;// Help next level to not override nextLevel
+        levelInfo = new List<Level>();          // Empty list
+        List<Level> nextLevel;                  // Next level Part
+        List<Level> levelSection, levelHelp;    // Help next level to not override nextLevel
         string selectString;
 
         // Head Node
@@ -103,6 +104,28 @@ else
             }
         } 
     }
+
+
+
+
+
+
+    private async Task AccessQuiz( int number )
+    {
+        /*
+        Cookie.CurrentClass = CourseID;
+        Cookie.PlayerID = PlayerID;
+        NavManager.NavigateTo("/ClassHome");
+        */
+
+
+        Cookie.Quiz_LevelID = number;
+    }
+
+
+
+
+
 }
 
 
