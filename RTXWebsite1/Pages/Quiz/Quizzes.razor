@@ -18,10 +18,11 @@
 
 
 
-
-
 <h1 div class="title-head"> Quizzes </h1>
 <br />
+
+
+
 
 
 
@@ -32,106 +33,161 @@
     // initialize variables
     quiz.numCorrect = 0;
     quiz.numberOfQuestions = 0;
+    int questionNumber = 0;
 
-    <EditForm Model="@quiz" OnValidSubmit="@CalcGrade" >
+    
+
+
+    // boolean to see if it a matching question. 
+    bool isMatchingBool = false;
+
+
+
+    
+
+
+    <EditForm Model="@quiz" OnValidSubmit="@goToResults" >
 
     <DataAnnotationsValidator/>
     <ValidationSummary />   
     <!-- go through list made from SQL at bottom of file -->
     @foreach (var p in quizList)
     {
-            
-        
-            <h4>@p.Quiz_Question_Number) @p.Quiz_Question</h4>
 
-            // increment answered questions count
+            // reset matching boolean to false
+            isMatchingBool = false;
+
+            
+
+            // increment number of questions count
             quiz.numberOfQuestions++;
 
-            // if not multiple choice
-            if( @p.Quiz_Answer_A == null )
-            {
-                
-                <label for="answer">Answer: </label>              
-                <InputText name="nameOne" @bind-Value=@p.Quiz_Answers   />                     
-                
-            }
+            questionNumber++;
 
-            // otherwise it is multiple choice
-            // check answers
-            if(@p.Quiz_Answer_A != null)
-            {
-                
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_A" /> @p.Quiz_Answer_A  &nbsp;
-                    
-                </InputRadioGroup>
-
-            }
-            if(@p.Quiz_Answer_B != null)
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_B" /> @p.Quiz_Answer_B  &nbsp;
-                    
-                </InputRadioGroup>
-            }
-            if(@p.Quiz_Answer_C != null)
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_C" /> @p.Quiz_Answer_C  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-            if(@p.Quiz_Answer_D != null)
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_D" /> @p.Quiz_Answer_D  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-            if(@p.Quiz_Answer_E != null)
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_E" /> @p.Quiz_Answer_E  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-            if(@p.Quiz_Answer_F != null)
-            {
-                <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                    
-                        <InputRadio Value="@p.Quiz_Answer_F" /> @p.Quiz_Answer_F  &nbsp;
-                    
-                </InputRadioGroup>                
-            }
-
-            <br/>
-
-
-
-            <!-- If question has been answered -->
-            @if( @p.Quiz_Answers != "" )
-            {
-
-
-                // if answered correctly
-                @if( @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_A.ToLower() || @p.Quiz_Answers.ToLower() == @p.Quiz_Correct_Answer_B.ToLower() )
-               {
-                    // increment number correct count
-                    quiz.numCorrect++;
-                    
-               }
-                             
-            }
-
-            <br/>
             
 
-    }
+
+            <h4>@questionNumber) @p.Quiz_Question</h4>
+
+
+
+
+
+
+            foreach( var a in answerList )
+            {
+
+                // if question type is: multiple choice
+                if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "mc" )
+                {
+
+                    
+
+                    
+                    <InputRadioGroup @bind-Value=@p.Quiz_Answers >
+                        <InputRadio Value="@a.Quiz_Answers" /> @a.Quiz_Answers &nbsp;
+                    </InputRadioGroup>
+
+
+
+                }
+
+                // if question type is: matching
+                if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "Matching")
+                {
+
+                    // don't want to add first set of options to total number of questions because it was already included when the question was asked
+                    if( isMatchingBool )
+                    {
+                        quiz.numberOfQuestions++;
+                    }
+
+                    isMatchingBool = true;
+
+                        // bind value to Quiz_Answers_Table column: Selected_Answers
+                        <InputSelect @bind-Value=@a.Selected_Answers >
+                            <option value="">Select an Answer</option>
+                            
+                            @foreach (var z in answerList )
+                            {
+                                if( @z.Quiz_ID == @p.Quiz_ID )
+                                {
+
+                                    <option>@z.Quiz_Answers</option>
+
+                                    
+
+                                }
+
+
+
+                            }
+
+                       
+                            
+                         
+
+                        </InputSelect>
+
+                            // if selected matching question is correct increment number of correct quiz questions
+                            if(  @a.Selected_Answers == @a.Correct_Answers )
+                            {
+                                quiz.numCorrect++;
+                                
+                            }
+                            
+                        // print a value to be matched with
+                        @a.Matching_Answer
+
+                      
+
+                        <br/>
+
+
+
+                        <br/>
+                   }
+
+
+                }
+
+                // if question type is: text
+                if( @p.Question_Type == "text" )
+                {
+              
+                    <label for="answer">Answer: </label>
+                    <InputText  @bind-Value=@p.Quiz_Answers   />
+               
+                }
+            
+
+
+            <br/>
+
+
+
+
+            // calculate number of questions answered correctly except for matching questions
+            foreach( var myVar in answerList )
+            {
+                if(  myVar.Correct_Answers != null && @myVar.Correct_Answers != "" && myVar.Correct_Answers.ToLower() == @p.Quiz_Answers.ToLower() )
+                {
+                    quiz.numCorrect++;
+                }
+            }
+
+            
+           
+
+            
+            
+            <br/>
+        
+    } <!--End master loop-->
+
+    
+
+    
     <!-- Submits to CalcGrade() -->
     <button type="submit" class="btn btn-primary"> Submit</button>
     <br/>
@@ -139,6 +195,13 @@
     </EditForm>
     <br/>
     <br/>
+
+
+    
+
+
+
+
 }
 else
 {
@@ -150,12 +213,11 @@ else
 
 @code {
 
+
     RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
     List<Quiz>? quizList;
 
-    List<string> rdOptions = new List<string> { "12", "13", "14", "15"};
-
-    
+    List<QuizAnswers>? answerList;
 
 
 
@@ -167,21 +229,31 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Quiz where Quiz_Number = 1";
 
-        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        string sql = "select * from Quiz where Quiz_LevelID = @iamLevelID";
 
+        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { iamLevelID = @Cookie.Quiz_LevelID }, _config.GetConnectionString("RTX"));
+
+        string answersSQL = "select * from Quiz_Answers_Table";
+
+        answerList = await _data.LoadData<QuizAnswers, dynamic>(answersSQL, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
     }
 
 
-    async Task CalcGrade( )
+    async Task goToResults( )
     {
 
+
+
         // navigate to results page while passing in 2 parameters
+
         NavManager.NavigateTo($"/results/{quiz.numCorrect}/{quiz.numberOfQuestions}");
-        
+
     }
+
+
+
 
 
 

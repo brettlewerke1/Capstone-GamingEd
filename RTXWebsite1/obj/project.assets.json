@@ -1350,24 +1350,40 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\hsieh\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+=======
+    "C:\\Users\\Chase\\.nuget\\packages\\": {}
+>>>>>>> 1289ea5942123614540620cf6fe9066d2a85b493
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
       "projectName": "RTXWebsite1",
       "projectPath": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
       "packagesPath": "C:\\Users\\hsieh\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\hsieh\\source\\Repos\\ShayDPanda\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+      "projectName": "RTXWebsite1",
+      "projectPath": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+      "packagesPath": "C:\\Users\\Chase\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
+>>>>>>> 1289ea5942123614540620cf6fe9066d2a85b493
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\hsieh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+=======
+        "C:\\Users\\Chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 1289ea5942123614540620cf6fe9066d2a85b493
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1424,7 +1440,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+>>>>>>> 1289ea5942123614540620cf6fe9066d2a85b493
       }
     }
   }
