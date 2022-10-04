@@ -10,6 +10,10 @@
 @inject RTXWebsite1.Data.Utils util
 @inject RTXWebsite1.Data.Cookies Cookie;
 
+@if(Cookie.UserID == 0)
+{
+    NavManager.NavigateTo("/");
+}
 
 <h1 div class="title-head">New Discussion</h1>
 <hr />

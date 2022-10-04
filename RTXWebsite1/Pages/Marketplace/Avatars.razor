@@ -46,4 +46,12 @@ else
 
         avatars = await _data.LoadData<AvatarMarket, dynamic>(AvatarMarket.GetSQL() + sql, new { CourseNum = Cookie.CurrentClass}, _config.GetConnectionString("RTX"));
     }
+
+    public void Purchase()
+    {
+        // Check if account already owns
+        // Check if money >= price
+
+        // Add to SQL
+    }
 }

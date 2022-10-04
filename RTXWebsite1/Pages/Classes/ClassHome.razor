@@ -65,13 +65,13 @@ else
 
         // Initiate Variables
         levelInfo = new List<Level>();          // Empty list
-        List<Level> nextLevel;                  // Next level Part
-        List<Level> levelSection, levelHelp;    // Help next level to not override nextLevel
+        List<Level> nextLevel;                  // Next level helper
+        List<Level> levelSection, levelHelp;    // Additional help next level to not override nextLevel
         string selectString;
 
-        // Head Node
-        string levelString = "SELECT * FROM Level WHERE Level_ID = @HeadNode";
-        nextLevel = await _data.LoadData<Level, dynamic>(levelString, new { HeadNode = classInfo[0].Course_LevelHeadID }, _config.GetConnectionString("RTX"));
+        // Head Node -> Base Case
+        string levelString = "WHERE Level_ID = @HeadNode";
+        nextLevel = await _data.LoadData<Level, dynamic>( Level.GetSQL() + levelString, new { HeadNode = classInfo[0].Course_LevelHeadID }, _config.GetConnectionString("RTX"));
 
         // Recursive check rest of tree
         while (nextLevel != null)
@@ -83,52 +83,29 @@ else
             levelSection = new List<Level>();
             foreach( var p in nextLevel )
             {
-                levelString = @"
-                    SELECT 
-                        `LevelTree`.`LevelTree_NextLevelID` AS `Level_ID`,
-                        `Level`.`Level_Name` AS `Level_Name`,
-                        `Level`.`Level_Desc` AS `Level_Desc`
-                    FROM
-                        (`LevelTree`
-                        JOIN `Level` ON ((`LevelTree`.`LevelTree_NextLevelID` = `Level`.`Level_ID`)))";
-
                 selectString = "WHERE LevelTree.LevelTree_CurrentLevelID = @Current";
-                levelHelp = await _data.LoadData<Level, dynamic>(levelString + selectString, new { Current = p.Level_ID }, _config.GetConnectionString("RTX"));
+                levelHelp = await _data.LoadData<Level, dynamic>( Level.GetSQLChild() + selectString, new { Current = p.Level_ID }, _config.GetConnectionString("RTX"));
                 levelSection.AddRange( levelHelp );
             }
 
-            // Pass final result
+            // If there are more branches found...
             if (levelSection.Count() != 0 )
             {
+                // Start recursion with next branches
                 nextLevel = levelSection;
             }
             else
             {
+                // End recurssion
                 nextLevel = null;
             }
         } 
     }
 
-
-
-
-
-
     private async Task AccessQuiz( int number )
     {
-        /*
-        Cookie.CurrentClass = CourseID;
-        Cookie.PlayerID = PlayerID;
-        NavManager.NavigateTo("/ClassHome");
-        */
-
-
         Cookie.Quiz_LevelID = number;
     }
-
-
-
-
 
 }
 
