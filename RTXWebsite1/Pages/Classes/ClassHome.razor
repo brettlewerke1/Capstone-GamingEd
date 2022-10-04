@@ -31,10 +31,10 @@ else
         <hr />
         if (@p.Course_MarketFlag)
         {
-            <a href = "/marketplace">Marketplace</a> 
+            <a href="/marketplace" class="btn btn-primary">Marketplace</a>
         }
-        <a href="/quizzes" @onclick="(() => AccessQuiz(1))" id="@p.Course_ID">Quizzes</a>
-        <a href="/viewdiscussions">Discussion</a>
+        <a href="/quizzes" class="btn btn-primary" @onclick="(() => AccessQuiz(1))" id="@p.Course_ID">Quizzes</a>
+        <a href="/viewdiscussions" class="btn btn-primary">Discussion</a>
     }
     @foreach( var p in levelInfo )
     {
