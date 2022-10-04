@@ -9,7 +9,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: red;
+    color: deepskyblue;
 }
 
 .btn-primary {
@@ -77,7 +77,6 @@ a, .btn-link {
         content: "An error has occurred.";
     }
 
-
 .title-head {
     border: 1px solid;
     padding: 5px;
@@ -90,8 +89,13 @@ a, .btn-link {
     color: black;
 }
 
-
 .header-head {
     font-weight: bold;
+}
+
+.avatar {
+    width: 100px;
+    height 100px;
+    object-fit: cover;
 }
 

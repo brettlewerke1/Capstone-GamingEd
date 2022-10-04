@@ -44,11 +44,15 @@ else
         @foreach (var playInfo  in player)
         {
             <p>
+                -------------------------------------------------
+            </p>
+            <p>
                 (@playInfo.Course_Tag) @playInfo.Course_Name
             </p>
             <p>
                 IGN: @playInfo.Player_IGN | Coins: @playInfo.Player_Coins
             </p>
+            <img src="@playInfo.Avatar_Image" class="avatar"/>
         }
     }
 }
@@ -64,12 +68,10 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Account where Account_ID = @UserID";
+        string sql = "WHERE Account_ID = @UserID";
 
-        account = await _data.LoadData<Account, dynamic>(sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        account = await _data.LoadData<Account, dynamic>( Account.GetSQL() + sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
-        string playerInfoSelect = "WHERE Account_ID = @UserID";
-
-        player = await _data.LoadData<PlayerInformation, dynamic>( PlayerInformation.GetSQL() + playerInfoSelect, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        player = await _data.LoadData<PlayerInformation, dynamic>( PlayerInformation.GetSQL() + sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
     }
 }
