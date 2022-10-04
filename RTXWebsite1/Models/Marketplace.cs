@@ -11,24 +11,26 @@ namespace RTXWebsite1.Models
 		public string? Transaction_Description { get; set; }
     }
 
-    public class AvatarMarket
-    { 
-		public int ACLibrary_ID { get; set; }
-		public int ACLibrary_AvatarID { get; set; }
-		public int ACLibrary_CourseID { get; set; }
+	public class BuyAvatars
+    {
+        // For rest of Avatar functions, see /Models/Avatars.cs
+        public int Avatar_ID { get; set; }
+        public string Avatar_Image { get; set; }
+        public string Avatar_Name { get; set; }
+        public int Avatar_Cost { get; set; }
 
-		public static string GetSQL()
+        public static string GetSQL()
         {
-            return @"    
+            return @"
             SELECT 
-                `AvatarCourseLibrary`.`ACLibrary_ID` AS `ACLibrary_ID`,
-                `AvatarCourseLibrary`.`ACLibrary_AvatarID` AS `ACLibrary_AvatarID`,
-                `AvatarCourseLibrary`.`ACLibrary_CourseID` AS `ACLibrary_CourseID`,
+                `Avatar`.`Avatar_ID` AS `Avatar_ID`,
                 `Avatar`.`Avatar_Image` AS `Avatar_Image`,
-                `Avatar`.`Avatar_Name` AS `Avatar_Name`
+                `Avatar`.`Avatar_Name` AS `Avatar_Name`,
+                `AvatarCourseLibrary`.`ACLibrary_Cost` AS `Avatar_Cost`
             FROM
-                (`AvatarCourseLibrary`
-                JOIN `Avatar` ON ((`AvatarCourseLibrary`.`ACLibrary_AvatarID` = `Avatar`.`Avatar_ID`)))";
+            (`Avatar`
+            JOIN `AvatarCourseLibrary` ON ((`Avatar`.`Avatar_ID` = `AvatarCourseLibrary`.`ACLibrary_AvatarID`)))";
+            // WHERE ACLibrary_CourseID = @variable 
         }
-	}
+    }
 }
