@@ -44,7 +44,7 @@ namespace RTXWebsite1.Models
             FROM
             (`Avatar`
             JOIN `AvatarPlayerLibrary` ON ((`Avatar`.`Avatar_ID` = `AvatarPlayerLibrary`.`APLibrary_AvatarID`)))";
-            // WHERE APLibrary_PlayerID = @variable and APLibrary_CourseID = @variable
+            // WHERE APLibrary_PlayerID = @variable
         }
     }
 }

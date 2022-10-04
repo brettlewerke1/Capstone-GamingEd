@@ -80,18 +80,18 @@ else
         string sql = "WHERE ACLibrary_CourseID = @CourseNum";
         avatars = await _data.LoadData<BuyAvatars, dynamic>(BuyAvatars.GetSQL() + sql, new { CourseNum = @Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
-        sql = "WHERE APLibrary_PlayerID = @Player and APLibrary_CourseID = @Course";
+        sql = "WHERE APLibrary_PlayerID = @Player";
         owned = await _data.LoadData<Avatar, dynamic>(Avatar.GetSQL_APLibrary() + sql, new { Player = Cookie.PlayerID, Course = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
         sql = "WHERE `Player`.`Player_ID` = @User";
         player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { User = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
     }
 
-    public async void Purchase(int cost, int ID)
+    public async void Purchase(int cost, int newAvatar)
     {
         // Add the purchase to the AvatarPlayerLibrary for use in this specific class
         string sql = "insert into AvatarPlayerLibrary (APLibrary_AvatarID, APLibrary_PlayerID, APLibrary_CourseID) values (@ThisAvatar, @ThisPlayer, @ThisCourse)";
-        await _data.SaveData(sql, new { ThisAvatar = ID, ThisPlayer = Cookie.PlayerID, ThisCourse = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+        await _data.SaveData(sql, new { ThisAvatar = newAvatar, ThisPlayer = Cookie.PlayerID, ThisCourse = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
         // Subtract the coins away from the user
         sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
