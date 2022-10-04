@@ -1,0 +1,58 @@
+@page "/account/avatar"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
+
+@if( Cookie.UserID == 0 )
+{
+    NavManager.NavigateTo("/");
+}
+
+@if( avatars == null )
+{
+    <p><em>Loading...</em></p>
+}
+else if( avatars.Count() == 0 )
+{
+    <p>No avatars found</p>
+}
+else
+{
+    @foreach (var p in avatars)
+    {
+        <p>
+            <img src="@p.Avatar_Image" class="avatar" />
+            <button class="btn btn-primary" @onclick="(() => UpdateAvatar(p.Avatar_ID))">Change</button>
+        </p>
+    }
+}
+
+@code{
+    List<Avatar>? avatars;
+    List<PlayerInformation>? player;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE ApLibrary_PlayerID = @ThisPlayer";
+
+        avatars = await _data.LoadData<Avatar, dynamic>(Avatar.GetSQL_APLibrary() + sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+    }
+
+    public async void UpdateAvatar(int newAvatar)
+    {
+        string sql = "UPDATE `RTX`.`Player` SET `Player_CurrentAvatarID` = @ThisAvatar WHERE(`Player_ID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisAvatar = newAvatar, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        NavManager.NavigateTo("/account");
+    }
+}

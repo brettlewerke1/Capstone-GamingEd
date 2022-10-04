@@ -4,7 +4,6 @@
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 @inject IDatabaseAccess _data
-@inject IAccountAccess _account
 @inject IConfiguration _config
 @inject RTXWebsite1.Data.Cookies Cookie;
 
@@ -53,6 +52,7 @@ else
                 IGN: @playInfo.Player_IGN | Coins: @playInfo.Player_Coins
             </p>
             <img src="@playInfo.Avatar_Image" class="avatar"/>
+            <button class="btn btn-primary" @onclick="(() => ChangeAvatar(playInfo.Player_ID))">Change Avatar</button>
         }
     }
 }
@@ -73,5 +73,11 @@ else
         account = await _data.LoadData<Account, dynamic>( Account.GetSQL() + sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
         player = await _data.LoadData<PlayerInformation, dynamic>( PlayerInformation.GetSQL() + sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+    }
+
+    public void ChangeAvatar(int player)
+    {
+        Cookie.PlayerID = player;
+        NavManager.NavigateTo("/account/avatar");
     }
 }

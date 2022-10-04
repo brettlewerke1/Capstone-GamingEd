@@ -53,6 +53,8 @@ namespace RTXWebsite1.Models
                 JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
                 JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))
                 JOIN `Avatar` ON ((`Player`.`Player_CurrentAvatarID` = `Avatar`.`Avatar_ID`)))";
+            // Get all : "WHERE Account_ID = @var"
+            // Get for one class: "WHERE Player_ID = @var"
         }
     }
 }
