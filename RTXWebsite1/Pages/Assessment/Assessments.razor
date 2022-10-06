@@ -210,7 +210,7 @@ else
     RTXWebsite1.Models.Assessment assessment = new RTXWebsite1.Models.Assessment();
     List<Assessment>? quizList;
 
-    List<QuizAnswers>? answerList;
+    List<AssessmentAnswers>? answerList;
 
 
 
@@ -229,7 +229,7 @@ else
 
         string answersSQL = "select * from AssessmentAnswer";
 
-        answerList = await _data.LoadData<QuizAnswers, dynamic>(answersSQL, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(answersSQL, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
     }
 

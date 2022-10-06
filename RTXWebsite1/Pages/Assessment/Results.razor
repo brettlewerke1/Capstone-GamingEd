@@ -119,7 +119,7 @@
 
     List<Account>? accountList;
 
-    List<QuizAnswers>? answerList;
+    List<AssessmentAnswers>? answerList;
 
 
     private async Task GetData()
@@ -139,7 +139,7 @@
 
         string sqlAnswersTable = "select * from AssessmentAnswer";
 
-        answerList = await _data.LoadData<QuizAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
     }
 

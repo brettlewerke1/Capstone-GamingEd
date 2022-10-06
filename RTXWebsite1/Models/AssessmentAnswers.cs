@@ -2,7 +2,7 @@
 
 namespace RTXWebsite1.Models
 {
-	public class QuizAnswers
+	public class AssessmentAnswers
 	{
 		// primary key for assessment_answers_table
 		public int AssessmentAnswer_ID { get; set; }

@@ -24,10 +24,10 @@ namespace RTXWebsite1.Models
         // the entered answer by the user for non-matching questions
         public string Assessment_Answers { get; set; } = "";
 
-        // number of correct in quiz
+        // number of points earned on assessment
         public int pointsEarned { get; set; }
 
-        // number of questions in quiz
+        // number of total points in assessment
         public int totalPoints { get; set; }
     
         // boolean to decide whether to show answers or not (tinyInt) (0=true, 1=false)
