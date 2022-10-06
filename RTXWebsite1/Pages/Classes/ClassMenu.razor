@@ -1,0 +1,68 @@
+﻿@page "/classes"
+
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
+
+<h1 div class="title-head">Classes</h1>
+<br />
+
+@if (Cookie.UserID == 0)
+{ 
+    NavManager.NavigateTo("/");
+}
+
+@if (player == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    if (player.Count == 0)
+    {
+        <p>No classes found</p>
+    }
+    @foreach (var p in player)
+    {
+        <p>
+            <button class="btn btn-primary" @onclick="(() => AccessClass(p.Course_ID, p.Player_ID))" id="@p.Course_ID">@p.Course_Name</button>
+        </p>
+    }
+}
+
+
+@code {
+    List<PlayerInformation> player;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    private async Task AccessClass( int CourseID, int PlayerID )
+    {
+        Cookie.CurrentClass = CourseID;
+        Cookie.PlayerID = PlayerID;
+        NavManager.NavigateTo("/ClassHome");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        string playerInfoSelect = "WHERE Account_ID = @CurrentAccount";
+
+        player = await _data.LoadData<PlayerInformation, dynamic> ( PlayerInformation.GetSQL() + playerInfoSelect, new { CurrentAccount = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+    }
+}
+
+
+
+
+

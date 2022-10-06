@@ -8,6 +8,10 @@
 @inject NavigationManager NavManager
 @inject RTXWebsite1.Data.Cookies Cookie;
 
+@if( Cookie.CurrentDiscussion == 0 || Cookie.PlayerID == 0 )
+{
+    NavManager.NavigateTo("/");
+}
 
 @if (discussions == null)
 {
@@ -34,8 +38,12 @@ else
                 @r.Post_Content
             </div>
             <p>
-                By: @r.Player_IGN at @r.Post_Time
+                By: @r.Player_IGN at @r.Post_Time 
             </p>
+            @if (player[0].Player_ID == r.Post_PlayerID)
+            {
+                <button class="btn btn-primary" @onclick="(() => DeletePost(r.Post_ID))">DELETE</button>
+            }
             <p>
                 -----------------------------------------------    
             </p>
@@ -58,7 +66,8 @@ else
 
     List<DiscussionBoard>? discussions;
     List<DiscussionPost>? replies;
-    
+    List<PlayerInformation> player;
+
     RTXWebsite1.Models.DiscussionPost disPost = new RTXWebsite1.Models.DiscussionPost();
 
     private async Task GetData()
@@ -68,43 +77,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql, selection;
-
         // Get Head Post
-        sql = @"
-        SELECT 
-            `DiscussionHead`.`Discussion_ID` AS `Discussion_ID`,
-            `DiscussionHead`.`Discussion_Title` AS `Discussion_Title`,
-            `DiscussionHead`.`Discussion_Desc` AS `Discussion_Desc`,
-            `DiscussionHead`.`Discussion_CourseID` AS `Discussion_CourseID`,
-            `DiscussionHead`.`Discussion_Date` AS `Discussion_Date`,
-            `DiscussionHead`.`Discussion_PlayerID` AS `Discussion_PlayerID`,
-            `Player`.`Player_IGN` AS `Player_IGN`
-        FROM
-            (`DiscussionHead`
-            JOIN `Player` ON ((`DiscussionHead`.`Discussion_PlayerID` = `Player`.`Player_ID`)))";
-
-        selection = "Where `DiscussionHead`.Discussion_ID = @Discussion";
-
-        discussions = await _data.LoadData<DiscussionBoard, dynamic>(sql + selection, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
+        string sql = "WHERE `DiscussionHead`.`Discussion_ID` = @Discussion";
+        discussions = await _data.LoadData<DiscussionBoard, dynamic>(DiscussionBoard.GetSQL() + sql, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
         // Get Replies
-        sql = @"
-        SELECT 
-            `DiscussionPost`.`Post_ID` AS `Post_ID`,
-            `DiscussionPost`.`Post_Content` AS `Post_Content`,
-            `DiscussionPost`.`Post_Time` AS `Post_Time`,
-            `DiscussionPost`.`Post_PlayerID` AS `Post_PlayerID`,
-            `DiscussionPost`.`Post_HeadPostID` AS `Post_HeadPostID`,
-            `Player`.`Player_IGN` AS `Player_IGN`
-        FROM
-            (`DiscussionHead`
-            JOIN `DiscussionPost` ON ((`DiscussionHead`.`Discussion_ID` = `DiscussionPost`.`Post_HeadPostID`))
-            JOIN `Player` ON ((`DiscussionPost`.`Post_PlayerID` = `Player`.`Player_ID`)))";
+        sql = "WHERE `DiscussionHead`.`Discussion_ID` = @Discussion";
+        replies = await _data.LoadData<DiscussionPost, dynamic>(DiscussionPost.GetSQL() + sql, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
-        selection = "Where `DiscussionHead`.`Discussion_ID` = @Discussion";
-
-        replies = await _data.LoadData<DiscussionPost, dynamic>(sql + selection, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
+        sql = "WHERE Player_ID = @ThisPlayer";
+        player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
     }
 
     async Task postReply()
@@ -114,7 +96,13 @@ else
 
         await _data.SaveData(sql, new { Content = @disPost.Post_Content, Time = @date, User = @Cookie.PlayerID, Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
-            NavManager.NavigateTo($"/replytodiscussion/{paramDiscussion}", forceLoad: true);
+        NavManager.NavigateTo($"/replytodiscussion/{paramDiscussion}", forceLoad: true);
+    }
 
+    public async Task DeletePost(int post)
+    {
+        string sql = "Delete from DiscussionPost where Post_ID = @ThisPost";
+        await _data.DeleteData<DiscussionBoard, dynamic>(sql, new { ThisPost = post }, _config.GetConnectionString("RTX"));
+        NavManager.NavigateTo($"/replytodiscussion/{paramDiscussion}", forceLoad: true);
     }
 }

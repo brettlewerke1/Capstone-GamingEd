@@ -4,28 +4,36 @@
 @using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 @inject IDatabaseAccess _data
-@inject IAccountAccess _account
 @inject IConfiguration _config
 @inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
 
 <h1 div class="title-head">Account</h1>
 <br />
  
+
+@if (Cookie.UserID == 0)
+{
+    NavManager.NavigateTo("/");
+}
+
 @if (account == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    @foreach (var p in account)
-    {
-        <h3>@p.Account_Username 's Profile</h3>
-        <p>
-            Username: @p.Account_Username
-        </p>
+    <h3>@account[0].Account_Username 's Profile</h3>
+    <p>
+        Username: @account[0].Account_Username
+    </p>
 
-    }
     if (player == null)
+    {
+        <em>Loading...</em>
+    }
+    else if (player.Count() == 0)
     {
         <p>No classes found.</p>
     }
@@ -35,12 +43,16 @@ else
         @foreach (var playInfo  in player)
         {
             <p>
+                -------------------------------------------------
+            </p>
+            <p>
                 (@playInfo.Course_Tag) @playInfo.Course_Name
             </p>
             <p>
-                IGN: @playInfo.Player_IGN
-                Coins: @playInfo.Player_Coins
+                IGN: @playInfo.Player_IGN | Coins: @playInfo.Player_Coins
             </p>
+            <img src="@playInfo.Avatar_Image" class="avatar"/>
+            <button class="btn btn-primary" @onclick="(() => ChangeAvatar(playInfo.Player_ID))">Change Avatar</button>
         }
     }
 }
@@ -56,27 +68,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Account where Account_ID = @UserID";
+        string sql = "WHERE Account_ID = @UserID";
 
-        account = await _data.LoadData<Account, dynamic>(sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        account = await _data.LoadData<Account, dynamic>( Account.GetSQL() + sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
-        string playerInfoJoin = @"
-        SELECT 
-            `Account`.`Account_ID` AS `Account_ID`,
-            `Account`.`Account_Username` AS `Account_Username`,
-            `Player`.`Player_ID` AS `Player_ID`,
-            `Player`.`Player_Coins` AS `Player_Coins`,
-            `Player`.`Player_IGN` AS `Player_IGN`,
-            `Course`.`Course_ID` AS `Course_ID`,
-            `Course`.`Course_Name` AS `Course_Name`,
-            `Course`.`Course_Tag` AS `Course_Tag`
-        FROM
-            ((`Account`
-            JOIN `Player` ON ((`Account`.`Account_ID` = `Player`.`Player_AccountID`)))
-            JOIN `Course` ON ((`Player`.`Player_CourseID` = `Course`.`Course_ID`)))";
+        player = await _data.LoadData<PlayerInformation, dynamic>( PlayerInformation.GetSQL() + sql, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+    }
 
-        string playerInfoSelect = "WHERE Account_ID = @UserID";
-
-        player = await _data.LoadData<PlayerInformation, dynamic>(playerInfoJoin + playerInfoSelect, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+    public void ChangeAvatar(int player)
+    {
+        Cookie.PlayerID = player;
+        NavManager.NavigateTo("/account/avatar");
     }
 }

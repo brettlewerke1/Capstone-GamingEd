@@ -1,0 +1,101 @@
+@page "/avatars"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject IConfiguration _config
+@inject IDatabaseAccess _data
+
+@inject NavigationManager NavManager
+
+<h1 div class="title-head">Market</h1>
+
+<br />
+
+@if(Cookie.CurrentClass == 0)
+{
+    NavManager.NavigateTo("/");
+}
+
+
+@if( avatars == null)
+{
+    <em>Loading...</em>
+}
+else
+{
+    @if(avatars.Count() == 0)
+    {
+        <p>No avatars found.</p>
+    }
+    else
+    {
+        @foreach(var p in avatars)
+        {
+            <article>
+                <img src="@p.Avatar_Image" class="avatar" />
+                @p.Avatar_Name | @p.Avatar_Cost Coins
+                <!--If it exists in the owned list, the player owns the avatar already-->
+                @if ( owned.Exists( x => x.Avatar_ID == p.Avatar_ID ))
+                {
+                    <p>Owned</p>
+                }
+                else
+                {
+                    @if(player[0].Player_Coins >= p.Avatar_Cost)
+                    {
+                        <p>
+                            <button class="btn btn-primary" @onclick="(() => Purchase(p.Avatar_Cost, p.Avatar_ID))">Purchase</button>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            <button class="btn btn-primary">Not Enough Coins</button>
+                        </p>
+                    }
+                    
+                }
+            </article>
+            
+        }
+    }
+}
+
+@code{
+    List<BuyAvatars>? avatars;
+    List<Avatar> owned; //Player already owns
+    List<PlayerInformation> player;
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE ACLibrary_CourseID = @CourseNum";
+        avatars = await _data.LoadData<BuyAvatars, dynamic>(BuyAvatars.GetSQL() + sql, new { CourseNum = @Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE APLibrary_PlayerID = @Player";
+        owned = await _data.LoadData<Avatar, dynamic>(Avatar.GetSQL_APLibrary() + sql, new { Player = Cookie.PlayerID, Course = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE `Player`.`Player_ID` = @User";
+        player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { User = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+    }
+
+    public async void Purchase(int cost, int newAvatar)
+    {
+        // Add the purchase to the AvatarPlayerLibrary for use in this specific class
+        string sql = "insert into AvatarPlayerLibrary (APLibrary_AvatarID, APLibrary_PlayerID, APLibrary_CourseID) values (@ThisAvatar, @ThisPlayer, @ThisCourse)";
+        await _data.SaveData(sql, new { ThisAvatar = newAvatar, ThisPlayer = Cookie.PlayerID, ThisCourse = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+
+        // Subtract the coins away from the user
+        sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = player[0].Player_Coins - cost, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        NavManager.NavigateTo("/avatars", forceLoad: true);
+    }
+}
