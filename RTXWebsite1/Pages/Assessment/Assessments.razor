@@ -54,8 +54,9 @@
 
 
 
-            // increment number of questions count
+            // add points for each question
             assessment.totalPoints = assessment.totalPoints + @p.Points_Per_Question;
+
 
             questionNumber++;
 
@@ -108,6 +109,7 @@
                                 if( @z.AssessmentAnswer_Assessment_ID == @p.Assessment_ID )
                                 {
 
+                                    // drop down list of answer options
                                     <option>@z.AssessmentAnswer_Answers</option>
 
                                     
@@ -122,8 +124,10 @@
                         </InputSelect>
 
                             // if selected matching question is correct increment number of correct quiz questions
-                            if(  @a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_Correct_Answers )
+                            if( @a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_Correct_Answers )
                             {
+
+                                // add to total points earned if selected answer equals the correct answer 
                                 assessment.pointsEarned = assessment.pointsEarned + @p.Points_Per_Question;
                                 
                             }
@@ -162,8 +166,10 @@
             // calculate number of questions answered correctly
             foreach( var myVar in answerList )
             {
+                // check if answer is correct
                 if(  myVar.AssessmentAnswer_Correct_Answers != null && @myVar.AssessmentAnswer_Correct_Answers != "" && myVar.AssessmentAnswer_Correct_Answers.ToLower() == @p.Assessment_Answers.ToLower() )
                 {
+                    // add to total points earned
                     assessment.pointsEarned = assessment.pointsEarned + @p.Points_Per_Question;
                 }
             }
@@ -232,7 +238,6 @@ else
     {
 
         // navigate to results page while passing in 2 parameters
-
         NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
 
     }
