@@ -1,10 +1,10 @@
-﻿@page "/results/{NumberCorrect}/{NumberQuestions}"
+﻿@page "/results/{EarnedPoints}/{TotalPoints}"
 
 
 
 @using RTXWebsite1.Models;
 
-@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject RTXWebsite1.IDbContext.IAssessmentAccess _quiz;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
@@ -21,10 +21,7 @@
 
 
 
-<p> Your Score: @NumberCorrect out of @NumberQuestions </p>
-
-
-
+<p> Your Score: @EarnedPoints out of @TotalPoints </p>
 
 
 
@@ -36,7 +33,7 @@
     int numberOfAnswers = 0;
     int questionNumber = 0;
 
-    int answerNumber = 0;
+
     <!-- go through list made from SQL at bottom of file -->
    
 
@@ -50,22 +47,21 @@
         {
         questionNumber++;
         
-                
-                    @if( @p.Show_Answer_Bool == "True"  )
+                    // if show answer boolean is set to true (0=true, 1=false because tinyInt)
+                    @if( @p.Assessment_Display_Answers == 0  )
                     {
 
-                        
 
-                        <b><p> @questionNumber. @p.Quiz_Question </p></b>
+                        <b><p> @questionNumber. @p.Assessment_Question </p></b>
                             
-                        @if( @p.Question_Type != "Matching")
+                        @if( @p.Assessment_Question_Type != "Matching")
                         {
 
                             foreach( var correctAnswer in answerList )
                             {
-                                if( @correctAnswer.Quiz_ID == p.Quiz_ID && @correctAnswer.Correct_Answers != null && correctAnswer.Correct_Answers != "" )
+                                if( @correctAnswer.AssessmentAnswer_Assessment_ID == p.Assessment_ID && @correctAnswer.AssessmentAnswer_Correct_Answers != null && correctAnswer.AssessmentAnswer_Correct_Answers != "" )
                                 {
-                                      <p>Answer: @correctAnswer.Correct_Answers</p>    
+                                      <p>Answer: @correctAnswer.AssessmentAnswer_Correct_Answers</p>    
                                 }
                         
                             }
@@ -74,21 +70,21 @@
                            <br/>
 
                         }
-                        @if (@p.Question_Type == "Matching"  )
+                        @if (@p.Assessment_Question_Type == "Matching"  )
                         {
                           // reset answer number display value
-                          answerNumber = 0;
+                         
 
                            foreach( var answer in answerList )
                            {
 
 
-                               if( @answer.Correct_Answers!= null && answer.Quiz_ID == p.Quiz_ID )
+                               if( @answer.AssessmentAnswer_Correct_Answers!= null && answer.AssessmentAnswer_Assessment_ID == p.Assessment_ID )
                                {
                                    numberOfAnswers++;
 
-                                   answerNumber++;
-                                   <p> Answer #@answerNumber: @answer.Correct_Answers</p>
+                                  
+                                   <p> @answer.AssessmentAnswer_Matching_Answer : @answer.AssessmentAnswer_Correct_Answers</p>
                                }
                            }
 
@@ -103,10 +99,6 @@
                  
            
 
- 
-
-
-     
 
         }
     }
@@ -115,19 +107,15 @@
 
 
 
-
-
-
-
 @code {
 
     [Parameter]
-    public string NumberCorrect { get; set; }
+    public string EarnedPoints { get; set; }
 
     [Parameter]
-    public string NumberQuestions { get; set; }
+    public string TotalPoints { get; set; }
 
-    List<Quiz>? quizList;
+    List<Assessment>? quizList;
 
     List<Account>? accountList;
 
@@ -143,13 +131,13 @@
     protected override async Task OnInitializedAsync()
     {
 
-        string sql = "select * from Quiz where Quiz_Number = 1";
+        string sql = "select * from Assessment where Assessment_Number = 1";
 
-        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        quizList = await _data.LoadData<Assessment, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
 
 
-        string sqlAnswersTable = "select * from Quiz_Answers_Table";
+        string sqlAnswersTable = "select * from AssessmentAnswer";
 
         answerList = await _data.LoadData<QuizAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 

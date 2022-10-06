@@ -30,7 +30,7 @@ namespace RTXWebsite1
             // add services needed (IDb Contexts, and Db contexts)
             services.AddSingleton<IAccountAccess, AccountAccess>();
             services.AddSingleton<IDatabaseAccess, DatabaseAccess>();
-            services.AddSingleton<IQuizAccess, QuizAccess>();
+            services.AddSingleton<IAssessmentAccess, AssessmentAccess>();
 
             services.AddSingleton<Cookies>();
             services.AddSingleton<Utils>();

@@ -3,7 +3,8 @@
 
 @using RTXWebsite1.Models;
 
-@inject RTXWebsite1.IDbContext.IQuizAccess _quiz;
+@inject RTXWebsite1.IDbContext.IAssessmentAccess _quiz;
+@inject RTXWebsite1.IDbContext.IAssessmentAccess _assessment;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
@@ -16,14 +17,8 @@
 
 
 
-
-
 <h1 div class="title-head"> Quizzes </h1>
 <br />
-
-
-
-
 
 
 
@@ -31,8 +26,8 @@
 @if(quizList != null)
 {
     // initialize variables
-    quiz.numCorrect = 0;
-    quiz.numberOfQuestions = 0;
+    assessment.pointsEarned = 0;
+    assessment.totalPoints = 0;
     int questionNumber = 0;
 
     
@@ -46,7 +41,7 @@
     
 
 
-    <EditForm Model="@quiz" OnValidSubmit="@goToResults" >
+    <EditForm Model="@assessment" OnValidSubmit="@goToResults" >
 
     <DataAnnotationsValidator/>
     <ValidationSummary />   
@@ -57,17 +52,17 @@
             // reset matching boolean to false
             isMatchingBool = false;
 
-            
+
 
             // increment number of questions count
-            quiz.numberOfQuestions++;
+            assessment.totalPoints = assessment.totalPoints + @p.Points_Per_Question;
 
             questionNumber++;
 
             
 
 
-            <h4>@questionNumber) @p.Quiz_Question</h4>
+            <h4>@questionNumber) @p.Assessment_Question</h4>
 
 
 
@@ -78,14 +73,14 @@
             {
 
                 // if question type is: multiple choice
-                if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "mc" )
+                if( @a.AssessmentAnswer_Assessment_ID == @p.Assessment_ID && @p.Assessment_Question_Type == "MultipleChoice" )
                 {
 
                     
 
                     
-                    <InputRadioGroup @bind-Value=@p.Quiz_Answers >
-                        <InputRadio Value="@a.Quiz_Answers" /> @a.Quiz_Answers &nbsp;
+                    <InputRadioGroup @bind-Value=@p.Assessment_Answers >
+                        <InputRadio Value="@a.AssessmentAnswer_Answers" /> @a.AssessmentAnswer_Answers &nbsp;
                     </InputRadioGroup>
 
 
@@ -93,27 +88,27 @@
                 }
 
                 // if question type is: matching
-                if( @a.Quiz_ID == @p.Quiz_ID && @p.Question_Type == "Matching")
+                if( @a.AssessmentAnswer_Assessment_ID == @p.Assessment_ID && @p.Assessment_Question_Type == "Matching")
                 {
 
                     // don't want to add first set of options to total number of questions because it was already included when the question was asked
                     if( isMatchingBool )
                     {
-                        quiz.numberOfQuestions++;
+                        assessment.totalPoints = assessment.totalPoints + @p.Points_Per_Question;
                     }
 
                     isMatchingBool = true;
 
                         // bind value to Quiz_Answers_Table column: Selected_Answers
-                        <InputSelect @bind-Value=@a.Selected_Answers >
+                        <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers >
                             <option value="">Select an Answer</option>
                             
                             @foreach (var z in answerList )
                             {
-                                if( @z.Quiz_ID == @p.Quiz_ID )
+                                if( @z.AssessmentAnswer_Assessment_ID == @p.Assessment_ID )
                                 {
 
-                                    <option>@z.Quiz_Answers</option>
+                                    <option>@z.AssessmentAnswer_Answers</option>
 
                                     
 
@@ -123,21 +118,18 @@
 
                             }
 
-                       
-                            
-                         
 
                         </InputSelect>
 
                             // if selected matching question is correct increment number of correct quiz questions
-                            if(  @a.Selected_Answers == @a.Correct_Answers )
+                            if(  @a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_Correct_Answers )
                             {
-                                quiz.numCorrect++;
+                                assessment.pointsEarned = assessment.pointsEarned + @p.Points_Per_Question;
                                 
                             }
                             
                         // print a value to be matched with
-                        @a.Matching_Answer
+                        @a.AssessmentAnswer_Matching_Answer
 
                       
 
@@ -152,11 +144,11 @@
                 }
 
                 // if question type is: text
-                if( @p.Question_Type == "text" )
+                if( @p.Assessment_Question_Type == "Text" )
                 {
               
                     <label for="answer">Answer: </label>
-                    <InputText  @bind-Value=@p.Quiz_Answers   />
+                    <InputText  @bind-Value=@p.Assessment_Answers   />
                
                 }
             
@@ -167,12 +159,12 @@
 
 
 
-            // calculate number of questions answered correctly except for matching questions
+            // calculate number of questions answered correctly
             foreach( var myVar in answerList )
             {
-                if(  myVar.Correct_Answers != null && @myVar.Correct_Answers != "" && myVar.Correct_Answers.ToLower() == @p.Quiz_Answers.ToLower() )
+                if(  myVar.AssessmentAnswer_Correct_Answers != null && @myVar.AssessmentAnswer_Correct_Answers != "" && myVar.AssessmentAnswer_Correct_Answers.ToLower() == @p.Assessment_Answers.ToLower() )
                 {
-                    quiz.numCorrect++;
+                    assessment.pointsEarned = assessment.pointsEarned + @p.Points_Per_Question;
                 }
             }
 
@@ -197,11 +189,6 @@
     <br/>
 
 
-    
-
-
-
-
 }
 else
 {
@@ -214,8 +201,8 @@ else
 @code {
 
 
-    RTXWebsite1.Models.Quiz quiz = new RTXWebsite1.Models.Quiz();
-    List<Quiz>? quizList;
+    RTXWebsite1.Models.Assessment assessment = new RTXWebsite1.Models.Assessment();
+    List<Assessment>? quizList;
 
     List<QuizAnswers>? answerList;
 
@@ -230,11 +217,11 @@ else
     protected override async Task OnInitializedAsync()
     {
 
-        string sql = "select * from Quiz where Quiz_LevelID = @iamLevelID";
+        string sql = "select * from Assessment where Assessment_Level_ID = @iamLevelID";
 
-        quizList = await _data.LoadData<Quiz, dynamic>(sql, new { iamLevelID = @Cookie.Quiz_LevelID }, _config.GetConnectionString("RTX"));
+        quizList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.Quiz_LevelID }, _config.GetConnectionString("RTX"));
 
-        string answersSQL = "select * from Quiz_Answers_Table";
+        string answersSQL = "select * from AssessmentAnswer";
 
         answerList = await _data.LoadData<QuizAnswers, dynamic>(answersSQL, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
@@ -244,16 +231,11 @@ else
     async Task goToResults( )
     {
 
-
-
         // navigate to results page while passing in 2 parameters
 
-        NavManager.NavigateTo($"/results/{quiz.numCorrect}/{quiz.numberOfQuestions}");
+        NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
 
     }
-
-
-
 
 
 

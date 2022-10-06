@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RTXWebsite1.IDbContext
 {
-    public interface IQuizAccess
+    public interface IAssessmentAccess
     {
         Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString);
     }
