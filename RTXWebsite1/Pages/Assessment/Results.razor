@@ -21,7 +21,12 @@
 
 
 
+
+
 <p> Your Score: @EarnedPoints out of @TotalPoints </p>
+
+
+<p> Coins Earned: @EarnedPoints </p>
 
 
 
@@ -29,7 +34,7 @@
 
     @if( quizList != null )
     {
-        // tracking number of answers to print labels for matching questions
+    // tracking number of answers to print labels for matching questions
     int numberOfAnswers = 0;
     int questionNumber = 0;
 
@@ -55,7 +60,7 @@
                         <b><p> @questionNumber. @p.Assessment_Question </p></b>
                            
                         // if not a matching question
-                        @if( @p.Assessment_Question_Type != "Matching")
+                        @if( @p.Assessment_Question_Type != "Matching" )
                         {
                             
                             foreach( var correctAnswer in answerList )
@@ -119,7 +124,25 @@
 
     List<Account>? accountList;
 
+
+    List<PlayerInformation> playerCoins;
+
+    List<PlayerInformation> player;
+
+
+
     List<AssessmentAnswers>? answerList;
+
+
+    int currentCoins = 0;
+
+
+    int earnedPoints = 0;
+
+    int totalCoins = 0;
+
+
+
 
 
     private async Task GetData()
@@ -133,13 +156,41 @@
 
         string sql = "select * from Assessment where Assessment_Number = 1";
 
+
         quizList = await _data.LoadData<Assessment, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
 
 
         string sqlAnswersTable = "select * from AssessmentAnswer";
 
+
         answerList = await _data.LoadData<AssessmentAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+
+
+
+        sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
+        playerCoins = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
+        if (playerCoins != null)
+        {
+            foreach (var p in playerCoins)
+            {
+                currentCoins = p.Player_Coins;
+              
+            }
+        }
+
+   
+
+        earnedPoints = Convert.ToInt32(EarnedPoints);
+        totalCoins = earnedPoints + currentCoins;
+
+
+        sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = totalCoins, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
 
     }
 
