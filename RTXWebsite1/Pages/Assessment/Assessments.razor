@@ -55,7 +55,7 @@
 
 
             // add points for each question
-            assessment.totalPoints = assessment.totalPoints + @p.Points_Per_Question;
+            assessment.totalPoints = assessment.totalPoints + @p.Assessment_Points_Per_Question;
 
 
             questionNumber++;
@@ -95,7 +95,7 @@
                     // don't want to add first set of options to total number of questions because it was already included when the question was asked
                     if( isMatchingBool )
                     {
-                        assessment.totalPoints = assessment.totalPoints + @p.Points_Per_Question;
+                        assessment.totalPoints = assessment.totalPoints + @p.Assessment_Points_Per_Question;
                     }
 
                     isMatchingBool = true;
@@ -128,7 +128,7 @@
                             {
 
                                 // add to total points earned if selected answer equals the correct answer 
-                                assessment.pointsEarned = assessment.pointsEarned + @p.Points_Per_Question;
+                                assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_Points_Per_Question;
                                 
                             }
                             
@@ -170,7 +170,7 @@
                 if(  myVar.AssessmentAnswer_Correct_Answers != null && @myVar.AssessmentAnswer_Correct_Answers != "" && myVar.AssessmentAnswer_Correct_Answers.ToLower() == @p.Assessment_Answers.ToLower() )
                 {
                     // add to total points earned
-                    assessment.pointsEarned = assessment.pointsEarned + @p.Points_Per_Question;
+                    assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_Points_Per_Question;
                 }
             }
 
