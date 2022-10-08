@@ -19,7 +19,7 @@ using RTXWebsite1.Models;
 
 namespace RTXWebsite1.DbContext
 {
-    public class QuizAccess : IQuizAccess
+    public class AssessmentAccess : IAssessmentAccess
     {
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString)
         {
