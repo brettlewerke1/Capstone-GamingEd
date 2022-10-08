@@ -4,7 +4,7 @@
 
 @using RTXWebsite1.Models;
 
-@inject RTXWebsite1.IDbContext.IAssessmentAccess _quiz;
+@inject RTXWebsite1.IDbContext.IAssessmentAccess _assessment;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
@@ -16,7 +16,9 @@
 @inject IDatabaseAccess _data
 
 
-<h1 div class="title-head"> Quiz Results </h1>
+
+
+<h1 div class="title-head"> Assessment Results </h1>
 <br />
 
 
@@ -32,7 +34,7 @@
 
 
 
-    @if( quizList != null )
+    @if( assessmentList != null )
     {
     // tracking number of answers to print labels for matching questions
     int numberOfAnswers = 0;
@@ -48,7 +50,7 @@
         <p>Correct Answers</p>
         <p>===============</p>
     
-    @foreach (var p in quizList )
+    @foreach (var p in assessmentList )
         {
         questionNumber++;
         
@@ -120,7 +122,7 @@
     [Parameter]
     public string TotalPoints { get; set; }
 
-    List<Assessment>? quizList;
+    List<Assessment>? assessmentList;
 
     List<Account>? accountList;
 
@@ -157,7 +159,7 @@
         string sql = "select * from Assessment where Assessment_Number = 1";
 
 
-        quizList = await _data.LoadData<Assessment, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
 
 

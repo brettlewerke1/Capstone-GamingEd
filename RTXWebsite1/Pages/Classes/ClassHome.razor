@@ -33,7 +33,7 @@ else
         {
             <a href="/marketplace" class="btn btn-primary">Marketplace</a>
         }
-        <a href="/quizzes" class="btn btn-primary" @onclick="(() => AccessQuiz(1))" id="@p.Course_ID">Quizzes</a>
+        <a href="/assessments" class="btn btn-primary" @onclick="(() => AccessAssessment(1))" id="@p.Course_ID">Assessments</a>
         <a href="/viewdiscussions" class="btn btn-primary">Discussion</a>
     }
     @foreach( var p in levelInfo )
@@ -102,9 +102,9 @@ else
         } 
     }
 
-    private async Task AccessQuiz( int number )
+    private async Task AccessAssessment( int number )
     {
-        Cookie.Quiz_LevelID = number;
+        Cookie.Assessment_LevelID = number;
     }
 
 }
