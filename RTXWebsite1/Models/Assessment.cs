@@ -9,7 +9,10 @@ namespace RTXWebsite1.Models
         public int Assessment_ID { get; set; }
 
         // quiz number representing which quiz is being taken
-        public int Quiz_Number { get; set; }
+        public int Assessment_Number { get; set; }
+
+
+        public string Assessment_Title { get; set; }
 
         // question number
         public int Assessment_Question_Number { get; set; }

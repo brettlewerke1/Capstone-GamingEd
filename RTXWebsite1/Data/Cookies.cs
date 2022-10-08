@@ -9,6 +9,6 @@
 
         public string Account_Role { get; set; }
 
-        public int Quiz_LevelID { get; set; }
+        public int Assessment_LevelID { get; set; }
     }
 }

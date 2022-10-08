@@ -1,9 +1,8 @@
-﻿@page "/quizzes"
+﻿@page "/assessments"
 
 
 @using RTXWebsite1.Models;
 
-@inject RTXWebsite1.IDbContext.IAssessmentAccess _quiz;
 @inject RTXWebsite1.IDbContext.IAssessmentAccess _assessment;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
@@ -16,14 +15,49 @@
 @inject IDatabaseAccess _data
 
 
+<!--Print the title-->
 
-<h1 div class="title-head"> Quizzes </h1>
-<br />
+@if (assessmentList != null)
+{
+
+     bool myBool = true;
+
+    foreach( var p in assessmentList )
+    {
+        
+        
+      
+        // then I have already printed the title
+        if( myBool == true )
+        {
+            
+     
+
+            <h1 div class="title-head"> @p.Assessment_Title </h1>
+            <br />
+
+            myBool = false;   
+                     
+        }
 
 
 
-<!-- If quizList exists -->
-@if(quizList != null)
+    }    
+}
+
+
+ 
+
+
+
+
+
+
+
+
+
+<!-- If assessmentList exists -->
+@if(assessmentList != null)
 {
     // initialize variables
     assessment.pointsEarned = 0;
@@ -45,8 +79,9 @@
 
     <DataAnnotationsValidator/>
     <ValidationSummary />   
+
     <!-- go through list made from SQL at bottom of file -->
-    @foreach (var p in quizList)
+    @foreach (var p in assessmentList)
     {
 
             // reset matching boolean to false
@@ -69,7 +104,7 @@
 
 
 
-
+            // lopp through answerList
             foreach( var a in answerList )
             {
 
@@ -100,7 +135,7 @@
 
                     isMatchingBool = true;
 
-                        // bind value to Quiz_Answers_Table column: Selected_Answers
+                        
                         <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers >
                             <option value="">Select an Answer</option>
                             
@@ -123,7 +158,7 @@
 
                         </InputSelect>
 
-                            // if selected matching question is correct increment number of correct quiz questions
+                            // if selected matching question is correct 
                             if( @a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_Correct_Answers )
                             {
 
@@ -208,7 +243,7 @@ else
 
 
     RTXWebsite1.Models.Assessment assessment = new RTXWebsite1.Models.Assessment();
-    List<Assessment>? quizList;
+    List<Assessment>? assessmentList;
 
     List<AssessmentAnswers>? answerList;
 
@@ -225,7 +260,7 @@ else
 
         string sql = "select * from Assessment where Assessment_Level_ID = @iamLevelID";
 
-        quizList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.Quiz_LevelID }, _config.GetConnectionString("RTX"));
+        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.Assessment_LevelID }, _config.GetConnectionString("RTX"));
 
         string answersSQL = "select * from AssessmentAnswer";
 
