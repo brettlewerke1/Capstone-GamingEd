@@ -34,7 +34,7 @@ namespace RTXWebsite1.Models
         public int totalPoints { get; set; }
     
         // boolean to decide whether to show answers or not (tinyInt) (0=true, 1=false)
-        public byte Assessment_Display_Answers { get; set; }
+        public bool Assessment_Display_Answers { get; set; }
 
         // points per question
         public int Assessment_Points_Per_Question { get; set; }
