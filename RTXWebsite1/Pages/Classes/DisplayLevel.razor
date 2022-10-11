@@ -1,0 +1,37 @@
+@page "/level"
+
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
+
+@if( Cookie.UserID == 0 || Cookie.CurrentLvl == 0)
+{
+    NavManager.NavigateTo("/");
+}
+
+<p>WAHOO</p>
+
+@code{
+    List<LevelContent>? content;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE LevelContent.LvlContent_LevelID = @ThisLvl ORDER BY `LevelContent`.`LvlContent_OrderNum`";
+
+        content = await _data.LoadData<LevelContent, dynamic>( LevelContent.GetSQL() + sql, new { ThisLvl = Cookie.CurrentLvl }, _config.GetConnectionString("RTX"));
+    }
+
+    //<a href="/assessments" class="btn btn-primary" @onclick="(() => AccessAssessment(1))" id="@p.Course_ID">Assessments</a>
+}
+

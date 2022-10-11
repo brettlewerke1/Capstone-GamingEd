@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\RTXWebsite1",
-    "\\RTXWebsite1\\Pages",
-    "\\RTXWebsite1\\Pages\\Account",
-    "\\RTXWebsite1\\Pages\\DiscussionBoard",
-    "\\RTXWebsite1\\Pages\\Marketplace",
-    "\\RTXWebsite1\\Shared",
-    "\\RTXWebsite1\\wwwroot",
-    "\\RTXWebsite1\\wwwroot\\css"
+    ""
   ],
-  "SelectedNode": "\\RTXWebsite1\\wwwroot\\css\\site.css",
+  "SelectedNode": "\\RTXWebsite1.sln",
   "PreviewInSolutionExplorer": false
 }

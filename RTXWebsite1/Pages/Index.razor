@@ -34,25 +34,13 @@
 }
 else
 {
-    <h1 div class="title-head">Home</h1>
-    <br />
+    NavManager.NavigateTo("/home");
 
-    <p>
-        You are signed in as: @account.Account_Username
-    </p>
-     
-    <p>
-        Welcome to the RTX Gamification Learning Management System... take a look around!
-    </p>
-        
-    
 }
 
 
 @code {
     RTXWebsite1.Models.Account account = new RTXWebsite1.Models.Account();
-
-    
 
     async Task ValidateAccount()
     {
@@ -63,11 +51,6 @@ else
             await localStorage.SetItemAsync("username", account.Account_Username);
             Cookie.UserID = result;
             Cookie.CurrentClass = 0;
-            /*
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentUser", account.Account_ID, DateTime.Now.AddMinutes(1000));
-            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentClass", course.Course_ID, DateTime.Now.AddMinutes(1000));
-            */
-            //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
             NavManager.NavigateTo("/");
         }
     }

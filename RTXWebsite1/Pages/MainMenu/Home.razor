@@ -1,0 +1,51 @@
+@page "/home"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
+
+<h1 div class="title-head">Home</h1>
+<br />
+
+@if( Cookie.UserID == 0 )
+{
+    NavManager.NavigateTo("/");
+}
+else
+{
+    @if(account ==  null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <p>
+            You are signed in as: @account[0].Account_Username
+        </p>
+
+        <p>
+            Welcome to the RTX Gamification Learning Management System... take a look around!
+        </p>
+    }
+}
+
+@code{
+    List<Account>? account;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE Account_ID = @UserID";
+
+        account = await _data.LoadData<Account, dynamic>(Account.GetSQL() + sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+    }
+}

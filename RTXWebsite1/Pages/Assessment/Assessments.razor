@@ -260,7 +260,7 @@ else
 
         string sql = "select * from Assessment where Assessment_Level_ID = @iamLevelID";
 
-        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.Assessment_LevelID }, _config.GetConnectionString("RTX"));
+        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.CurrentAssessment }, _config.GetConnectionString("RTX"));
 
         string answersSQL = "select * from AssessmentAnswer";
 

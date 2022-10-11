@@ -38,8 +38,8 @@ else
     }
     @foreach( var p in levelInfo )
     {
-        <p>
-            @p.Level_Name | @p.Level_Desc
+        <p @onclick="(() => ChangeLevel(p.Level_ID))">   
+            <a href="/level">@p.Level_Name | @p.Level_Desc</a>
         </p>
     }
 }
@@ -102,11 +102,15 @@ else
         } 
     }
 
-    private async Task AccessAssessment( int number )
+    private void AccessAssessment( int number )
     {
-        Cookie.Assessment_LevelID = number;
+        Cookie.CurrentAssessment = number;
     }
 
+    private void ChangeLevel( int levelSelected )
+    {
+        Cookie.CurrentLvl = levelSelected;
+    }
 }
 
 
