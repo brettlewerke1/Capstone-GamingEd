@@ -1,3 +1,4 @@
+using Org.BouncyCastle.Asn1.X509;
 using System.ComponentModel.DataAnnotations;
 
 namespace RTXWebsite1.Models
@@ -39,6 +40,34 @@ namespace RTXWebsite1.Models
             FROM
                 (`LevelTree`
                 JOIN `Level` ON ((`LevelTree`.`LevelTree_NextLevelID` = `Level`.`Level_ID`)))";
+        }
+    }
+
+    public class LevelContent
+    {
+        int LvlContent_ID { get; set; }
+        int LvlContent_LevelID { get; set; }
+        int LvlContent_ObjectID { get; set; }
+        int LvlContent_OrderNum { get; set; }
+        int LvlContent_ModuleID { get; set; }
+        string Module_Name { get; set; } = "";
+        string Module_Path { get; set; } = "";
+
+        public static string GetSQL()
+        {
+            return @"    
+            SELECT 
+                `LevelContent`.`LvlContent_ID` AS `LvlContent_ID`,
+                `LevelContent`.`LvlContent_LevelID` AS `LvlContent_LevelID`,
+                `LevelContent`.`LvlContent_ObjectID` AS `LvlContent_ObjectID`,
+                `LevelContent`.`LvlContent_OrderNum` AS `LvlContent_OrderNum`,
+                `LevelContent`.`LvlContent_ModuleID` AS `LvlContent_ModuleID`,
+                `Module`.`Module_Name` AS `Module_Name`,
+                `Module`.`Module_Path` AS `Module_Path`
+            FROM
+                (`LevelContent`
+                JOIN `Module` ON ((`LevelContent`.`LvlContent_ModuleID` = `Module`.`Module_ID`)))";
+            //WHERE xxxx ORDER BY `LevelContent`.`LvlContent_OrderNum`"
         }
     }
 }

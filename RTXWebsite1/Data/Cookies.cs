@@ -6,6 +6,7 @@
         public int PlayerID { get; set; } = 0;
         public int CurrentClass { get; set; } = 0;
         public int CurrentDiscussion { get; set; } = 0;
-        public int CurrentAssessment { get; set; }
+        public int CurrentAssessment { get; set; } = 0;
+        public int CurrentLvl { get; set; } = 0;
     }
 }

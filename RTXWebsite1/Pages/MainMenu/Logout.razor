@@ -24,14 +24,14 @@
 @code {
 
     // Method name must be different from class name
-    public async Task LogoutMethod()
+    public void LogoutMethod()
     {
         Cookie.UserID = 0;
         Cookie.CurrentClass = 0;
         NavManager.NavigateTo("/");
     }
 
-    public async Task GoToHome()
+    public void GoToHome()
     {
         NavManager.NavigateTo("/");
     }
