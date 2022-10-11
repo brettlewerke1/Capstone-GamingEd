@@ -15,10 +15,34 @@
     NavManager.NavigateTo("/");
 }
 
-<p>WAHOO</p>
+@if( levelInfo == null )
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1 div class="title-head">@levelInfo[0].Level_Name</h1>
+    <p>
+        @levelInfo[0].Level_Desc
+    </p>
+}
 
+@if(content == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach( var p in content )
+    {
+        <p>
+            <a href="@p.Module_Path" @onclick="(() => ChangeModule(p.LvlContent_ObjectID))">@p.LvlContent_OrderNum | @p.LvlContent_Name</a>
+        </p>
+    }
+}
 @code{
     List<LevelContent>? content;
+    List<Level>? levelInfo;
 
     private async Task GetData()
     {
@@ -29,7 +53,15 @@
     {
         string sql = "WHERE LevelContent.LvlContent_LevelID = @ThisLvl ORDER BY `LevelContent`.`LvlContent_OrderNum`";
 
-        content = await _data.LoadData<LevelContent, dynamic>( LevelContent.GetSQL() + sql, new { ThisLvl = Cookie.CurrentLvl }, _config.GetConnectionString("RTX"));
+        content = await _data.LoadData<LevelContent, dynamic>(LevelContent.GetSQL() + sql, new { ThisLvl = Cookie.CurrentLvl }, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE Level_ID = @ThisLevel";
+        levelInfo = await _data.LoadData<Level, dynamic>(Level.GetSQL() + sql, new { ThisLevel = Cookie.CurrentLvl }, _config.GetConnectionString("RTX"));
+    }
+
+    public void ChangeModule( int nextModule)
+    {
+        Cookie.CurrentModule = nextModule;
     }
 
     //<a href="/assessments" class="btn btn-primary" @onclick="(() => AccessAssessment(1))" id="@p.Course_ID">Assessments</a>
