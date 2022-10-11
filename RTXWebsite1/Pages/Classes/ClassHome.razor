@@ -33,7 +33,6 @@ else
         {
             <a href="/marketplace" class="btn btn-primary">Marketplace</a>
         }
-        <a href="/assessments" class="btn btn-primary" @onclick="(() => AccessAssessment(1))" id="@p.Course_ID">Assessments</a>
         <a href="/viewdiscussions" class="btn btn-primary">Discussion</a>
     }
     @foreach( var p in levelInfo )
@@ -100,11 +99,6 @@ else
                 nextLevel = null;
             }
         } 
-    }
-
-    private void AccessAssessment( int number )
-    {
-        Cookie.CurrentAssessment = number;
     }
 
     private void ChangeLevel( int levelSelected )

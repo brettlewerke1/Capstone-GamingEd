@@ -1,0 +1,42 @@
+@page "/text"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject IConfiguration _config
+@inject IDatabaseAccess _data
+
+@inject NavigationManager NavManager
+
+@if( writing == null )
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>
+        @writing[0].Text_Title
+    </p>
+
+    <p>
+        @writing[0].Text_Content
+    </p>
+}
+
+@code{
+    List<TextBlock>? writing;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE Text_ID = @ThisModule";
+
+        writing = await _data.LoadData<TextBlock, dynamic>(TextBlock.GetSQL() + sql, new { ThisModule = Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+    }
+}
