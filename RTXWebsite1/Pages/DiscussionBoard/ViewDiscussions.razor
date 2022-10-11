@@ -64,13 +64,13 @@ else
         discussions = await _data.LoadData<DiscussionBoard, dynamic>(DiscussionBoard.GetSQL() + sql, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
     }
 
-    public async Task Reply(DiscussionBoard discussionBoard)
+    public void Reply(DiscussionBoard discussionBoard)
     {
         Cookie.CurrentDiscussion = discussionBoard.Discussion_ID;
         NavManager.NavigateTo($"/replytodiscussion/{discussionBoard.Discussion_Title}");
     }
 
-    public async Task NewDiscussion()
+    public void NewDiscussion()
     {
         NavManager.NavigateTo("/newdiscussion");
     }

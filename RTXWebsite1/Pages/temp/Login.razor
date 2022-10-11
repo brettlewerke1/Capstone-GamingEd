@@ -9,7 +9,7 @@
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
-<!-- THIS FILE IS NOT CURRENTLY IN USE; PLEASE SEE INDEX.RAZOR -->
+<!-- THIS FILE IS NOT CURRENTLY IN USE; PLEASE SEE INDEX.RAZOR, SAVED TO PRESERVE POSSIBLE NOTES-->
 
 <h1 div class="title-head"> Login </h1>
 
@@ -51,6 +51,10 @@
             Cookie.UserID = result;
             Cookie.CurrentClass = 0;
             //myCookieValue = await JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "cookieName");
+            /*
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentUser", account.Account_ID, DateTime.Now.AddMinutes(1000));
+            await JsRuntime.InvokeAsync<object>("WriteCookie.WriteCookie", "currentClass", course.Course_ID, DateTime.Now.AddMinutes(1000));
+            */
             NavManager.NavigateTo("/");
         }
     }

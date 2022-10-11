@@ -90,8 +90,8 @@ else
     public async void Purchase(int cost, int newAvatar)
     {
         // Add the purchase to the AvatarPlayerLibrary for use in this specific class
-        string sql = "insert into AvatarPlayerLibrary (APLibrary_AvatarID, APLibrary_PlayerID, APLibrary_CourseID) values (@ThisAvatar, @ThisPlayer, @ThisCourse)";
-        await _data.SaveData(sql, new { ThisAvatar = newAvatar, ThisPlayer = Cookie.PlayerID, ThisCourse = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+        string sql = "insert into AvatarPlayerLibrary (APLibrary_AvatarID, APLibrary_PlayerID) values (@ThisAvatar, @ThisPlayer)";
+        await _data.SaveData(sql, new { ThisAvatar = newAvatar, ThisPlayer = Cookie.PlayerID}, _config.GetConnectionString("RTX"));
 
         // Subtract the coins away from the user
         sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
