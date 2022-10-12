@@ -35,12 +35,15 @@ else
         <p>
             @p.Discussion_Date | @p.Discussion_Desc
         </p>
-       
+
         <button class="btn btn-primary" @onclick="(() => Reply(p))">Open</button>
+
+        // If the person who made the post views the discussion, they have the choice to delete it
         if(Cookie.UserID == p.Discussion_PlayerID)
         {
             <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
         }
+
          <p>
              -----------------------------------------------
         </p>
@@ -51,6 +54,7 @@ else
 @code {
     List<DiscussionBoard>? discussions;
     List<DiscussionBoard>? deletedDiscussion;
+    
 
     private async Task GetData()
     {
