@@ -1,5 +1,56 @@
 @page "/assignment"
 
+
+
+@using RTXWebsite1.Models;
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+
+
+<h1 div class="title-head"> Assignment </h1>
+<br />
+
+
+
+    <EditForm Model="@assignment" OnValidSubmit="@goToResults" >
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary />   
+
+        
+        <input type="file" />
+
+
+
+        <button type="submit" class="btn btn-primary"> Submit</button>
+        <br/>
+
+
+
+    </EditForm>
+
+
 @code{
+
+
+    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
+
+    async void goToResults( )
+    {
+        // navigate to results page while passing in 2 parameters
+        NavManager.NavigateTo($"/assignmentsubmitted");
+    }
+
+
 
 }
