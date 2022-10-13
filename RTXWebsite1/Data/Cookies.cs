@@ -8,5 +8,6 @@
         public int CurrentDiscussion { get; set; } = 0;
         public int CurrentAssessment { get; set; } = 0;
         public int CurrentLvl { get; set; } = 0;
+        public int CurrentModule { get; set; } = 0;
     }
 }
