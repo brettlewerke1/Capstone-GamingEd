@@ -20,9 +20,10 @@
 <h1 div class="title-head"> Assignment </h1>
 <br />
 
+ 
 
 
-    <EditForm Model="@assignment" OnValidSubmit="@goToResults" >
+    <EditForm Model="@assignment" OnValidSubmit="@submitAssignment" >
 
     <DataAnnotationsValidator/>
     <ValidationSummary />   
@@ -31,10 +32,8 @@
         <input type="file" />
 
 
-
         <button type="submit" class="btn btn-primary"> Submit</button>
         <br/>
-
 
 
     </EditForm>
@@ -45,10 +44,14 @@
 
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
-    async void goToResults( )
+
+    
+
+    async void submitAssignment( )
     {
         // navigate to results page while passing in 2 parameters
-        NavManager.NavigateTo($"/assignmentsubmitted");
+        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.Data}");
+
     }
 
 

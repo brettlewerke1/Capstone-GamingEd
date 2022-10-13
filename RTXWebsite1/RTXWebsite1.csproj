@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Content Remove="Pages\classes.razor" />
+    <Content Remove="Pages\Classes\assignmentonline.razor" />
   </ItemGroup>
 
   <ItemGroup>
