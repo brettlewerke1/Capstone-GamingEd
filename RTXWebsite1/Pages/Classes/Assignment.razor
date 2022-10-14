@@ -49,24 +49,49 @@
 
     string sqlString = "";
 
+    string base64String = "";
+
+    public static byte[] GetBytes(Stream stream)
+    {
+        var bytes = new byte[stream.Length];
+        stream.Seek(0, SeekOrigin.Begin);
+        stream.ReadAsync(bytes, 0, bytes.Length);
+        stream.Dispose();
+        return bytes;
+    }
 
 
 
-    private async Task submitAssignment( InputFileChangeEventArgs e )
+
+    private async Task submitAssignment( InputFileChangeEventArgs args )
     {
 
 
-        MemoryStream ms = new MemoryStream();
-        await e.File.OpenReadStream().CopyToAsync(ms);
-        var bytes = ms.ToArray();
-        //do something with bytes
+        try
+        {
+            var files = args.GetMultipleFiles();
+            foreach (var file in files)
+            {
+                await using MemoryStream fs = new MemoryStream();
+                await file.OpenReadStream(maxAllowedSize: 1048576).CopyToAsync(fs);
+                byte[] somBytes = GetBytes(fs);
+                base64String = Convert.ToBase64String(somBytes, 0, somBytes.Length);
+                System.Diagnostics.Debug.Print("Imatge 64: " + base64String + Environment.NewLine);
+            }
+        }
+
+
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.Print("ERROR: " + e.Message + Environment.NewLine);
+        }
+
+
+        sqlString = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sqlString, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
 
         
-        sqlString = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheBytes WHERE (`Assignment_PlayerID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sqlString, new {TheBytes = bytes, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-        
-
-
         NavManager.NavigateTo($"/assignmentsubmitted/{assignment.submissionString}");
 
     }
