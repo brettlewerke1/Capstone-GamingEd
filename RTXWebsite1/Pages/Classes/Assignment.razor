@@ -15,6 +15,9 @@
 @inject IDatabaseAccess _data
 
 
+@using System.IO
+
+
 
 
 <h1 div class="title-head"> Assignment </h1>
@@ -23,25 +26,14 @@
  
 
 
-    <EditForm Model="@assignment" OnValidSubmit="@submitAssignment" >
-
-    <DataAnnotationsValidator/>
-    <ValidationSummary />   
 
         
-        <InputFile @bind-Value= "@assignment.submissionString" >
-
-
-        </InputFile>
-
-        <button type="submit" class="btn btn-primary"> Submit</button>
-        <br/>
+        <InputFile OnChange="@submitAssignment" />
 
 
 
+  
 
-
-    </EditForm>
 
 
 @code{
@@ -50,14 +42,35 @@
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
 
-    
 
-    async void submitAssignment( )
+    List<PlayerInformation>? player;
+
+
+
+    string sqlString = "";
+
+
+
+
+    private async Task submitAssignment( InputFileChangeEventArgs e )
     {
-        // navigate to results page while passing in 2 parameters
+
+
+        MemoryStream ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        var bytes = ms.ToArray();
+        //do something with bytes
+
+        
+        sqlString = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheBytes WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sqlString, new {TheBytes = bytes, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        
+
+
         NavManager.NavigateTo($"/assignmentsubmitted/{assignment.submissionString}");
 
     }
+
 
 
 

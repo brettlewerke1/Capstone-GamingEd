@@ -3,7 +3,7 @@
     public class Assignment
     {
 
-        public string submissionString { get; set; } = "hellothere";
+        public string submissionString { get; set; } = "iAmDefaultSubmissionString";
 
 
         public string Data { get; set; } = "somestring";
