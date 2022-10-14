@@ -29,11 +29,16 @@
     <ValidationSummary />   
 
         
-        <input type="file" />
+        <InputFile @bind-Value= "@assignment.submissionString" >
 
+
+        </InputFile>
 
         <button type="submit" class="btn btn-primary"> Submit</button>
         <br/>
+
+
+
 
 
     </EditForm>
@@ -50,7 +55,7 @@
     async void submitAssignment( )
     {
         // navigate to results page while passing in 2 parameters
-        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.Data}");
+        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.submissionString}");
 
     }
 

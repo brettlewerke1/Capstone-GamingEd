@@ -3,10 +3,17 @@
     public class Assignment
     {
 
-        public string submissionString { get; set; } = "";
+        public string submissionString { get; set; }
 
 
-        public string Data { get; set; } = "dataDefaultString";
+        public string Data { get; set; } = "somestring";
+
+
+        public byte[] SubmittedBlob { get; set; }
+
+
+
+        
 
     }
 
