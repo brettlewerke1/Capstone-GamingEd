@@ -76,7 +76,7 @@
                 await file.OpenReadStream(maxAllowedSize: 1048576).CopyToAsync(fs);
                 byte[] somBytes = GetBytes(fs);
                 base64String = Convert.ToBase64String(somBytes, 0, somBytes.Length);
-                System.Diagnostics.Debug.Print("Imatge 64: " + base64String + Environment.NewLine);
+                System.Diagnostics.Debug.Print("Image 64: " + base64String + Environment.NewLine);
             }
         }
 
