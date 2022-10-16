@@ -23,34 +23,19 @@
 <h1 div class="title-head"> Assignment </h1>
 <br />
 
- 
 
-
-
-        
-        <InputFile OnChange="@submitAssignment" />
-
-
-
-  
-
-
+             <InputFile OnChange="@submitAssignment" />
+            
 
 @code{
 
-
-    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
-
-
-
+    // initialize vairbales
     List<PlayerInformation>? player;
-
-
-
     string sqlString = "";
-
     string base64String = "";
 
+
+    // get bytes from file
     public static byte[] GetBytes(Stream stream)
     {
         var bytes = new byte[stream.Length];
@@ -59,8 +44,6 @@
         stream.Dispose();
         return bytes;
     }
-
-
 
 
     private async Task submitAssignment( InputFileChangeEventArgs args )
@@ -74,7 +57,11 @@
             {
                 await using MemoryStream fs = new MemoryStream();
                 await file.OpenReadStream(maxAllowedSize: 1048576).CopyToAsync(fs);
+
+                // covert file to bytes
                 byte[] somBytes = GetBytes(fs);
+                
+                // convert bytes to base64
                 base64String = Convert.ToBase64String(somBytes, 0, somBytes.Length);
                 System.Diagnostics.Debug.Print("Image 64: " + base64String + Environment.NewLine);
             }
@@ -92,7 +79,7 @@
 
 
         
-        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.submissionString}");
+        NavManager.NavigateTo($"/assignmentsubmitted");
 
     }
 

@@ -1,4 +1,4 @@
-﻿@page "/assignmentsubmitted/{FileName}"
+﻿@page "/assignmentsubmitted"
 
 
 
@@ -30,19 +30,28 @@
 
 <p>You have successfully submitted your assignment</p>
 
+
+ <EditForm Model="@assignment" OnValidSubmit="@goToResults" >
+
+
+    <button type="submit" class="btn btn-primary"> Re-Submit </button>
+    <br/>
+
+</EditForm>
+
+
+
 @code {
        
     
+    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
 
-
-
-    [Parameter]
-    public string FileName { get; set; }
-
-
-
-
+    async void goToResults( )
+    {
+        // navigate to results page while passing in 2 parameters
+        NavManager.NavigateTo($"/assignment");
+    }
 
 
 }
