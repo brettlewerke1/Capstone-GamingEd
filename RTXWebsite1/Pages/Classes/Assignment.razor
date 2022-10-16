@@ -17,23 +17,26 @@
 
 @using System.IO
 
-
-
-
+<!-- Assignment Title -->
 <h1 div class="title-head"> Assignment </h1>
 <br />
 
 
-             <InputFile OnChange="@submitAssignment" />
-            
+<!-- Grab File -->
+<InputFile OnChange="@submitAssignment" />
+
+
+
 
 @code{
 
-    // initialize vairbales
+    // initialize variables
     List<PlayerInformation>? player;
     string sqlString = "";
     string base64String = "";
 
+
+    byte[] somBytes = null;
 
     // get bytes from file
     public static byte[] GetBytes(Stream stream)
@@ -50,6 +53,10 @@
     {
 
 
+        NavManager.NavigateTo($"/assignmentsubmitted");
+
+
+
         try
         {
             var files = args.GetMultipleFiles();
@@ -58,8 +65,8 @@
                 await using MemoryStream fs = new MemoryStream();
                 await file.OpenReadStream(maxAllowedSize: 1048576).CopyToAsync(fs);
 
-                // covert file to bytes
-                byte[] somBytes = GetBytes(fs);
+                // convert file to bytes
+                somBytes = GetBytes(fs);
                 
                 // convert bytes to base64
                 base64String = Convert.ToBase64String(somBytes, 0, somBytes.Length);
@@ -74,12 +81,13 @@
         }
 
 
+        // update database with file in base64 format
         sqlString = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
         player = await _data.LoadData<PlayerInformation, dynamic>(sqlString, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
         
-        NavManager.NavigateTo($"/assignmentsubmitted");
+        
 
     }
 
