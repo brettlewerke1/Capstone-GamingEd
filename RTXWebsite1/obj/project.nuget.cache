@@ -1,13 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "VAqLPRI0bxAlZuYCNOY6afbYRlskWb3vHljR5e7LUb6BktigQJwsiCnURA14s+FOsfJOF687vKZopMAxfdE2aQ==",
+  "dgSpecHash": "HNfnpJrNPVFOde2nSJMys4DCtOhM3xKx+AGeiEzZG+MjgxPAuJk2N5/Qz27FKvHcyDmNNq+UQbdbszeWVzEsFA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+  "projectFilePath": "C:\\Users\\Chase\\OneDrive\\Desktop\\CS476_486\\ChaseSpigarelli__GitHub\\Website_App\\Capstone-GamingEd\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Chase\\.nuget\\packages\\blazored.localstorage\\4.2.0\\blazored.localstorage.4.2.0.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",
+    "C:\\Users\\Chase\\.nuget\\packages\\ironpdf.native.chrome.windows\\2022.10.9530\\ironpdf.native.chrome.windows.2022.10.9530.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
     "C:\\Users\\Chase\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
