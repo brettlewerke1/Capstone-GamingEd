@@ -6,6 +6,7 @@
 
 @using RTXWebsite1.Models;
 
+
 @inject Blazored.LocalStorage.ILocalStorageService localStorage;
 @inject IJSRuntime JsRuntime;
 @inject IConfiguration _config;
@@ -20,38 +21,76 @@
 
 
 
-
-
 <h1 div class="title-head"> Assignment Submission Page </h1>
 <br />
 
 
+<p> You have successfully submitted your assignment! </p>
 
 
-<p>You have successfully submitted your assignment</p>
+ <EditForm Model="@assignment" OnValidSubmit="@goBack" >
 
 
- <EditForm Model="@assignment" OnValidSubmit="@goToResults" >
-
-
-    <button type="submit" class="btn btn-primary"> Re-Submit </button>
+    <button type="submit" class="btn btn-primary"> Re-Submit Assignment </button>
     <br/>
 
 </EditForm>
 
 
 
+
+
+
+
+
+
+
+
 @code {
-       
-    
+
+
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
 
-    async void goToResults( )
+    List<Assignment>? assignmentList;
+
+
+
+
+    string sql = "";
+
+        
+
+
+
+    async void goBack( )
     {
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/assignment");
     }
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    
+        sql = "select * from Assignment where (`Assignment_PlayerID` = @ThisPlayer)";
+
+        assignmentList = await _data.LoadData<Assignment, dynamic>(sql,new { ThisPlayer = Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+
+
+
+    }
+
+    
 
 
 }

@@ -15,26 +15,65 @@
 @inject IDatabaseAccess _data
 
 
+
+
 @using System.IO
+
+
+
+
+
+
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Text;
+
+
+
+
+
 
 <!-- Assignment Title -->
 <h1 div class="title-head"> Assignment </h1>
 <br />
 
 
-<!-- Grab File -->
-<InputFile OnChange="@submitAssignment" />
 
+
+    <InputFile OnChange="@submitAssignment" />
+
+    <!-- Display that the file is being uploaded while it is being uploaded-->
+    @((MarkupString)myMarkup)
 
 
 
 @code{
 
+
+
+    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
+
     // initialize variables
-    List<PlayerInformation>? player;
     string sqlString = "";
     string base64String = "";
     byte[] somBytes;
+
+    List<Assignment>? assignmentList;
+    List<PlayerInformation>? player;
+
+    
+
+
+
+
+
+    string myMarkup = "";
+
+    
+
+
+
 
     // get bytes from file
     public static byte[] GetBytes(Stream stream)
@@ -50,11 +89,11 @@
     private async Task submitAssignment( InputFileChangeEventArgs args )
     {
 
+        
+        myMarkup = "<p class='markup'><em>Submitting your file...</em>.</p>";
+        
 
-        NavManager.NavigateTo($"/assignmentsubmitted");
-
-
-
+        // convert file to base64
         try
         {
             var files = args.GetMultipleFiles();
@@ -62,6 +101,7 @@
             {
                 await using MemoryStream fs = new MemoryStream();
                 await file.OpenReadStream(maxAllowedSize: 1048576).CopyToAsync(fs);
+
 
                 // convert file to bytes
                 somBytes = GetBytes(fs);
@@ -80,14 +120,22 @@
 
 
         // update database with file in base64 format
-        sqlString = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sqlString, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        string sql = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
+
+        NavManager.NavigateTo($"/assignmentsubmitted");
+
 
 
         
         
 
     }
+
+
+
 
 
 
