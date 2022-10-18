@@ -40,10 +40,10 @@
 
 
 
-
+    <!-- Submit File Here -->
     <InputFile OnChange="@submitAssignment" />
 
-    <!-- Display that the file is being uploaded while it is being uploaded-->
+    <!-- Display that the file is being uploaded -->
     @((MarkupString)myMarkup)
 
 
@@ -51,16 +51,14 @@
 @code{
 
 
-
+    // model
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
     // initialize variables
-    string sqlString = "";
+    string sql = "";
     string base64String = "";
     byte[] somBytes;
-
     List<Assignment>? assignmentList;
-    List<PlayerInformation>? player;
 
     
 
@@ -120,8 +118,8 @@
 
 
         // update database with file in base64 format
-        string sql = "UPDATE `RTX`.`Assignment` SET `Assignment_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        sql = "UPDATE `RTX`.`Assignment` SET `Assignment_String_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
 

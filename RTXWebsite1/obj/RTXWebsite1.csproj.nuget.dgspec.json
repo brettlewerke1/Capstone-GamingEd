@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[2.0.123, )"
             },
+            "IronPdf.Native.Chrome.Windows": {
+              "target": "Package",
+              "version": "[2022.10.9530, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.29, )"

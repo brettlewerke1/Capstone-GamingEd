@@ -18,6 +18,13 @@
 @inject IDatabaseAccess _data
 
 
+@using System.Text;
+
+
+
+
+
+
 
 
 
@@ -42,6 +49,49 @@
 
 
 
+<!--  TRYING to grab elements from Assignment table -->
+@if( assignmentList == null )
+{
+    <em>Loading...</em>
+}
+
+@if( assignmentList != null )
+{
+    foreach( var p in assignmentList )
+    {
+
+
+        // retrieving the base64 string from database
+        string myString = @p.Assignment_String_Upload;
+
+                
+        <!-- PDF ONLY -->
+        var PdfContent = $"data:application/pdf;base64, {myString}";
+
+        <embed src="@PdfContent" />
+
+        
+        @*
+        var base64EncodedBytes = Convert.FromBase64String(myString);
+      
+     
+        <!-- Text from text file -->
+        var inputString = Encoding.UTF8.GetString(base64EncodedBytes);
+
+        <p>Input String: @inputString</p>
+
+
+        <!-- Image ONLY -->
+        var Image = $"data:application/image;base64, {myString}";
+
+        <img src="@Image" alt="" />
+        *@
+             
+
+
+
+    }
+}
 
 
 
@@ -52,20 +102,18 @@
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
 
-    List<Assignment>? assignmentList;
-
+    List<RTXWebsite1.Models.Assignment>? assignmentList;
 
 
 
     string sql = "";
 
-        
 
 
 
     async void goBack( )
     {
-        // navigate to results page while passing in 2 parameters
+        // navigate back to assignment page
         NavManager.NavigateTo($"/assignment");
     }
 
@@ -80,11 +128,10 @@
     protected override async Task OnInitializedAsync()
     {
 
-    
+
         sql = "select * from Assignment where (`Assignment_PlayerID` = @ThisPlayer)";
 
-        assignmentList = await _data.LoadData<Assignment, dynamic>(sql,new { ThisPlayer = Cookie.UserID }, _config.GetConnectionString("RTX"));
-
+        assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(sql,new { ThisPlayer = Cookie.UserID }, _config.GetConnectionString("RTX"));
 
 
 
