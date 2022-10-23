@@ -38,20 +38,56 @@
 <h1 div class="title-head"> Assignment </h1>
 <br />
 
+    <!-- Please check what kind of file you are submitting -->
+    <p>Please check what kind of file you are submitting</p>
+    <EditForm Model="@assignment">
+
+        <InputRadioGroup @bind-Value=@assignment.Assignment_Type>
+           
+            <InputRadio Value="@assignment.PDF_File" /> PDF (.pdf) &nbsp; &nbsp;
+        
+            <InputRadio Value="@assignment.Text_File" /> Text (.txt) &nbsp; &nbsp;
+
+            <InputRadio Value="@assignment.Image_File" /> Image (.jpg/.png) &nbsp; &nbsp;
+
+            <InputRadio Value="@assignment.Word_File" /> Word Doc (.docx) &nbsp; &nbsp;
+
+            <InputRadio Value="@assignment.Excel_File" /> Excel(.xls) &nbsp; &nbsp;
+
+        </InputRadioGroup>
+ 
+    </EditForm>
+    
+
+    @if( assignment.Assignment_Type == null)
+    {
+        <p>Please choose a submission type</p>
+    }
+    else if( assignment.Assignment_Type != null )
+    {
+    
+
+        
+        <!-- Submit File Here -->
+        <InputFile OnChange="@submitAssignment" />
+
+        <!-- Display that the file is being uploaded -->
+        @((MarkupString)myMarkup)
 
 
-    <!-- Submit File Here -->
-    <InputFile OnChange="@submitAssignment" />
 
-    <!-- Display that the file is being uploaded -->
-    @((MarkupString)myMarkup)
+
+    }
 
 
 
-@code{
 
 
-    // model
+
+    @code{
+
+
+        // model
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
     // initialize variables
@@ -60,7 +96,7 @@
     byte[] somBytes;
     List<Assignment>? assignmentList;
 
-    
+
 
 
 
@@ -68,9 +104,12 @@
 
     string myMarkup = "";
 
-    
 
 
+    private async Task submitAssignmentType(  )
+    {
+        
+    }
 
 
     // get bytes from file
@@ -123,7 +162,7 @@
 
 
 
-        NavManager.NavigateTo($"/assignmentsubmitted");
+        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.Assignment_Type}");
 
 
 

@@ -1,4 +1,4 @@
-﻿@page "/assignmentsubmitted"
+﻿@page "/assignmentsubmitted/{Retrieved_Assignment_Type}"
 
 
 
@@ -24,12 +24,11 @@
 
 
 
-
-
-
-
 <h1 div class="title-head"> Assignment Submission Page </h1>
 <br />
+
+
+
 
 
 <p> You have successfully submitted your assignment! </p>
@@ -42,6 +41,8 @@
     <br/>
 
 </EditForm>
+
+
 
 
 
@@ -59,44 +60,52 @@
 
 
         // retrieving the base64 string from database
-        string myString = @p.Assignment_String_Upload;
-
-                
-        <!-- PDF ONLY -->
-        var PdfContent = $"data:application/pdf;base64, {myString}";
-
-        <embed src="@PdfContent" />
-
-        
+        string assignmentString = @p.Assignment_String_Upload;
 
 
-
-
-
-
-
-
-
-
-
-
-        @*
-        var base64EncodedBytes = Convert.FromBase64String(myString);
-      
      
-        <!-- Text from text file -->
-        var inputString = Encoding.UTF8.GetString(base64EncodedBytes);
+        if( Retrieved_Assignment_Type == "PDF" )
+        {
+      
+            <!-- PDF ONLY -->
+            var PdfContent = $"data:application/pdf;base64, {assignmentString}";
 
-        <p>Input String: @inputString</p>
+            <embed src="@PdfContent" accept=".pdf" />
 
+        }
 
-        <!-- Image ONLY -->
-        var Image = $"data:application/image;base64, {myString}";
+        else if( Retrieved_Assignment_Type == "Image" )
+        {
+            <!-- JPG and PNG -->
+            var Image = $"data:application/image;base64, {assignmentString}";
 
-        <img src="@Image" alt="" />
-        *@
-             
+            <img src="@Image" alt="" />
+        }
 
+        else if( Retrieved_Assignment_Type == "Text" )
+        {
+            <!-- Text -->
+            var txtFile = $"data:application/text/plain;base64,{assignmentString}";
+            <object type="text/plain" data="@txtFile" ></object>
+        }
+
+        else if( Retrieved_Assignment_Type == "Word" )
+        {
+            <!-- Word Doc -->
+            var wordFile = $"data:application/msword;base64,{assignmentString}";
+            <a href="@wordFile">Click to view your submitted word doc</a>
+        }
+
+        else if( Retrieved_Assignment_Type == "Excel" )
+        {
+            <!-- Excel -->
+            var excelFile = $"data:application/vnd.ms-excel;base64,{assignmentString}";
+            <a href="@excelFile">Click to view your submitted Excel file</a>
+        }
+        else
+        {
+            <p>Please go back and choose a valid file type.</p>
+        }
 
 
     }
@@ -116,6 +125,10 @@
 
 
     string sql = "";
+
+
+    [Parameter]
+    public string Retrieved_Assignment_Type { get; set; }
 
 
 
