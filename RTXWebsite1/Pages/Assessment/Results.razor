@@ -42,35 +42,35 @@
             questionNumber++;
         
             // if Display_Answers boolean is set to true then show the correct answers (0=false, 1=true because tinyInt)
-            @if( @p.Assessment_Display_Answers == true  )
+            @if( @p.Assessment_DisplayAnswers == true  )
             {
                 <p><b> @questionNumber. @p.Assessment_Question </b></p>
                            
                 // if not a matching question
-                @if( @p.Assessment_Question_Type != "Matching" )
+                @if( @p.Assessment_QuestionType != "Matching" )
                 {
                     foreach( var correctAnswer in answerList )
                     {
                         // display answers
-                        if( @correctAnswer.AssessmentAnswer_Assessment_ID == p.Assessment_ID && @correctAnswer.AssessmentAnswer_Correct_Answers != null && correctAnswer.AssessmentAnswer_Correct_Answers != "" )
+                        if( @correctAnswer.AssessmentAnswer_AssessmentID == p.Assessment_ID && @correctAnswer.AssessmentAnswer_CorrectAnswers != null && correctAnswer.AssessmentAnswer_CorrectAnswers != "" )
                         {
-                                <p>Answer: @correctAnswer.AssessmentAnswer_Correct_Answers</p>    
+                                <p>Answer: @correctAnswer.AssessmentAnswer_CorrectAnswers</p>    
                         }
                     }
                     <br/>
                 }
 
                 // if a matching question
-                @if (@p.Assessment_Question_Type == "Matching"  )
+                @if (@p.Assessment_QuestionType == "Matching"  )
                 {
                     foreach( var answer in answerList )
                     {
-                        if( @answer.AssessmentAnswer_Correct_Answers!= null && answer.AssessmentAnswer_Assessment_ID == p.Assessment_ID )
+                        if( @answer.AssessmentAnswer_CorrectAnswers!= null && answer.AssessmentAnswer_AssessmentID == p.Assessment_ID )
                         {
                             numberOfAnswers++;
 
                             // display answers
-                            <p> @answer.AssessmentAnswer_Matching_Answer : @answer.AssessmentAnswer_Correct_Answers</p>
+                            <p> @answer.AssessmentAnswer_MatchingAnswer : @answer.AssessmentAnswer_CorrectAnswers</p>
                         }
                     }
                 }
@@ -113,15 +113,13 @@
 
         string sql = "select * from Assessment where Assessment_Number = 1";
 
-        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        assessmentList = await _data.LoadData<Assessment, dynamic>(Assessment.GetSQL(), new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
 
-        string sqlAnswersTable = "select * from AssessmentAnswer";
-
-        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(sqlAnswersTable, new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(AssessmentAnswers.GetSQL(), new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
 
 
         sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
-        playerCoins = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
         if (playerCoins != null)
