@@ -140,6 +140,17 @@
         sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
         player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = totalCoins, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
-    }
+
+
+        /*
+         * 
+         * // Updates assessment score to gradebook for the logged in user
+        sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @Score WHERE (`Player_ID` = @ThisPlayer)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { Score = EarnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        */
+        
+        }
+
+
 
 }

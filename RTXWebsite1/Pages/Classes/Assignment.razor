@@ -84,7 +84,13 @@
 
         
         <!-- Submit File Here -->
-        <InputFile OnChange="@submitAssignment" />
+
+        <EditForm Model = "@assignment" >
+            <InputFile OnChange="@submitAssignment" />
+        </EditForm>
+        
+
+        
 
         <!-- Display that the file is being uploaded -->
         @((MarkupString)myMarkup)
