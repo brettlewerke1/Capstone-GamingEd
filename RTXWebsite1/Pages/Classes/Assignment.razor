@@ -55,8 +55,16 @@
             <InputRadio Value="@assignment.Excel_File" /> Excel(.xls) &nbsp; &nbsp;
 
         </InputRadioGroup>
+
+        
+        
  
     </EditForm>
+
+
+
+    <br/>
+
     
 
     @if( assignment.Assignment_Type == null)
@@ -75,6 +83,16 @@
         @((MarkupString)myMarkup)
 
 
+        <br/>
+       <br/>
+    
+
+        <p> Assignment Comment: </p>
+        <EditForm Model="@assignment">
+            <InputText @bind-Value="@assignment.Assignment_Comment" />
+        </EditForm>
+
+
 
 
     }
@@ -84,10 +102,10 @@
 
 
 
-    @code{
+@code{
 
 
-        // model
+    // model
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
 
     // initialize variables
@@ -95,6 +113,10 @@
     string base64String = "";
     byte[] somBytes;
     List<Assignment>? assignmentList;
+
+
+
+   
 
 
 
@@ -160,6 +182,9 @@
         sql = "UPDATE `RTX`.`Assignment` SET `Assignment_String_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
         assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
+
+        sql = "UPDATE `RTX`.`Assignment` SET `Assignment_Comment` = @Comment WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {Comment = assignment.Assignment_Comment, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
         NavManager.NavigateTo($"/assignmentsubmitted/{assignment.Assignment_Type}");
