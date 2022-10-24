@@ -1776,3 +1776,14 @@ C:\Users\Chase\OneDrive\Desktop\CS476_486\ChaseSpigarelli__GitHub\Website_App\Ca
 C:\Users\Chase\OneDrive\Desktop\CS476_486\ChaseSpigarelli__GitHub\Website_App\Capstone-GamingEd\Capstone-GamingEd\RTXWebsite1\bin\Debug\net6.0\runtimes\win-x86\native\vcruntime140.dll
 C:\Users\Chase\OneDrive\Desktop\CS476_486\ChaseSpigarelli__GitHub\Website_App\Capstone-GamingEd\Capstone-GamingEd\RTXWebsite1\bin\Debug\net6.0\runtimes\win-x86\native\vk_swiftshader.dll
 C:\Users\Chase\OneDrive\Desktop\CS476_486\ChaseSpigarelli__GitHub\Website_App\Capstone-GamingEd\Capstone-GamingEd\RTXWebsite1\bin\Debug\net6.0\runtimes\win-x86\native\vulkan-1.dll
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.csproj.AssemblyReference.cache
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.AssemblyInfoInputs.cache
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.AssemblyInfo.cs
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.csproj.CoreCompileInputs.cache
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.RazorAssemblyInfo.cache
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.RazorAssemblyInfo.cs
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.dll
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\refint\RTXWebsite1.dll
+C:\Users\hsieh\source\Repos\GamingEd\RTXWebsite1\obj\Debug\net6.0\RTXWebsite1.pdb

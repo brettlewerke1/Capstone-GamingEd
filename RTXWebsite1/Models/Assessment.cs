@@ -84,6 +84,8 @@ namespace RTXWebsite1.Models
         // the correct answers to the question
         public string? AssessmentAnswer_CorrectAnswers { get; set; }
 
+        public string? AssessmentAnswer_Selected_Answers { get; set; }
+
         public static string GetSQL()
         {
             return @"    
