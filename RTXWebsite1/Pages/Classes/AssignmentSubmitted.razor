@@ -1,0 +1,152 @@
+﻿@page "/assignmentsubmitted"
+
+
+
+
+
+@using RTXWebsite1.Models;
+
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+@using System.Text;
+
+
+
+
+
+
+
+
+
+<h1 div class="title-head"> Assignment Submission Page </h1>
+<br />
+
+
+<p> You have successfully submitted your assignment! </p>
+
+
+ <EditForm Model="@assignment" OnValidSubmit="@goBack" >
+
+
+    <button type="submit" class="btn btn-primary"> Re-Submit Assignment </button>
+    <br/>
+
+</EditForm>
+
+
+
+
+<!--  Grabbing elements from Assignment table -->
+@if( assignmentList == null )
+{
+    <em>Loading...</em>
+}
+
+@if( assignmentList != null )
+{
+    foreach( var p in assignmentList )
+    {
+
+
+        // retrieving the base64 string from database
+        string myString = @p.Assignment_String_Upload;
+
+                
+        <!-- PDF ONLY -->
+        var PdfContent = $"data:application/pdf;base64, {myString}";
+
+        <embed src="@PdfContent" />
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        @*
+        var base64EncodedBytes = Convert.FromBase64String(myString);
+      
+     
+        <!-- Text from text file -->
+        var inputString = Encoding.UTF8.GetString(base64EncodedBytes);
+
+        <p>Input String: @inputString</p>
+
+
+        <!-- Image ONLY -->
+        var Image = $"data:application/image;base64, {myString}";
+
+        <img src="@Image" alt="" />
+        *@
+             
+
+
+
+    }
+}
+
+
+
+
+@code {
+
+
+    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
+
+
+    List<RTXWebsite1.Models.Assignment>? assignmentList;
+
+
+
+    string sql = "";
+
+
+
+
+    async void goBack( )
+    {
+        // navigate back to assignment page
+        NavManager.NavigateTo($"/assignment");
+    }
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+        sql = "select * from Assignment where (`Assignment_PlayerID` = @ThisPlayer)";
+
+        assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(sql,new { ThisPlayer = Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+
+
+    }
+
+    
+
+
+}
