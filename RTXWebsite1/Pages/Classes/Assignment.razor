@@ -71,9 +71,16 @@
     {
         <p>Please choose a submission type</p>
     }
+    // if assignment type has been chosen allow the user to upload a file
     else if( assignment.Assignment_Type != null )
     {
     
+
+
+        <p> Assignment Comment: </p>
+        <EditForm Model="@assignment">
+            <InputText @bind-Value="@assignment.Assignment_Comment" />
+        </EditForm>
 
         
         <!-- Submit File Here -->
@@ -86,13 +93,6 @@
         <br/>
        <br/>
     
-
-        <p> Assignment Comment: </p>
-        <EditForm Model="@assignment">
-            <InputText @bind-Value="@assignment.Assignment_Comment" />
-        </EditForm>
-
-
 
 
     }
