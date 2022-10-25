@@ -7,7 +7,7 @@ namespace RTXWebsite1.Models
         public int AssessHead_ID { get; set; }
         public string? AssessHead_Title { get; set; }
         public string? AssessHead_StartDate { get; set; } // MM/DD/YYYY HH:mm:ss
-        public string AssessHead_EndDate { get; set; }
+        public string? AssessHead_EndDate { get; set; }
         public bool AssessHead_DisplayAnswers { get; set; }
 
         public static string GetSQL()

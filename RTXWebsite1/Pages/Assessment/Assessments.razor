@@ -157,7 +157,7 @@ else
 @code {
     RTXWebsite1.Models.Assessment assessment = new RTXWebsite1.Models.Assessment();
 
-
+    List<AssessHead>? assessmentHead;
     List<Assessment>? assessmentList;
     List<AssessmentAnswers>? answerList;
 
@@ -169,16 +169,20 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Assessment where Assessment_HeadLevelID = @iamLevelID";
+        string sql = "WHERE AssessHead_ID = @iamLevelID";
 
-        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+        assessmentHead = await _data.LoadData<AssessHead, dynamic>(AssessHead.GetSQL() + sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
-        string answersSQL = "select * from AssessmentAnswer";
+        sql = "WHERE Assessment_AssessHeadID = @iamLevelID";
 
-        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(answersSQL, new { }, _config.GetConnectionString("RTX"));
+        assessmentList = await _data.LoadData<Assessment, dynamic>(Assessment.GetSQL() + sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE AssessmentAnswer_AssessHeadID = @iamLevelID";
+
+        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(AssessmentAnswers.GetSQL() + sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
     }
 
-    async void goToResults()
+    private void goToResults()
     {
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");

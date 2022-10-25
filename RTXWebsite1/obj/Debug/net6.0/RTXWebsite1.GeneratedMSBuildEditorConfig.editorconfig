@@ -39,12 +39,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzZXNzbWVudFxSZXN1bHRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Classes/Assignment.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xBc3NpZ25tZW50LnJhem9y
+[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Assignment/Assignment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzaWdubWVudFxBc3NpZ25tZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Classes/AssignmentSubmitted.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xBc3NpZ25tZW50U3VibWl0dGVkLnJhem9y
+[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Assignment/AssignmentSubmitted.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzaWdubWVudFxBc3NpZ25tZW50U3VibWl0dGVkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Classes/ClassHome.razor]
