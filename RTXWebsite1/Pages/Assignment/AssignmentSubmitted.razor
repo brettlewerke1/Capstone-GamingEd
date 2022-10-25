@@ -1,0 +1,165 @@
+﻿@page "/assignmentsubmitted/{Retrieved_Assignment_Type}"
+
+
+
+
+
+@using RTXWebsite1.Models;
+
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+@using System.Text;
+
+
+
+
+
+<h1 div class="title-head"> Assignment Submission Page </h1>
+<br />
+
+
+
+
+
+<p> You have successfully submitted your assignment! </p>
+
+
+ <EditForm Model="@assignment" OnValidSubmit="@goBack" >
+
+
+    <button type="submit" class="btn btn-primary"> Re-Submit Assignment </button>
+    <br/>
+
+</EditForm>
+
+
+
+
+
+
+<!--  Grabbing elements from Assignment table -->
+@if( assignmentList == null )
+{
+    <em>Loading...</em>
+}
+
+@if( assignmentList != null )
+{
+    foreach( var p in assignmentList )
+    {
+
+
+        // retrieving the base64 string from database
+        string assignmentString = @p.Assignment_String_Upload;
+
+
+     
+        if( Retrieved_Assignment_Type == "PDF" )
+        {
+      
+            <!-- PDF ONLY -->
+            var PdfContent = $"data:application/pdf;base64, {assignmentString}";
+
+            <embed src="@PdfContent" accept=".pdf" />
+
+        }
+
+        else if( Retrieved_Assignment_Type == "Image" )
+        {
+            <!-- JPG and PNG -->
+            var Image = $"data:application/image;base64, {assignmentString}";
+
+            <img src="@Image" alt="" />
+        }
+
+        else if( Retrieved_Assignment_Type == "Text" )
+        {
+            <!-- Text -->
+            var txtFile = $"data:application/text/plain;base64,{assignmentString}";
+            <object type="text/plain" data="@txtFile" ></object>
+        }
+
+        else if( Retrieved_Assignment_Type == "Word" )
+        {
+            <!-- Word Doc -->
+            var wordFile = $"data:application/msword;base64,{assignmentString}";
+            <a href="@wordFile">Click to view your submitted word doc</a>
+        }
+
+        else if( Retrieved_Assignment_Type == "Excel" )
+        {
+            <!-- Excel -->
+            var excelFile = $"data:application/vnd.ms-excel;base64,{assignmentString}";
+            <a href="@excelFile">Click to view your submitted Excel file</a>
+        }
+        else
+        {
+            <p>Please go back and choose a valid file type.</p>
+        }
+
+
+    }
+}
+
+
+
+
+@code {
+
+
+    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
+
+
+    List<RTXWebsite1.Models.Assignment>? assignmentList;
+
+
+
+    string sql = "";
+
+
+    [Parameter]
+    public string Retrieved_Assignment_Type { get; set; }
+
+
+
+
+    private void goBack( )
+    {
+        // navigate back to assignment page
+        NavManager.NavigateTo($"/assignment");
+    }
+
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+        sql = "select * from Assignment where (`Assignment_PlayerID` = @ThisPlayer)";
+
+        assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(sql,new { ThisPlayer = Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+
+
+    }
+
+    
+
+
+}

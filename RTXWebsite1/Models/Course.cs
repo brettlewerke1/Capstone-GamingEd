@@ -9,13 +9,28 @@ namespace RTXWebsite1.Models
         public string? Course_Tag;
         public int Course_LevelHeadID;
         public bool Course_MarketFlag;
+
+        public static string GetSQL()
+        {
+            return @"    
+            SELECT 
+                `Course`.`Course_ID` AS `Course_ID`,
+                `Course`.`Course_Name` AS `Course_Name`,
+                `Course`.`Course_Tag` AS `Course_Tag`,
+                `Course`.`Course_LevelHeadID` AS `Course_LevelHeadID`,
+                `Course`.`Course_MarketFlag` AS `Course_MarketFlag`
+            FROM
+                `Course`";
+        }
     }
+
     public class Level
     {
         // Data for the information needed in the courses
-        public int Level_ID;
-        public string? Level_Name;
-        public string? Level_Desc;
+        public int Level_ID { get; set; }
+        public string? Level_Name { get; set; }
+        public string? Level_Desc { get; set; }
+        public int LevelTree_ID { get; set; } = 0;
 
         public static string GetSQL()
         {
@@ -34,7 +49,8 @@ namespace RTXWebsite1.Models
             SELECT 
                 `LevelTree`.`LevelTree_NextLevelID` AS `Level_ID`,
                 `Level`.`Level_Name` AS `Level_Name`,
-                `Level`.`Level_Desc` AS `Level_Desc`
+                `Level`.`Level_Desc` AS `Level_Desc`,
+                `LevelTree`.`LevelTree_ID` AS `LevelTree_ID`
             FROM
                 (`LevelTree`
                 JOIN `Level` ON ((`LevelTree`.`LevelTree_NextLevelID` = `Level`.`Level_ID`)))";
@@ -70,6 +86,29 @@ namespace RTXWebsite1.Models
             //WHERE xxxx ORDER BY `LevelContent`.`LvlContent_OrderNum`"
         }
     }
+
+    public class LevelUnlock
+    {
+        public int LvlUnlock_ID { get; set; }
+        public int LevelTreeID { get; set; }
+        public string? LvlUnlock_Type { get; set; }
+        public int LvlUnlock_NumGoal { get; set; }
+        public int LvlUnlock_LvlContentID { get; set; }
+
+        public static string GetSQL()
+        {
+            return @"
+            SELECT 
+                `LevelUnlock`.`LvlUnlock_ID` AS `LvlUnlock_ID`,
+                `LevelUnlock`.`LvlUnlock_LevelTreeID` AS `LvlUnlock_LevelTreeID`,
+                `LevelUnlock`.`LvlUnlock_Type` AS `LvlUnlock_Type`,
+                `LevelUnlock`.`LvlUnlock_NumGoal` AS `LvlUnlock_NumGoal`,
+                `LevelUnlock`.`LvlUnlock_LvlContentID` AS `LvlUnlock_LvlContentID`
+            FROM
+                `LevelUnlock`";
+        }
+    }
+
 
     public class TextBlock
     {

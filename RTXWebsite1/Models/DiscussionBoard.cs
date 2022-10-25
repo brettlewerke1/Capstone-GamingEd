@@ -40,7 +40,7 @@ namespace RTXWebsite1.Models
         public string? Post_Time { get; set; } // YYYY-MM-DD
         public int Post_PlayerID { get; set; }
         public int Post_HeadPostID { get; set; }
-        public string Player_IGN { get; set; }
+        public string? Player_IGN { get; set; }
 
         public static string GetSQL()
         {

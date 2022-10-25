@@ -58,36 +58,40 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        // Double check, because next functions will break without this cookie
         if(Cookie.CurrentClass == 0)
         {
             NavManager.NavigateTo("/");
         }
 
-        string classString = "SELECT * FROM Course WHERE Course_ID = @Class";
-        classInfo = await _data.LoadData<Course, dynamic>(classString, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
+        string classString = "WHERE Course_ID = @Class";
+        classInfo = await _data.LoadData<Course, dynamic>(Course.GetSQL() + classString, new { Class = Cookie.CurrentClass }, _config.GetConnectionString("RTX"));
 
         // Initiate Variables
         levelInfo = new List<Level>();          // Empty list
         List<Level> nextLevel;                  // Next level helper
         List<Level> levelSection, levelHelp;    // Additional help next level to not override nextLevel
-        string selectString;
+
+        List<Progress> playerProgress;
+        List<LevelUnlock> unlockCriteria;
+
 
         // Head Node -> Base Case
-        string levelString = "WHERE Level_ID = @HeadNode";
-        nextLevel = await _data.LoadData<Level, dynamic>( Level.GetSQL() + levelString, new { HeadNode = classInfo[0].Course_LevelHeadID }, _config.GetConnectionString("RTX"));
+        // Player always has access to head node
+        string sqlString = "WHERE Level_ID = @HeadNode";
+        nextLevel = await _data.LoadData<Level, dynamic>( Level.GetSQL() + sqlString, new { HeadNode = classInfo[0].Course_LevelHeadID }, _config.GetConnectionString("RTX"));
+        levelInfo.AddRange(nextLevel);
 
         // Recursive check rest of tree
         while (nextLevel != null)
         {
-            // Add previous recursion
-            levelInfo.AddRange( nextLevel );
 
             // New recursion (next depth of tree)
             levelSection = new List<Level>();
             foreach( var p in nextLevel )
             {
-                selectString = "WHERE LevelTree.LevelTree_CurrentLevelID = @Current";
-                levelHelp = await _data.LoadData<Level, dynamic>( Level.GetSQLChild() + selectString, new { Current = p.Level_ID }, _config.GetConnectionString("RTX"));
+                sqlString = "WHERE LevelTree.LevelTree_CurrentLevelID = @Current";
+                levelHelp = await _data.LoadData<Level, dynamic>(Level.GetSQLChild() + sqlString, new { Current = p.Level_ID }, _config.GetConnectionString("RTX"));
                 levelSection.AddRange( levelHelp );
             }
 
@@ -96,6 +100,54 @@ else
             {
                 // Start recursion with next branches
                 nextLevel = levelSection;
+
+                // Check if player has access to the next levels through unlock criteras
+                foreach (var p in levelSection.ToList())
+                {
+                    // Check progress of player
+                    sqlString = "WHERE Progress_LevelTreeID = @thisLevel";
+                    playerProgress = await _data.LoadData<Progress, dynamic>(Progress.GetSQL() + sqlString, new { thisLevel = p.LevelTree_ID }, _config.GetConnectionString("RTX"));
+
+                    // If no progress recorded...
+                    if (playerProgress.Count() == 0)
+                    {
+                        // Get the unlock critera for the level
+                        sqlString = "WHERE LvlUnlock_LevelTreeID = @thisLevel";
+                        unlockCriteria = await _data.LoadData<LevelUnlock, dynamic>(LevelUnlock.GetSQL() + sqlString, new { thisLevel = p.LevelTree_ID }, _config.GetConnectionString("RTX"));
+
+                        // If any unlock criteria is needed to progress, assume not unlocked yet
+                        bool unlocked = false;
+                        if (unlockCriteria.Count() == 0)
+                        {
+                            unlocked = true;
+                        }
+
+                        // Put the porgress of the player into the database
+                        sqlString = "insert into Progress (Progress_PlayerID, Progress_LevelTreeID, Progress_CompleteFlag) values (@ThisPlayer, @ThisLevel, @ThisComplete)";
+                        await _data.SaveData(sqlString, new { ThisPlayer = Cookie.PlayerID, ThisLevel = @p.LevelTree_ID, ThisComplete = unlocked }, _config.GetConnectionString("RTX"));
+                        
+                        // Reset player progress
+                        sqlString = "WHERE Progress_LevelTreeID = @thisLevel";
+                        playerProgress = await _data.LoadData<Progress, dynamic>(Progress.GetSQL() + sqlString, new { thisLevel = p.LevelTree_ID }, _config.GetConnectionString("RTX"));
+                    }
+
+                    // If the complete flag is fufilled...
+                    if (playerProgress[0].Progress_CompleteFlag)
+                    {
+                        // Add the level to the list that can be viewed
+                        levelInfo.Add(p);
+                    }
+                    else
+                    {
+                        // Don't add the level if not unlocked
+                        nextLevel.Remove(p);
+                    }
+
+                    if (nextLevel.Count() == 0 )
+                    {
+                        nextLevel = null;
+                    }
+                }
             }
             else
             {

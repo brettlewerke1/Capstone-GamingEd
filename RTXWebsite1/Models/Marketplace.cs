@@ -15,8 +15,8 @@ namespace RTXWebsite1.Models
     {
         // For rest of Avatar functions, see /Models/Avatars.cs
         public int Avatar_ID { get; set; }
-        public string Avatar_Image { get; set; }
-        public string Avatar_Name { get; set; }
+        public string? Avatar_Image { get; set; }
+        public string? Avatar_Name { get; set; }
         public int Avatar_Cost { get; set; }
 
         public static string GetSQL()

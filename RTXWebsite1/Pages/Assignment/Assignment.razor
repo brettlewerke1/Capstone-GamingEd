@@ -1,0 +1,211 @@
+@page "/assignment"
+
+
+
+@using RTXWebsite1.Models;
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+@inject NavigationManager NavManager;
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
+
+
+
+@using System.IO
+
+
+
+
+
+
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Text;
+
+
+
+
+
+
+<!-- Assignment Title -->
+<h1 div class="title-head"> Assignment </h1>
+<br />
+
+    <!-- Please check what kind of file you are submitting -->
+    <p>Please check what kind of file you are submitting</p>
+    <EditForm Model="@assignment">
+
+        <InputRadioGroup @bind-Value=@assignment.Assignment_Type>
+           
+            <InputRadio Value="@assignment.PDF_File" /> PDF (.pdf) &nbsp; &nbsp;
+        
+            <InputRadio Value="@assignment.Text_File" /> Text (.txt) &nbsp; &nbsp;
+
+            <InputRadio Value="@assignment.Image_File" /> Image (.jpg/.png) &nbsp; &nbsp;
+
+            <InputRadio Value="@assignment.Word_File" /> Word Doc (.docx) &nbsp; &nbsp;
+
+            <InputRadio Value="@assignment.Excel_File" /> Excel(.xls) &nbsp; &nbsp;
+
+        </InputRadioGroup>
+
+        
+        
+ 
+    </EditForm>
+
+
+
+    <br/>
+
+    
+
+    @if( assignment.Assignment_Type == null)
+    {
+        <p>Please choose a submission type</p>
+    }
+    // if assignment type has been chosen allow the user to upload a file
+    else if( assignment.Assignment_Type != null )
+    {
+    
+
+
+        <p> Assignment Comment: </p>
+        <EditForm Model="@assignment">
+            <InputText @bind-Value="@assignment.Assignment_Comment" />
+        </EditForm>
+
+        
+        <!-- Submit File Here -->
+
+        <EditForm Model = "@assignment" >
+            <InputFile OnChange="@submitAssignment" />
+        </EditForm>
+        
+
+        
+
+        <!-- Display that the file is being uploaded -->
+        @((MarkupString)myMarkup)
+
+
+        <br/>
+       <br/>
+    
+
+
+    }
+
+
+
+
+
+
+@code{
+
+
+    // model
+    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
+
+    // initialize variables
+    string sql = "";
+    string base64String = "";
+    byte[] somBytes;
+    List<Assignment>? assignmentList;
+
+
+
+   
+
+
+
+
+
+
+
+    string myMarkup = "";
+
+
+
+    private async Task submitAssignmentType(  )
+    {
+        
+    }
+
+
+    // get bytes from file
+    public static byte[] GetBytes(Stream stream)
+    {
+        var bytes = new byte[stream.Length];
+        stream.Seek(0, SeekOrigin.Begin);
+        stream.ReadAsync(bytes, 0, bytes.Length);
+        stream.Dispose();
+        return bytes;
+    }
+
+
+    private async Task submitAssignment( InputFileChangeEventArgs args )
+    {
+
+        
+        myMarkup = "<p class='markup'><em>Submitting your file...</em>.</p>";
+        
+
+        // convert file to base64
+        try
+        {
+            var files = args.GetMultipleFiles();
+            foreach (var file in files)
+            {
+                await using MemoryStream fs = new MemoryStream();
+                await file.OpenReadStream(maxAllowedSize: 1048576).CopyToAsync(fs);
+
+
+                // convert file to bytes
+                somBytes = GetBytes(fs);
+                
+                // convert bytes to base64
+                base64String = Convert.ToBase64String(somBytes, 0, somBytes.Length);
+                System.Diagnostics.Debug.Print("Image 64: " + base64String + Environment.NewLine);
+            }
+        }
+
+
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.Print("ERROR: " + e.Message + Environment.NewLine);
+        }
+
+
+        // update database with file in base64 format
+        sql = "UPDATE `RTX`.`Assignment` SET `Assignment_String_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
+        sql = "UPDATE `RTX`.`Assignment` SET `Assignment_Comment` = @Comment WHERE (`Assignment_PlayerID` = @ThisPlayer)";
+        assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {Comment = assignment.Assignment_Comment, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
+        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.Assignment_Type}");
+
+
+
+        
+        
+
+    }
+
+
+
+
+
+
+
+}
