@@ -1,5 +1,8 @@
 @page "/assignment"
 
+@using System.IO
+@using System.Text
+@inject IWebHostEnvironment env
 
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
@@ -30,7 +33,7 @@ else
     {
         @if( submissions.Count() != 0)
         {
-            NavManager.NavigateTo($"/assignmentsubmitted/{submissions[0].AssignmentS_FileType}");
+            NavManager.NavigateTo($"/assignmentsubmitted");
         }
     }
 
@@ -72,7 +75,7 @@ else
 
 
         <!-- Submit File Here -->
-        <EditForm Model="@assignment">
+        <EditForm Model="@newPost">
             <InputFile OnChange="@submitAssignment" />
         </EditForm>
 
@@ -114,7 +117,6 @@ else
         sql = "WHERE AssignmentS_AssignmentID = @ThisModule AND AssignmentS_PlayerID = @ThisPlayer";
         submissions = await _data.LoadData<AssignmentSubmissions, dynamic>(AssignmentSubmissions.GetSQL() + sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
     }
-
     // initialize variables
     string sql = "";
     string base64String = "";
@@ -166,10 +168,10 @@ else
         }
 
         sql = "INSERT INTO `RTX`.`AssignmentSubmissions` ( `AssignmentS_AssignmentID`, `AssignmentS_PlayerID`, `AssignmentS_Comment`, `AssignmentS_StringUpload`, `AssignmentS_FileType` ) VALUES ( @ThisModule, @ThisPlayer, @ThisComment, @ThisUpload, @ThisType)";
-        await _data.SaveData(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID, ThisComment = newPost.AssignmentS_Comment, ThisUpload = newPost.AssignmentS_StringUpload, ThisType = newPost.AssignmentS_FileType }, _config.GetConnectionString("RTX")); 
+        await _data.SaveData(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID, ThisComment = newPost.AssignmentS_Comment, ThisUpload = base64String, ThisType = newPost.AssignmentS_FileType }, _config.GetConnectionString("RTX")); 
 
-        NavManager.NavigateTo($"/assignmentsubmitted/{newPost.AssignmentS_FileType}");
+        NavManager.NavigateTo($"/assignmentsubmitted");
+
+        }
 
     }
-
-}

@@ -1,4 +1,4 @@
-﻿@page "/assignmentsubmitted/{Retrieved_Assignment_Type}"
+﻿@page "/assignmentsubmitted"
 
 @using RTXWebsite1.IDbContext
 @using RTXWebsite1.Models
@@ -9,17 +9,18 @@
 
 @inject NavigationManager NavManager
 
+
+@if (Cookie.PlayerID == 0)
+{
+    NavManager.NavigateTo("/");
+}
+
 <h1 div class="title-head"> Assignment Submission Page </h1>
 <br />
 
- <EditForm Model="@assignment" OnValidSubmit="@goBack" >
 
-
-    <button type="submit" class="btn btn-primary"> Re-Submit Assignment </button>
-    <br/>
-
-</EditForm>
-
+<button class="btn btn-primary" @onclick="(() => goBack())">  Re-Submit Assignment </button>
+<br/>
 
 
 
@@ -30,8 +31,7 @@
 }
 else
 {
-
-    if( Retrieved_Assignment_Type == "PDF" )
+    if (submissions[0].AssignmentS_FileType == "PDF")
     {
         <!-- PDF ONLY -->
         var PdfContent = $"data:application/pdf;base64, {submissions[0].AssignmentS_StringUpload}";
@@ -39,7 +39,7 @@ else
         <embed src="@PdfContent" accept=".pdf" />
     }
 
-    else if( Retrieved_Assignment_Type == "Image" )
+    else if (submissions[0].AssignmentS_FileType == "Image")
     {
         <!-- JPG and PNG -->
         var Image = $"data:application/image;base64, {submissions[0].AssignmentS_StringUpload}";
@@ -47,21 +47,21 @@ else
         <img src="@Image" alt="" />
     }
 
-    else if( Retrieved_Assignment_Type == "Text" )
+    else if (submissions[0].AssignmentS_FileType == "Text")
     {
         <!-- Text -->
         var txtFile = $"data:application/text/plain;base64,{submissions[0].AssignmentS_StringUpload}";
         <object type="text/plain" data="@txtFile" ></object>
     }
 
-    else if( Retrieved_Assignment_Type == "Word" )
+    else if (submissions[0].AssignmentS_FileType == "Word")
     {
         <!-- Word Doc -->
         var wordFile = $"data:application/msword;base64,{submissions[0].AssignmentS_StringUpload}";
         <a href="@wordFile">Click to view your submitted word doc</a>
     }
 
-    else if( Retrieved_Assignment_Type == "Excel" )
+    else if (submissions[0].AssignmentS_FileType == "Excel")
     {
         <!-- Excel -->
         var excelFile = $"data:application/vnd.ms-excel;base64,{submissions[0].AssignmentS_StringUpload}";
@@ -77,11 +77,9 @@ else
 
 @code {
 
-    [Parameter]
-    public string? Retrieved_Assignment_Type { get; set; }
-
     List<Assignment>? assignment;
     List<AssignmentSubmissions>? submissions;
+
 
     private async Task GetData()
     {
@@ -99,7 +97,7 @@ else
 
     private async void goBack( )
     {
-        string sql = "Delete from AssignmentSubmissions where AssignmentS_AssignmentID = @ThisModule AssignmentS_PlayerID = @ThisPlayer";
+        string sql = "Delete from AssignmentSubmissions where AssignmentS_AssignmentID = @ThisModule AND AssignmentS_PlayerID = @ThisPlayer";
         submissions = await _data.DeleteData<AssignmentSubmissions, dynamic>(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
         
         // navigate back to assignment page
