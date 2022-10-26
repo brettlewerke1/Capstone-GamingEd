@@ -25,6 +25,15 @@ else
     <h1 div class="title-head"> @assignment[0].Assignment_Title </h1>
     <br />
 
+    // If something was already submitted by the user
+    if( submissions is not null )
+    {
+        @if( submissions.Count() != 0)
+        {
+            NavManager.NavigateTo($"/assignmentsubmitted/{submissions[0].AssignmentS_FileType}");
+        }
+    }
+
     <!-- Please check what kind of file you are submitting -->
     <p>Please check what kind of file you are submitting</p>
     <EditForm Model="@newPost">
@@ -45,11 +54,7 @@ else
 
     </EditForm>
 
-
-
     <br />
-
-
 
     @if (newPost.AssignmentS_FileType == null)
     {
@@ -58,7 +63,6 @@ else
     // if assignment type has been chosen allow the user to upload a file
     else if (newPost.AssignmentS_FileType != null)
     {
-
 
         <!--Optional Player Comment-->
         <p> Assignment Comment: </p>
@@ -76,17 +80,8 @@ else
         <!-- Display that the file is being uploaded -->
         @((MarkupString)myMarkup)
 
-
-        <br />
-        <br />
-
-
-
     }
 }
-
-
-
 
 
 
@@ -142,9 +137,8 @@ else
 
     private async Task submitAssignment( InputFileChangeEventArgs args )
     {
-        
+
         myMarkup = "<p class='markup'><em>Submitting your file...</em>.</p>";
-        
 
         // convert file to base64
         try
@@ -158,7 +152,7 @@ else
 
                 // convert file to bytes
                 somBytes = GetBytes(fs);
-                
+
                 // convert bytes to base64
                 base64String = Convert.ToBase64String(somBytes, 0, somBytes.Length);
                 System.Diagnostics.Debug.Print("Image 64: " + base64String + Environment.NewLine);
@@ -171,29 +165,11 @@ else
             System.Diagnostics.Debug.Print("ERROR: " + e.Message + Environment.NewLine);
         }
 
+        sql = "INSERT INTO `RTX`.`AssignmentSubmissions` ( `AssignmentS_AssignmentID`, `AssignmentS_PlayerID`, `AssignmentS_Comment`, `AssignmentS_StringUpload`, `AssignmentS_FileType` ) VALUES ( @ThisModule, @ThisPlayer, @ThisComment, @ThisUpload, @ThisType)";
+        await _data.SaveData(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID, ThisComment = newPost.AssignmentS_Comment, ThisUpload = newPost.AssignmentS_StringUpload, ThisType = newPost.AssignmentS_FileType }, _config.GetConnectionString("RTX")); 
 
-        // update database with file in base64 format
-        sql = "UPDATE `RTX`.`Assignment` SET `Assignment_String_Upload` = @TheString WHERE (`Assignment_PlayerID` = @ThisPlayer)";
-        assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {TheString = base64String, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-
-
-        sql = "UPDATE `RTX`.`Assignment` SET `Assignment_Comment` = @Comment WHERE (`Assignment_PlayerID` = @ThisPlayer)";
-        assignmentList = await _data.LoadData<Assignment, dynamic>(sql, new {Comment = assignment.Assignment_Comment, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-
-
-        NavManager.NavigateTo($"/assignmentsubmitted/{assignment.Assignment_Type}");
-
-
-
-        
-        
+        NavManager.NavigateTo($"/assignmentsubmitted/{newPost.AssignmentS_FileType}");
 
     }
-
-
-
-
-
-
 
 }
