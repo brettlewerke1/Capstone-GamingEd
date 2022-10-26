@@ -26,31 +26,37 @@ else if (transactions == null)
 }
 else
 {
-    if( transactions.Count() == 0)
+    if( player is not null )
     {
-        <p>No transactions found.</p>
-    }
-    else
-    {
-        <ul>
-            <li>
-                <em>Purchase More Avatars</em>
-                <p><button type="button" @onclick="(() => ViewAvatars())">View</button></p>
-            </li>
-        @foreach (var p in transactions)
+        <p>@player[0].Player_Coins</p>
+
+        if( transactions.Count() == 0)
         {
-            <li> 
-                <em>@p.Transaction_Name</em>
-                <p>@p.Transaction_Description</p>
-                <p>@p.Transaction_Cost <button type="button">+</button></p>
-            </li>
+            <p>No transactions found.</p>
         }
-        </ul>
+        else
+        {
+            <ul>
+                <li>
+                    <em>Purchase More Avatars</em>
+                    <p><button type="button" @onclick="(() => ViewAvatars())">View</button></p>
+                </li>
+            @foreach (var p in transactions)
+            {
+                <li> 
+                    <em>@p.Transaction_Name</em>
+                    <p>@p.Transaction_Description</p>
+                    <p>@p.Transaction_Cost <button type="button">+</button></p>
+                </li>
+            }
+            </ul>
+        }
     }
 }
 
 @code{
     List<Marketplace>? transactions;
+    List<PlayerInformation>? player;
 
     private async Task GetData()
     {
@@ -62,6 +68,10 @@ else
         string sql = "select * from Transaction where Transaction_CourseID = @CourseNum";
 
         transactions = await _data.LoadData<Marketplace, dynamic>(sql, new { CourseNum = Cookie.CurrentClass}, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE Player_ID = @ThisPlayer";
+
+        player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
     }
 
     private void ViewAvatars()
