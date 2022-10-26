@@ -23,12 +23,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxDaGFuZ2VBdmF0YXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Account/DisplayAccount.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxEaXNwbGF5QWNjb3VudC5yYXpvcg==
+[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Account/ClassGrades.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxDbGFzc0dyYWRlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Account/Grades.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxHcmFkZXMucmF6b3I=
+[C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Account/DisplayAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxEaXNwbGF5QWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hsieh/source/Repos/GamingEd/RTXWebsite1/Pages/Assessment/Assessments.razor]
