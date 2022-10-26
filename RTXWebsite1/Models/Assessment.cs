@@ -86,6 +86,8 @@ namespace RTXWebsite1.Models
 
         public string? AssessmentAnswer_Selected_Answers { get; set; }
 
+        public int AssessHeadID { get; set; }
+
         public static string GetSQL()
         {
             return @"    
@@ -94,7 +96,8 @@ namespace RTXWebsite1.Models
                 `AssessmentAnswer`.`AssessmentAnswer_Answers` AS `AssessmentAnswer_Answers`,
                 `AssessmentAnswer`.`AssessmentAnswer_AssessmentID` AS `AssessmentAnswer_AssessmentID`,
                 `AssessmentAnswer`.`AssessmentAnswer_MatchingAnswer` AS `AssessmentAnswer_MatchingAnswer`,
-                `AssessmentAnswer`.`AssessmentAnswer_CorrectAnswers` AS `AssessmentAnswer_CorrectAnswers`
+                `AssessmentAnswer`.`AssessmentAnswer_CorrectAnswers` AS `AssessmentAnswer_CorrectAnswers`,
+                `AssessmentAnswer`.`AssessmentAnswer_AssessHeadID` AS `AssessmentAnswer_AssessHeadID`
             FROM
                 `AssessmentAnswer`";
         }

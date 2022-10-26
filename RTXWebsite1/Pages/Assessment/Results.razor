@@ -106,11 +106,12 @@
     protected override async Task OnInitializedAsync()
     {
 
-        string sql = "select * from Assessment where Assessment_Number = 1";
+        string sql = "where Assessment_AssessHeadID = @ThisModule";
 
-        assessmentList = await _data.LoadData<Assessment, dynamic>(Assessment.GetSQL(), new { UserID = @Cookie.UserID }, _config.GetConnectionString("RTX"));
+        assessmentList = await _data.LoadData<Assessment, dynamic>(Assessment.GetSQL() + sql, new { ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
-        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(AssessmentAnswers.GetSQL(), new { UserID = @Cookie.UserID}, _config.GetConnectionString("RTX"));
+        sql = "where AssessmentAnswer_AssessHeadID = @ThisModule";
+        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(AssessmentAnswers.GetSQL() + sql, new { ThisModule = @Cookie.CurrentModule}, _config.GetConnectionString("RTX"));
 
 
         sql = "select * from Player where (`Player_ID` = @ThisPlayer)";

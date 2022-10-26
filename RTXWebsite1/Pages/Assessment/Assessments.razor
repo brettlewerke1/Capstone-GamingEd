@@ -224,7 +224,7 @@ else
                         }
                         
                         sql = "UPDATE `RTX`.`ProgressUnlocks` SET `PU_NumVal` = @newNum WHERE PU_LvlUnlockID = @ThisUnlock";
-                        playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(ProgressUnlocks.GetSQL() + sql, new { newNum = currentLives, ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
+                        playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { newNum = currentLives, ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
                     }
                     else if ( critera.LvlUnlock_Type == "SCORE" )
                     {
