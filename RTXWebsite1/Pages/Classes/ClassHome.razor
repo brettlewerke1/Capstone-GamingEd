@@ -117,19 +117,28 @@ else
                         unlockCriteria = await _data.LoadData<LevelUnlock, dynamic>(LevelUnlock.GetSQL() + sqlString, new { thisLevel = p.LevelTree_ID }, _config.GetConnectionString("RTX"));
 
                         // If any unlock criteria is needed to progress, assume not unlocked yet
-                        bool unlocked = false;
-                        if (unlockCriteria.Count() == 0)
+                        bool unlocked = true;
+                        if (unlockCriteria.Count() != 0)
                         {
-                            unlocked = true;
+                            unlocked = false;
                         }
 
                         // Put the porgress of the player into the database
                         sqlString = "insert into Progress (Progress_PlayerID, Progress_LevelTreeID, Progress_CompleteFlag) values (@ThisPlayer, @ThisLevel, @ThisComplete)";
                         await _data.SaveData(sqlString, new { ThisPlayer = Cookie.PlayerID, ThisLevel = @p.LevelTree_ID, ThisComplete = unlocked }, _config.GetConnectionString("RTX"));
-                        
+
                         // Reset player progress
-                        sqlString = "WHERE Progress_LevelTreeID = @thisLevel";
-                        playerProgress = await _data.LoadData<Progress, dynamic>(Progress.GetSQL() + sqlString, new { thisLevel = p.LevelTree_ID }, _config.GetConnectionString("RTX"));
+                        sqlString = "WHERE Progress_PlayerID = @ThisPlayer AND Progress_LevelTreeID = @thisLevel";
+                        playerProgress = await _data.LoadData<Progress, dynamic>(Progress.GetSQL() + sqlString, new { ThisPlayer = Cookie.PlayerID, thisLevel = p.LevelTree_ID }, _config.GetConnectionString("RTX"));
+
+                        if( unlocked == false )
+                        {
+                            foreach( var criteria in unlockCriteria )
+                            {
+                                sqlString = "INSERT INTO ProgressUnlocks (PU_LvlUnlockID, PU_ProgressID, PU_NumVal) VALUES (@ThisLevel, @ThisProgress, @ThisNum)";
+                                await _data.SaveData(sqlString, new { ThisLevel = criteria.LvlUnlock_ID, ThisProgress = playerProgress[0].Progress_ID, ThisNum = 0 }, _config.GetConnectionString("RTX"));
+                            }
+                        }
                     }
 
                     // If the complete flag is fufilled...
