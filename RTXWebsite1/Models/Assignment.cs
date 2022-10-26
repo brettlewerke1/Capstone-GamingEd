@@ -41,7 +41,7 @@
                 `AssignmentSubmissions`.`AssignmentS_AssignmentID` AS `AssignmentS_AssignmentID`,
                 `AssignmentSubmissions`.`AssignmentS_PlayerID` AS `AssignmentS_PlayerID`,
                 `AssignmentSubmissions`.`AssignmentS_Comment` AS `AssignmentS_Comment`,
-                `AssignmentSubmissions`.`Assignment_StringUpload` AS `Assignment_StringUpload`,
+                `AssignmentSubmissions`.`AssignmentS_StringUpload` AS `Assignment_StringUpload`,
                 `AssignmentSubmissions`.`AssignmentS_FileType` AS `AssignmentS_FileType`
             FROM
                 `AssignmentSubmissions`";
