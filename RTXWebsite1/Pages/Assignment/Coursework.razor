@@ -1,46 +1,45 @@
 @page "/assignment"
 
 
-
-@using RTXWebsite1.Models;
-
-@inject Blazored.LocalStorage.ILocalStorageService localStorage;
-@inject IJSRuntime JsRuntime;
-@inject IConfiguration _config;
-@inject NavigationManager NavManager;
-@inject RTXWebsite1.Data.Cookies Cookie;
-
 @using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 @inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
 
+@inject NavigationManager NavManager
 
-@using System.IO
-@using System;
-@using System.Collections.Generic;
-@using System.Linq;
-@using System.Text;
+@if( Cookie.PlayerID == 0 )
+{
+    NavManager.NavigateTo("/");
+}
 
-
-<!-- Assignment Title -->
-<h1 div class="title-head"> Assignment </h1>
-<br />
+@if( assignment is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <!-- Assignment Title -->
+    <h1 div class="title-head"> @assignment[0].Assignment_Title </h1>
+    <br />
 
     <!-- Please check what kind of file you are submitting -->
     <p>Please check what kind of file you are submitting</p>
-    <EditForm Model="@assignment">
+    <EditForm Model="@newPost">
 
-        <InputRadioGroup @bind-Value=@assignment.Assignment_Type>
-           
-            <InputRadio Value="@assignment.PDF_File" /> PDF (.pdf) &nbsp; &nbsp;
-        
-            <InputRadio Value="@assignment.Text_File" /> Text (.txt) &nbsp; &nbsp;
+        <InputRadioGroup @bind-Value=@newPost.AssignmentS_FileType>
 
-            <InputRadio Value="@assignment.Image_File" /> Image (.jpg/.png) &nbsp; &nbsp;
+            <InputRadio Value="PDF_File" /> PDF (.pdf) &nbsp; &nbsp;
 
-            <InputRadio Value="@assignment.Word_File" /> Word Doc (.docx) &nbsp; &nbsp;
+            <InputRadio Value="Text_File" /> Text (.txt) &nbsp; &nbsp;
 
-            <InputRadio Value="@assignment.Excel_File" /> Excel(.xls) &nbsp; &nbsp;
+            <InputRadio Value="Image_File" /> Image (.jpg/.png) &nbsp; &nbsp;
+
+            <InputRadio Value="Word_File" /> Word Doc (.docx) &nbsp; &nbsp;
+
+            <InputRadio Value="Excel_File" /> Excel(.xls) &nbsp; &nbsp;
 
         </InputRadioGroup>
 
@@ -48,45 +47,44 @@
 
 
 
-    <br/>
+    <br />
 
-    
 
-    @if( assignment.Assignment_Type == null)
+
+    @if (newPost.AssignmentS_FileType == null)
     {
         <p>Please choose a submission type</p>
     }
     // if assignment type has been chosen allow the user to upload a file
-    else if( assignment.Assignment_Type != null )
+    else if (newPost.AssignmentS_FileType != null)
     {
-    
 
 
+        <!--Optional Player Comment-->
         <p> Assignment Comment: </p>
-        <EditForm Model="@assignment">
-            <InputText @bind-Value="@assignment.Assignment_Comment" />
+        <EditForm Model="@newPost">
+            <InputText @bind-Value="@newPost.AssignmentS_Comment" />
         </EditForm>
 
-        
-        <!-- Submit File Here -->
 
-        <EditForm Model = "@assignment" >
+        <!-- Submit File Here -->
+        <EditForm Model="@assignment">
             <InputFile OnChange="@submitAssignment" />
         </EditForm>
-        
 
-        
 
         <!-- Display that the file is being uploaded -->
         @((MarkupString)myMarkup)
 
 
-        <br/>
-       <br/>
-    
+        <br />
+        <br />
+
 
 
     }
+}
+
 
 
 
@@ -95,9 +93,32 @@
 
 @code{
 
+    // Possible filetypes
+    public string PDF_File = "PDF";
+    public string Text_File  = "Text";
+    public string Image_File = "Image";
+    public string Word_File = "Word";
+    public string Excel_File = "Excel";
 
     // model
-    RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
+    List<Assignment>? assignment;
+    List<AssignmentSubmissions>? submissions;
+
+    RTXWebsite1.Models.AssignmentSubmissions newPost = new RTXWebsite1.Models.AssignmentSubmissions();
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE Assignment_ID = @ThisModule";
+        assignment = await _data.LoadData<Assignment, dynamic>(Assignment.GetSQL() + sql, new { ThisModule = Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE AssignmentS_AssignmentID = @ThisModule AND AssignmentS_PlayerID = @ThisPlayer";
+        submissions = await _data.LoadData<AssignmentSubmissions, dynamic>(AssignmentSubmissions.GetSQL() + sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+    }
 
     // initialize variables
     string sql = "";

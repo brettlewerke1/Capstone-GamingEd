@@ -29,13 +29,14 @@ else
            [@p.Course_Tag] @p.Course_Name
         </h1>
         <hr />
+        <p>
+            Professor Email: @p.Course_ProfEmail
+        </p>
         if (@p.Course_MarketFlag)
         {
             <a href="/marketplace" class="btn btn-primary">Marketplace</a>
         }
         <a href="/viewdiscussions" class="btn btn-primary">Discussion</a>
-
-        <a href="/assignment" class = "btn btn-primary">Assignment</a>
 
         <a href="/grades" class = "btn btn-primary">Grades</a>
     }
