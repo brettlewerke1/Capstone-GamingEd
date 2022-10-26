@@ -5,11 +5,11 @@
 
         
         // base 64 assignment string
-        public string Assignment_String_Upload { get; set; }
+        public string? Assignment_String_Upload { get; set; }
 
 
         // assignment type
-        public string Assignment_Type { get; set; }
+        public string? Assignment_Type { get; set; }
 
 
         // assignment types
@@ -22,10 +22,7 @@
 
 
         // commants
-        public string Assignment_Comment { get; set; }
-
-
-
+        public string? Assignment_Comment { get; set; }
 
     }
 

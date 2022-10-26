@@ -48,18 +48,17 @@
 
 
 <!--  Grabbing elements from Assignment table -->
-@if( assignmentList == null )
+@if( assignmentList is null )
 {
     <em>Loading...</em>
 }
-
-@if( assignmentList != null )
+else
 {
     foreach( var p in assignmentList )
     {
 
 
-        // retrieving the base64 string from database
+        // retrieving the base64 string from databae
         string assignmentString = @p.Assignment_String_Upload;
 
 
@@ -128,7 +127,7 @@
 
 
     [Parameter]
-    public string Retrieved_Assignment_Type { get; set; }
+    public string? Retrieved_Assignment_Type { get; set; }
 
 
 

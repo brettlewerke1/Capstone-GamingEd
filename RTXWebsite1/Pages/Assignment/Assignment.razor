@@ -15,23 +15,11 @@
 @inject IDatabaseAccess _data
 
 
-
-
 @using System.IO
-
-
-
-
-
-
 @using System;
 @using System.Collections.Generic;
 @using System.Linq;
 @using System.Text;
-
-
-
-
 
 
 <!-- Assignment Title -->
@@ -56,9 +44,6 @@
 
         </InputRadioGroup>
 
-        
-        
- 
     </EditForm>
 
 
@@ -117,28 +102,11 @@
     // initialize variables
     string sql = "";
     string base64String = "";
-    byte[] somBytes;
+    byte[]? somBytes;
     List<Assignment>? assignmentList;
 
 
-
-   
-
-
-
-
-
-
-
     string myMarkup = "";
-
-
-
-    private async Task submitAssignmentType(  )
-    {
-        
-    }
-
 
     // get bytes from file
     public static byte[] GetBytes(Stream stream)
@@ -153,7 +121,6 @@
 
     private async Task submitAssignment( InputFileChangeEventArgs args )
     {
-
         
         myMarkup = "<p class='markup'><em>Submitting your file...</em>.</p>";
         

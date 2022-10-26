@@ -65,57 +65,61 @@
             <h4>@questionNumber) @p.Assessment_Question</h4>
 
             // lopp through answerList
-            foreach (var a in answerList)
+            if( answerList is not null )
             {
-
-                // if question type is: multiple choice
-                if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "MultipleChoice")
-                {
-                    <InputRadioGroup @bind-Value=@p.Assessment_Answers>
-                        <InputRadio Value="@a.AssessmentAnswer_Answers" /> @a.AssessmentAnswer_Answers &nbsp;
-                    </InputRadioGroup>
-
-                }
-
-                // if question type is: matching
-                if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "Matching")
+            
+                foreach (var a in answerList)
                 {
 
-                    // don't want to add first set of options to total number of questions because it was already included when the question was asked
-                    if (isMatchingBool)
+                    // if question type is: multiple choice
+                    if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "MultipleChoice")
                     {
-                        assessment.totalPoints = assessment.totalPoints + @p.Assessment_PointsPerQuestion;
+                        <InputRadioGroup @bind-Value=@p.Assessment_Answers>
+                            <InputRadio Value="@a.AssessmentAnswer_Answers" /> @a.AssessmentAnswer_Answers &nbsp;
+                        </InputRadioGroup>
+
                     }
 
-                    isMatchingBool = true;
+                    // if question type is: matching
+                    if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "Matching")
+                    {
 
-
-                    <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers>
-                        <option value="">Select an Answer</option>
-
-                        @foreach (var z in answerList)
+                        // don't want to add first set of options to total number of questions because it was already included when the question was asked
+                        if (isMatchingBool)
                         {
-                            if (@z.AssessmentAnswer_AssessmentID == @p.Assessment_ID)
-                            {
-                                // drop down list of answer options
-                                <option>@z.AssessmentAnswer_Answers</option>
-                            }
+                            assessment.totalPoints = assessment.totalPoints + @p.Assessment_PointsPerQuestion;
                         }
-                    </InputSelect>
 
-                    // if selected matching question is correct
-                    if (@a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_CorrectAnswers)
-                    {
-                        // add to total points earned if selected answer equals the correct answer
-                        assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                        isMatchingBool = true;
+
+
+                        <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers>
+                            <option value="">Select an Answer</option>
+
+                            @foreach (var z in answerList)
+                            {
+                                if (@z.AssessmentAnswer_AssessmentID == @p.Assessment_ID)
+                                {
+                                    // drop down list of answer options
+                                    <option>@z.AssessmentAnswer_Answers</option>
+                                }
+                            }
+                        </InputSelect>
+
+                        // if selected matching question is correct
+                        if (@a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_CorrectAnswers)
+                        {
+                            // add to total points earned if selected answer equals the correct answer
+                            assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                        }
+
+                        // print a value to be matched with
+                        @a.AssessmentAnswer_MatchingAnswer
+                        <br />
+                        <br />
                     }
 
-                    // print a value to be matched with
-                    @a.AssessmentAnswer_MatchingAnswer
-                    <br />
-                    <br />
                 }
-
             }
 
             // if question type is: text
@@ -126,17 +130,20 @@
             }
             <br />
 
-            // calculate number of questions answered correctly
-            foreach (var myVar in answerList)
+            if (answerList is not null)
             {
-                // check if answer is correct
-                if (myVar.AssessmentAnswer_CorrectAnswers != null && @myVar.AssessmentAnswer_CorrectAnswers != "" && myVar.AssessmentAnswer_CorrectAnswers.ToLower() == @p.Assessment_Answers.ToLower())
+                // calculate number of questions answered correctly
+                foreach (var myVar in answerList)
                 {
-                    // add to total points earned
-                    assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                    // check if answer is correct
+                    if (myVar.AssessmentAnswer_CorrectAnswers != null && @myVar.AssessmentAnswer_CorrectAnswers != "" && myVar.AssessmentAnswer_CorrectAnswers.ToLower() == @p.Assessment_Answers.ToLower())
+                    {
+                        // add to total points earned
+                        assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                    }
                 }
+                <br />
             }
-            <br />
 
         } <!--End master loop-->
         <!-- Submits to CalcGrade() -->
