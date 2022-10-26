@@ -1,34 +1,16 @@
 ﻿@page "/assignmentsubmitted/{Retrieved_Assignment_Type}"
 
-
-
-
-
-@using RTXWebsite1.Models;
-
-
-@inject Blazored.LocalStorage.ILocalStorageService localStorage;
-@inject IJSRuntime JsRuntime;
-@inject IConfiguration _config;
-@inject NavigationManager NavManager;
-@inject RTXWebsite1.Data.Cookies Cookie;
-
 @using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
 @using Microsoft.Extensions.Configuration
 @inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
 
-
-@using System.Text;
-
-
-
-
+@inject NavigationManager NavManager
 
 <h1 div class="title-head"> Assignment Submission Page </h1>
 <br />
-
-
-
 
 
 <p> You have successfully submitted your assignment! </p>
@@ -45,33 +27,28 @@
 
 
 
-
-
 <!--  Grabbing elements from Assignment table -->
-@if( assignmentList == null )
+@if( assignmentList is null )
 {
     <em>Loading...</em>
 }
-
-@if( assignmentList != null )
+else
 {
+    /*
     foreach( var p in assignmentList )
     {
 
 
-        // retrieving the base64 string from database
+        // retrieving the base64 string from databae
         string assignmentString = @p.Assignment_String_Upload;
 
 
-     
         if( Retrieved_Assignment_Type == "PDF" )
         {
-      
             <!-- PDF ONLY -->
             var PdfContent = $"data:application/pdf;base64, {assignmentString}";
 
             <embed src="@PdfContent" accept=".pdf" />
-
         }
 
         else if( Retrieved_Assignment_Type == "Image" )
@@ -112,25 +89,17 @@
 }
 
 
-
-
 @code {
 
-
     RTXWebsite1.Models.Assignment assignment = new RTXWebsite1.Models.Assignment();
-
 
     List<RTXWebsite1.Models.Assignment>? assignmentList;
 
 
-
     string sql = "";
 
-
     [Parameter]
-    public string Retrieved_Assignment_Type { get; set; }
-
-
+    public string? Retrieved_Assignment_Type { get; set; }
 
 
     private void goBack( )
@@ -139,27 +108,18 @@
         NavManager.NavigateTo($"/assignment");
     }
 
-
     private async Task GetData()
     {
         await OnInitializedAsync();
     }
 
 
-
     protected override async Task OnInitializedAsync()
     {
-
 
         sql = "select * from Assignment where (`Assignment_PlayerID` = @ThisPlayer)";
 
         assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(sql,new { ThisPlayer = Cookie.UserID }, _config.GetConnectionString("RTX"));
-
-
-
     }
-
-    
-
-
+    */
 }

@@ -29,13 +29,14 @@ else
            [@p.Course_Tag] @p.Course_Name
         </h1>
         <hr />
+        <p>
+            Professor Email: @p.Course_ProfEmail
+        </p>
         if (@p.Course_MarketFlag)
         {
             <a href="/marketplace" class="btn btn-primary">Marketplace</a>
         }
         <a href="/viewdiscussions" class="btn btn-primary">Discussion</a>
-
-        <a href="/assignment" class = "btn btn-primary">Assignment</a>
 
         <a href="/grades" class = "btn btn-primary">Grades</a>
     }
@@ -69,7 +70,7 @@ else
 
         // Initiate Variables
         levelInfo = new List<Level>();          // Empty list
-        List<Level> nextLevel;                  // Next level helper
+        List<Level>? nextLevel;                  // Next level helper
         List<Level> levelSection, levelHelp;    // Additional help next level to not override nextLevel
 
         List<Progress> playerProgress;
@@ -83,7 +84,7 @@ else
         levelInfo.AddRange(nextLevel);
 
         // Recursive check rest of tree
-        while (nextLevel != null)
+        while (nextLevel is not null)
         {
 
             // New recursion (next depth of tree)
@@ -139,13 +140,19 @@ else
                     }
                     else
                     {
-                        // Don't add the level if not unlocked
-                        nextLevel.Remove(p);
+                        if( nextLevel is not null)
+                        {
+                            // Don't add the level if not unlocked
+                            nextLevel.Remove(p);
+                        }   
                     }
-
-                    if (nextLevel.Count() == 0 )
+                    
+                    if (nextLevel is not null)
                     {
-                        nextLevel = null;
+                        if (nextLevel.Count() == 0)
+                        {
+                            nextLevel = null;
+                        }
                     }
                 }
             }

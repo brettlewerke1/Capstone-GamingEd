@@ -5,10 +5,11 @@ namespace RTXWebsite1.Models
     {
         // Metadata of the course itself
         public int Course_ID { get; set; }
-        public string? Course_Name;
-        public string? Course_Tag;
-        public int Course_LevelHeadID;
-        public bool Course_MarketFlag;
+        public string? Course_Name { get; set; }
+        public string? Course_Tag { get; set; }
+        public int Course_LevelHeadID { get; set; }
+        public bool Course_MarketFlag { get; set; }
+        public string? Course_ProfEmail { get; set; }
 
         public static string GetSQL()
         {
@@ -18,7 +19,8 @@ namespace RTXWebsite1.Models
                 `Course`.`Course_Name` AS `Course_Name`,
                 `Course`.`Course_Tag` AS `Course_Tag`,
                 `Course`.`Course_LevelHeadID` AS `Course_LevelHeadID`,
-                `Course`.`Course_MarketFlag` AS `Course_MarketFlag`
+                `Course`.`Course_MarketFlag` AS `Course_MarketFlag`,
+                `Course`.`Course_ProfEmail` AS `Course_ProfEmail`
             FROM
                 `Course`";
         }

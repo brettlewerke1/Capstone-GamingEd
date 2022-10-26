@@ -1,0 +1,109 @@
+﻿@page "/assignmentsubmitted/{Retrieved_Assignment_Type}"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
+
+<h1 div class="title-head"> Assignment Submission Page </h1>
+<br />
+
+ <EditForm Model="@assignment" OnValidSubmit="@goBack" >
+
+
+    <button type="submit" class="btn btn-primary"> Re-Submit Assignment </button>
+    <br/>
+
+</EditForm>
+
+
+
+
+<!--  Grabbing elements from Assignment table -->
+@if (submissions is null)
+{
+    <em>Loading...</em>
+}
+else
+{
+
+    if( Retrieved_Assignment_Type == "PDF" )
+    {
+        <!-- PDF ONLY -->
+        var PdfContent = $"data:application/pdf;base64, {submissions[0].AssignmentS_StringUpload}";
+
+        <embed src="@PdfContent" accept=".pdf" />
+    }
+
+    else if( Retrieved_Assignment_Type == "Image" )
+    {
+        <!-- JPG and PNG -->
+        var Image = $"data:application/image;base64, {submissions[0].AssignmentS_StringUpload}";
+
+        <img src="@Image" alt="" />
+    }
+
+    else if( Retrieved_Assignment_Type == "Text" )
+    {
+        <!-- Text -->
+        var txtFile = $"data:application/text/plain;base64,{submissions[0].AssignmentS_StringUpload}";
+        <object type="text/plain" data="@txtFile" ></object>
+    }
+
+    else if( Retrieved_Assignment_Type == "Word" )
+    {
+        <!-- Word Doc -->
+        var wordFile = $"data:application/msword;base64,{submissions[0].AssignmentS_StringUpload}";
+        <a href="@wordFile">Click to view your submitted word doc</a>
+    }
+
+    else if( Retrieved_Assignment_Type == "Excel" )
+    {
+        <!-- Excel -->
+        var excelFile = $"data:application/vnd.ms-excel;base64,{submissions[0].AssignmentS_StringUpload}";
+        <a href="@excelFile">Click to view your submitted Excel file</a>
+    }
+    else
+    {
+        <p>Please go back and choose a valid file type.</p>
+    }
+
+}
+
+
+@code {
+
+    [Parameter]
+    public string? Retrieved_Assignment_Type { get; set; }
+
+    List<Assignment>? assignment;
+    List<AssignmentSubmissions>? submissions;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE Assignment_ID = @ThisModule";
+        assignment = await _data.LoadData<Assignment, dynamic>(Assignment.GetSQL() + sql, new { ThisModule = Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+
+        sql = "WHERE AssignmentS_AssignmentID = @ThisModule AND AssignmentS_PlayerID = @ThisPlayer";
+        submissions = await _data.LoadData<AssignmentSubmissions, dynamic>(AssignmentSubmissions.GetSQL() + sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+    }
+
+    private async void goBack( )
+    {
+        string sql = "Delete from AssignmentSubmissions where AssignmentS_AssignmentID = @ThisModule AssignmentS_PlayerID = @ThisPlayer";
+        submissions = await _data.DeleteData<AssignmentSubmissions, dynamic>(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        
+        // navigate back to assignment page
+        NavManager.NavigateTo("/assignment");
+    }
+    
+}
