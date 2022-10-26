@@ -67,8 +67,10 @@ namespace RTXWebsite1.Models
         public int LvlContent_OrderNum { get; set; }
         public int LvlContent_ModuleID { get; set; }
         public string? LvlContent_Name { get; set; }
+        public int Module_ID { get; set; }
         public string Module_Name { get; set; } = "";
         public string Module_Path { get; set; } = "";
+        public bool LvlContent_Unlock { get; set; }
 
         public static string GetSQL()
         {
@@ -80,8 +82,10 @@ namespace RTXWebsite1.Models
                 `LevelContent`.`LvlContent_OrderNum` AS `LvlContent_OrderNum`,
                 `LevelContent`.`LvlContent_ModuleID` AS `LvlContent_ModuleID`,
                 `LevelContent`.`LvlContent_Name` AS `LvlContent_Name`,
+                `Module`.`Module_ID` AS `Module_ID`,
                 `Module`.`Module_Name` AS `Module_Name`,
-                `Module`.`Module_Path` AS `Module_Path`
+                `Module`.`Module_Path` AS `Module_Path`,
+                `LevelContent`.`LvlContent_Unlock` AS `LvlContent_Unlock`
             FROM
                 (`LevelContent`
                 JOIN `Module` ON ((`LevelContent`.`LvlContent_ModuleID` = `Module`.`Module_ID`)))";

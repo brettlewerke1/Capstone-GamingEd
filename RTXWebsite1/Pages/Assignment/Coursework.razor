@@ -102,6 +102,9 @@ else
     List<Assignment>? assignment;
     List<AssignmentSubmissions>? submissions;
 
+
+    List<LevelContent>? currentModule;
+
     RTXWebsite1.Models.AssignmentSubmissions newPost = new RTXWebsite1.Models.AssignmentSubmissions();
 
     private async Task GetData()
@@ -169,6 +172,46 @@ else
 
         sql = "INSERT INTO `RTX`.`AssignmentSubmissions` ( `AssignmentS_AssignmentID`, `AssignmentS_PlayerID`, `AssignmentS_Comment`, `AssignmentS_StringUpload`, `AssignmentS_FileType` ) VALUES ( @ThisModule, @ThisPlayer, @ThisComment, @ThisUpload, @ThisType)";
         await _data.SaveData(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID, ThisComment = newPost.AssignmentS_Comment, ThisUpload = base64String, ThisType = newPost.AssignmentS_FileType }, _config.GetConnectionString("RTX")); 
+
+        if (currentModule is not null)
+        {
+            // If this assessment is part of the unlock criteria
+            if (currentModule[0].LvlContent_Unlock == true)
+            {
+                List<LevelUnlock>? unlockCriteria;
+                List<ProgressUnlocks>? playerProgress;
+
+                string sql = "WHERE LvlUnlock_LvlContentID = @ContentID";
+                unlockCriteria = await _data.LoadData<LevelUnlock, dynamic>(LevelUnlock.GetSQL() + sql, new { ContentID = currentModule[0].LvlContent_ID }, _config.GetConnectionString("RTX"));
+
+                foreach (var critera in unlockCriteria)
+                {
+                    sql = "WHERE PU_LvlUnlockID = @ThisUnlock";
+                    playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(ProgressUnlocks.GetSQL() + sql, new { ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
+
+                    if (critera.LvlUnlock_Type == "LIVES")
+                    {
+                        int currentLives = playerProgress[0].PU_NumVal - 1;
+                        if (currentLives <= 0)
+                        {
+                            sql = "UPDATE `RTX`.`Progress` SET `Progress_CompleteFlag` = true WHERE Progress_ID = @ThisUnlock";
+                            await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { ThisUnlock = playerProgress[0].PU_ProgressID }, _config.GetConnectionString("RTX"));
+                            if (currentLives < 0)
+                            {
+                                currentLives = 0;
+                            }
+                        }
+
+                        sql = "UPDATE `RTX`.`ProgressUnlocks` SET `PU_NumVal` = @newNum WHERE PU_LvlUnlockID = @ThisUnlock";
+                        playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(ProgressUnlocks.GetSQL() + sql, new { newNum = currentLives, ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
+                    }
+                    else if (critera.LvlUnlock_Type == "SCORE")
+                    {
+                        // Can't do score because teacher grading required
+                    }
+                }
+            }
+        }
 
         NavManager.NavigateTo($"/assignmentsubmitted");
 
