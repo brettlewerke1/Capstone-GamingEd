@@ -16,7 +16,7 @@
     $username = $_POST["Username"];
 
     // SQL query for specific teacher
-    $queryString = "SELECT * FROM RTX.Global_View WHERE Account_Username='".$username."' AND Account_Role = '".$role."';";
+    $queryString = "SELECT Account.*  FROM RTX.Account WHERE Account_Username='".$username."' AND Account_Role = '".$role."';";
 
     $teachers = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
     $userInfo = mysqli_fetch_assoc($teachers);
