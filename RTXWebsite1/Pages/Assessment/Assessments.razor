@@ -16,87 +16,89 @@
 
 
 <!--Print the title-->
-
 @if (assessmentList != null)
 {
-     bool myBool = true;
+    bool myBool = true;
 
-    foreach( var p in assessmentList )
+    foreach (var p in assessmentList)
     {
         // then I have already printed the title
-        if( myBool == true )
+        if (myBool == true)
         {
-            <h1 div class="title-head"> @p.Assessment_Title </h1>
+            <h1 div class="title-head"> TEMP </h1>
             <br />
 
-            myBool = false;   
+            myBool = false;
         }
-    }    
+    }
 }
 
 <!-- If assessmentList exists -->
-@if(assessmentList != null)
+@if (assessmentList != null)
 {
 
-  
+
     // initialize variables
     assessment.pointsEarned = 0;
     assessment.totalPoints = 0;
     int questionNumber = 0;
 
-    // boolean to see if it a matching question. 
+    // boolean to see if it a matching question.
     bool isMatchingBool = false;
 
-    <EditForm Model="@assessment" OnValidSubmit="@goToResults" >
+    <EditForm Model="@assessment" OnValidSubmit="@goToResults">
 
-    <DataAnnotationsValidator/>
-    <ValidationSummary />   
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <!-- go through list made from SQL at bottom of file -->
-    @foreach (var p in assessmentList)
-    {
+        <!-- go through list made from SQL at bottom of file -->
+        @foreach (var p in assessmentList)
+        {
             // reset matching boolean to false
             isMatchingBool = false;
 
             // add points for each question
-            assessment.totalPoints = assessment.totalPoints + @p.Assessment_Points_Per_Question;
+            assessment.totalPoints = assessment.totalPoints + @p.Assessment_PointsPerQuestion;
 
             questionNumber++;
 
             <h4>@questionNumber) @p.Assessment_Question</h4>
 
             // lopp through answerList
-            foreach( var a in answerList )
+            if( answerList is not null )
             {
-
-                // if question type is: multiple choice
-                if( @a.AssessmentAnswer_Assessment_ID == @p.Assessment_ID && @p.Assessment_Question_Type == "MultipleChoice" )
-                {           
-                    <InputRadioGroup @bind-Value=@p.Assessment_Answers >
-                        <InputRadio Value="@a.AssessmentAnswer_Answers" /> @a.AssessmentAnswer_Answers &nbsp;
-                    </InputRadioGroup>
-
-                }
-
-                // if question type is: matching
-                if( @a.AssessmentAnswer_Assessment_ID == @p.Assessment_ID && @p.Assessment_Question_Type == "Matching")
+            
+                foreach (var a in answerList)
                 {
 
-                    // don't want to add first set of options to total number of questions because it was already included when the question was asked
-                    if( isMatchingBool )
+                    // if question type is: multiple choice
+                    if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "MultipleChoice")
                     {
-                        assessment.totalPoints = assessment.totalPoints + @p.Assessment_Points_Per_Question;
+                        <InputRadioGroup @bind-Value=@p.Assessment_Answers>
+                            <InputRadio Value="@a.AssessmentAnswer_Answers" /> @a.AssessmentAnswer_Answers &nbsp;
+                        </InputRadioGroup>
+
                     }
 
-                    isMatchingBool = true;
+                    // if question type is: matching
+                    if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "Matching")
+                    {
 
-                        
-                        <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers >
+                        // don't want to add first set of options to total number of questions because it was already included when the question was asked
+                        if (isMatchingBool)
+                        {
+                            assessment.totalPoints = assessment.totalPoints + @p.Assessment_PointsPerQuestion;
+                        }
+
+                        isMatchingBool = true;
+
+
+                        <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers>
                             <option value="">Select an Answer</option>
-                            
-                            @foreach (var z in answerList )
+
+                            @foreach (var z in answerList)
                             {
-                                if( @z.AssessmentAnswer_Assessment_ID == @p.Assessment_ID )
+                                if (@z.AssessmentAnswer_AssessmentID == @p.Assessment_ID)
                                 {
                                     // drop down list of answer options
                                     <option>@z.AssessmentAnswer_Answers</option>
@@ -104,50 +106,53 @@
                             }
                         </InputSelect>
 
-                            // if selected matching question is correct 
-                            if( @a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_Correct_Answers )
-                            {
-                                // add to total points earned if selected answer equals the correct answer 
-                                assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_Points_Per_Question;
-                            }
-                            
+                        // if selected matching question is correct
+                        if (@a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_CorrectAnswers)
+                        {
+                            // add to total points earned if selected answer equals the correct answer
+                            assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                        }
+
                         // print a value to be matched with
-                        @a.AssessmentAnswer_Matching_Answer
-                        <br/>
-                        <br/>
-                   }
+                        @a.AssessmentAnswer_MatchingAnswer
+                        <br />
+                        <br />
+                    }
 
                 }
+            }
 
-                // if question type is: text
-                if( @p.Assessment_Question_Type == "Text" )
-                {
-                    <label for="answer">Answer: </label>
-                    <InputText  @bind-Value=@p.Assessment_Answers   />
-                }
-            <br/>
-
-            // calculate number of questions answered correctly
-            foreach( var myVar in answerList )
+            // if question type is: text
+            if (@p.Assessment_QuestionType == "Text")
             {
-                // check if answer is correct
-                if(  myVar.AssessmentAnswer_Correct_Answers != null && @myVar.AssessmentAnswer_Correct_Answers != "" && myVar.AssessmentAnswer_Correct_Answers.ToLower() == @p.Assessment_Answers.ToLower() )
-                {
-                    // add to total points earned
-                    assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_Points_Per_Question;
-                }
-            }          
-            <br/>
-        
-    } <!--End master loop-->
+                <label for="answer">Answer: </label>
+                <InputText @bind-Value=@p.Assessment_Answers />
+            }
+            <br />
 
-    <!-- Submits to CalcGrade() -->
-    <button type="submit" class="btn btn-primary"> Submit</button>
-    <br/>
+            if (answerList is not null)
+            {
+                // calculate number of questions answered correctly
+                foreach (var myVar in answerList)
+                {
+                    // check if answer is correct
+                    if (myVar.AssessmentAnswer_CorrectAnswers != null && @myVar.AssessmentAnswer_CorrectAnswers != "" && myVar.AssessmentAnswer_CorrectAnswers.ToLower() == @p.Assessment_Answers.ToLower())
+                    {
+                        // add to total points earned
+                        assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                    }
+                }
+                <br />
+            }
+
+        } <!--End master loop-->
+        <!-- Submits to CalcGrade() -->
+        <button type="submit" class="btn btn-primary"> Submit</button>
+        <br />
 
     </EditForm>
-    <br/>
-    <br/>
+    <br />
+    <br />
 
 }
 else
@@ -158,10 +163,12 @@ else
 
 @code {
     RTXWebsite1.Models.Assessment assessment = new RTXWebsite1.Models.Assessment();
-    
-    
+
+    List<AssessHead>? assessmentHead;
     List<Assessment>? assessmentList;
     List<AssessmentAnswers>? answerList;
+
+    List<LevelContent>? currentModule;
 
 
     private async Task GetData()
@@ -171,17 +178,71 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select * from Assessment where Assessment_Level_ID = @iamLevelID";
+        string sql = "WHERE AssessHead_ID = @iamLevelID";
+        assessmentHead = await _data.LoadData<AssessHead, dynamic>(AssessHead.GetSQL() + sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
-        assessmentList = await _data.LoadData<Assessment, dynamic>(sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+        sql = "WHERE Assessment_AssessHeadID = @iamLevelID";
+        assessmentList = await _data.LoadData<Assessment, dynamic>(Assessment.GetSQL() + sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
-        string answersSQL = "select * from AssessmentAnswer";
+        sql = "WHERE AssessmentAnswer_AssessHeadID = @iamLevelID";
+        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(AssessmentAnswers.GetSQL() + sql, new { iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
-        answerList = await _data.LoadData<AssessmentAnswers, dynamic>(answersSQL, new {  }, _config.GetConnectionString("RTX"));
+        sql = "WHERE LvlContent_LevelID = @ThisLevel AND LvlContent_ObjectID = @iamLevelID AND Module_ID = 2";
+        currentModule = await _data.LoadData<LevelContent, dynamic>(LevelContent.GetSQL() + sql, new { ThisLevel = Cookie.CurrentLvl, iamLevelID = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
     }
 
-    async void goToResults( )
+
+    private async void goToResults()
     {
+        if( currentModule is not null)
+        {
+            // If this assessment is part of the unlock criteria
+            if( currentModule[0].LvlContent_Unlock == true )
+            {
+                List<LevelUnlock>? unlockCriteria;
+                List<ProgressUnlocks>? playerProgress;
+
+                string sql = "WHERE LvlUnlock_LvlContentID = @ContentID";
+                unlockCriteria = await _data.LoadData<LevelUnlock, dynamic>(LevelUnlock.GetSQL() + sql, new { ContentID = currentModule[0].LvlContent_ID }, _config.GetConnectionString("RTX"));
+
+                foreach( var critera in unlockCriteria )
+                {
+                    sql = "WHERE PU_LvlUnlockID = @ThisUnlock";
+                    playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(ProgressUnlocks.GetSQL() + sql, new { ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
+
+                    if( critera.LvlUnlock_Type == "LIVES" )
+                    {
+                        int currentLives = playerProgress[0].PU_NumVal - 1;
+                        if ( currentLives <= 0 )
+                        {
+                            sql = "UPDATE `RTX`.`Progress` SET `Progress_CompleteFlag` = true WHERE Progress_ID = @ThisUnlock";
+                            await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { ThisUnlock = playerProgress[0].PU_ProgressID }, _config.GetConnectionString("RTX"));
+                            if ( currentLives < 0 )
+                            {
+                                currentLives = 0;
+                            }
+                        }
+                        
+                        sql = "UPDATE `RTX`.`ProgressUnlocks` SET `PU_NumVal` = @newNum WHERE PU_LvlUnlockID = @ThisUnlock";
+                        playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { newNum = currentLives, ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
+                    }
+                    else if ( critera.LvlUnlock_Type == "SCORE" )
+                    {
+                        if (assessment.totalPoints == 0)
+                        {
+                            sql = "UPDATE `RTX`.`Progress` SET `Progress_CompleteFlag` = true WHERE Progress_ID = @ThisUnlock";
+                            await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { ThisUnlock = playerProgress[0].PU_ProgressID }, _config.GetConnectionString("RTX"));
+                        }
+                        else if(assessment.pointsEarned/assessment.totalPoints * 100 >= critera.LvlUnlock_NumGoal)
+                        {
+                            sql = "UPDATE `RTX`.`Progress` SET `Progress_CompleteFlag` = true WHERE Progress_ID = @ThisUnlock";
+                            await _data.LoadData<ProgressUnlocks, dynamic>( sql, new { ThisUnlock = playerProgress[0].PU_ProgressID }, _config.GetConnectionString("RTX"));
+                        }
+                    }
+                }
+            }
+        }
+
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
     }

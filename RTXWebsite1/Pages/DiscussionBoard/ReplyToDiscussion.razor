@@ -13,24 +13,22 @@
     NavManager.NavigateTo("/");
 }
 
-@if (discussions == null)
+@if (discussHead == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    @foreach (var p in discussions)
-    {
-        <h2> Discussion Post by: @p.Player_IGN</h2>
-        <h2> @p.Discussion_Title </h2>
-        <p>@p.Discussion_Desc</p>
+    
+    <h1 div class="title-head">@discussHead[0].Discussion_Title </h1>
+    <p>Discussion Post by: @discussHead[0].Player_IGN</p>
+    <p>@discussHead[0].Discussion_Desc</p>
 
-        <p>
-            <div>@p.Discussion_Date</div>
-            -----------------------------------------------    
-        </p>
-    }
-    if(replies != null)
+    <p>@discussHead[0].Discussion_Date</p>
+    <p>
+        -----------------------------------------------    
+    </p>
+    if(replies is not null && player is not null)
     {
         @foreach (var r in replies)
         {
@@ -49,24 +47,29 @@ else
             </p>
          }    
     }
-    <EditForm Model=@disPost OnValidSubmit="postReply">
-        <DataAnnotationsValidator/>
-        <div class="form-group">
-            <label for="DiscussionContent">Content:</label>
-            <InputText @bind-Value=disPost.Post_Content class="form-control" id="DiscussionContent" />
-        </div>
-        <ValidationMessage For="@(() => disPost.Post_Content)"/>
-        <button type="submit" class="btn btn-primary"> Submit</button>
-    </EditForm>
+
+    if( (discussHead[0].Discussion_CloseDate == "00/00/0000 00:00:00") || (currentTime.CompareTo(DateTime.Parse(discussHead[0].Discussion_CloseDate))) > 0)
+    {
+        <EditForm Model=@disPost OnValidSubmit="postReply">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label for="DiscussionContent">Content:</label>
+                <InputText @bind-Value=disPost.Post_Content class="form-control" id="DiscussionContent" />
+            </div>
+            <ValidationMessage For="@(() => disPost.Post_Content)" />
+            <button type="submit" class="btn btn-primary"> Submit</button>
+        </EditForm>
+    }
 }
 
 @code {
     [Parameter]
     public string paramDiscussion { get; set; } = "";
 
-    List<DiscussionBoard>? discussions;
+    List<DiscussionBoard>? discussHead;
     List<DiscussionPost>? replies;
-    List<PlayerInformation> player;
+    List<PlayerInformation>? player;
+    DateTime currentTime = DateTime.Now;
 
     RTXWebsite1.Models.DiscussionPost disPost = new RTXWebsite1.Models.DiscussionPost();
 
@@ -79,7 +82,7 @@ else
     {
         // Get Head Post
         string sql = "WHERE `DiscussionHead`.`Discussion_ID` = @Discussion";
-        discussions = await _data.LoadData<DiscussionBoard, dynamic>(DiscussionBoard.GetSQL() + sql, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
+        discussHead = await _data.LoadData<DiscussionBoard, dynamic>(DiscussionBoard.GetSQL() + sql, new { Discussion = @Cookie.CurrentDiscussion }, _config.GetConnectionString("RTX"));
 
         // Get Replies
         sql = "WHERE `DiscussionHead`.`Discussion_ID` = @Discussion";

@@ -8,8 +8,10 @@ namespace RTXWebsite1.Models
         public string? Discussion_Title { get; set;}
         public string? Discussion_Desc { get; set; }
         public int Discussion_CourseID { get; set; }
-        public string? Discussion_Date { get; set; } // YYYY-MM-DD
+        public string? Discussion_Date { get; set; } // YYYY-MM-DD HH:mm:ss
         public int Discussion_PlayerID { get; set; }
+        public string? Discussion_OpenDate { get; set; }
+        public string? Discussion_CloseDate { get; set; }
         public string? Player_IGN { get; set; }
 
         public static string GetSQL()
@@ -22,6 +24,8 @@ namespace RTXWebsite1.Models
                 `DiscussionHead`.`Discussion_CourseID` AS `Discussion_CourseID`,
                 `DiscussionHead`.`Discussion_Date` AS `Discussion_Date`,
                 `DiscussionHead`.`Discussion_PlayerID` AS `Discussion_PlayerID`,
+                `DiscussionHead`.`Discussion_OpenDate` AS `Discussion_OpenDate`,
+                `DiscussionHead`.`Discussion_CloseDate` AS `Discussion_CloseDate`,
                 `Player`.`Player_IGN` AS `Player_IGN`
             FROM
                 (`DiscussionHead`
@@ -36,7 +40,7 @@ namespace RTXWebsite1.Models
         public string? Post_Time { get; set; } // YYYY-MM-DD
         public int Post_PlayerID { get; set; }
         public int Post_HeadPostID { get; set; }
-        public string Player_IGN { get; set; }
+        public string? Player_IGN { get; set; }
 
         public static string GetSQL()
         {

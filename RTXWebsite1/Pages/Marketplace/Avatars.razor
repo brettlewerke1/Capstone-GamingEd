@@ -20,12 +20,14 @@
 }
 
 
-@if( avatars == null)
+@if( avatars == null || player == null)
 {
     <em>Loading...</em>
 }
 else
 {
+    <p>@player[0].Player_Coins</p>
+
     @if(avatars.Count() == 0)
     {
         <p>No avatars found.</p>
@@ -66,8 +68,8 @@ else
 
 @code{
     List<BuyAvatars>? avatars;
-    List<Avatar> owned; //Player already owns
-    List<PlayerInformation> player;
+    List<Avatar>? owned; //Player already owns
+    List<PlayerInformation>? player;
 
 
     private async Task GetData()

@@ -13,7 +13,7 @@
     $student = "student";
 
 
-    $queryString = "SELECT * FROM RTX.Global_View WHERE Account_Role='".$student."' AND Course_Tag='".$classNum."';";
+    $queryString = "SELECT `Account`.*, `Player`.*, `Course`.*  FROM `RTX`.`Account` JOIN `RTX`.`Player` ON `Account`.`Account_ID` = `Player`.`Player_AccountID` JOIN `RTX`.`Course` ON `Player`.`Player_CourseID` = `Course`.`Course_ID` WHERE Account_Role='".$student."' AND Course_Tag='".$classNum."';";
 
     $students = mysqli_query($con, $queryString) or die("2:...DB issue"); // error code 2 = name already in Db
     $rows = array();

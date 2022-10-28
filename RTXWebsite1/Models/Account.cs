@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace RTXWebsite1.Models
 {
@@ -55,6 +56,46 @@ namespace RTXWebsite1.Models
                 JOIN `Avatar` ON ((`Player`.`Player_CurrentAvatarID` = `Avatar`.`Avatar_ID`)))";
             // Get all : "WHERE Account_ID = @var"
             // Get for one class: "WHERE Player_ID = @var"
+        }
+    }
+
+    public class Progress
+    {
+        public int Progress_ID { get; set; }
+        public int Progress_PlayerID { get; set; }
+        public int Progress_LevelTreeID { get; set; }
+        public bool Progress_CompleteFlag { get; set; }
+
+        public static string GetSQL()
+        {
+            return @"    
+            SELECT 
+                `Progress`.`Progress_ID` AS `Progress_ID`,
+                `Progress`.`Progress_PlayerID` AS `Progress_PlayerID`,
+                `Progress`.`Progress_LevelTreeID` AS `Progress_LevelTreeID`,
+                `Progress`.`Progress_CompleteFlag` AS `Progress_CompleteFlag`
+            FROM
+                `Progress`";
+        }
+    }
+
+    public class ProgressUnlocks
+    {
+        public int PU_ID { get; set; }
+        public int PU_ProgressID { get; set; }
+        public int LvlUnlockID { get; set; }
+        public int PU_NumVal { get; set; }
+
+        public static string GetSQL()
+        {
+            return @"    
+            SELECT 
+                `ProgressUnlocks`.`PU_ID` AS `PU_ID`,
+                `ProgressUnlocks`.`PU_ProgressID` AS `PU_ProgressID`,
+                `ProgressUnlocks`.`PU_LvlUnlockID` AS `PU_LvlUnlockID`,
+                `ProgressUnlocks`.`PU_NumVal` AS `PU_NumVal`
+            FROM
+                `ProgressUnlocks`";
         }
     }
 }
