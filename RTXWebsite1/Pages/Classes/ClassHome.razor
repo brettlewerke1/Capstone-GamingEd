@@ -28,22 +28,34 @@ else
         <h1 div class="title-head">
            [@p.Course_Tag] @p.Course_Name
         </h1>
-        <hr />
+        
+        <br/>
         <p>
-            Professor Email: @p.Course_ProfEmail
+            Course Professor Email: @p.Course_ProfEmail
         </p>
+       
+        
         if (@p.Course_MarketFlag)
         {
-            <a href="/marketplace" class="btn btn-primary">Marketplace</a>
+           
+            <a href="/marketplace" class="btn btn-primary course-buttons">Marketplace</a>
+            
         }
-        <a href="/viewdiscussions" class="btn btn-primary">Discussion</a>
+      
+        <a href="/viewdiscussions" class="btn btn-primary course-buttons">Discussion</a>
+       
 
-        <a href="/grades" class = "btn btn-primary">Grades</a>
+       
+        <a href="/grades" class = "btn btn-primary course-buttons">Grades</a>
+
+        <br/>
+        <hr/>
+
     }
     @foreach( var p in levelInfo )
     {
         <p @onclick="(() => ChangeLevel(p.Level_ID))">   
-            <a href="/level">@p.Level_Name | @p.Level_Desc</a>
+            <a class = "btn btn-secondary" href="/level">@p.Level_Name | @p.Level_Desc</a>
         </p>
     }
 }
