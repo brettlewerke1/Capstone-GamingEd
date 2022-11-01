@@ -19,6 +19,23 @@
 
 
 
+
+@if( playerList == null )
+{
+    <p>Loading...</p>
+}
+
+@if( playerList != null )
+{
+    foreach(var player in playerList )
+    {
+        <h3 class="header-head">Displaying Grades for: <em>@player.Player_IGN</em> </h3>
+        <hr/>
+    }
+}
+
+
+
 @if( gradesList == null )
 {
     <p>Loading...</p>
@@ -28,9 +45,42 @@
 {
    @foreach(var p in gradesList )
    {
-      <p>My grade in ModuleID: @p.Grades_ModuleID on ObjectID: @p.Grades_ObjectID is: @p.Grades_Score out of @p.Grades_Total </p>
+       if( moduleList != null )
+        {
+            foreach( var m in moduleList )
+            {
+                if( @p.Grades_ModuleID == @m.Module_ID )
+                {
 
-      <!-- Notes: what class does this each grade belong to? (add to database)-->
+                    // if assignment
+                    if( @m.Module_Name == "Assignment")
+                    {
+                        <p class="grade-info">  My grade on @m.Module_Name #@p.Grades_AssignmentS_AssignmentID is: @p.Grades_Score out of @p.Grades_Total </p>
+
+                        grades.Summed_Grades_Total += @p.Grades_Total;
+
+                        grades.Summed_Score_Total += @p.Grades_Score;
+                    }
+
+                    // or if assessment
+                    if( @m.Module_Name == "Asessment" )
+                    {
+
+                        <p class="grade-info">My grade on @m.Module_Name #@p.Grades_AssessHead_ID is: @p.Grades_Score out of @p.Grades_Total </p>
+
+                        grades.Summed_Grades_Total += @p.Grades_Total;
+
+                        grades.Summed_Score_Total += @p.Grades_Score;
+
+                    }
+
+                }
+            }            
+        }
+
+    
+
+
    }    
 }
 
@@ -38,16 +88,61 @@
 
 
 
+
+@if( grades.Summed_Grades_Total != 0 )
+{
+    grades.Calculated_Grade = grades.Summed_Score_Total / grades.Summed_Grades_Total * 100;
+}
+
+
+
+
+
+@if( @grades.Calculated_Grade >= 90 )
+{
+    grades.LetterGrade = 'A';
+}
+else if( @grades.Calculated_Grade >= 80 )
+{
+    grades.LetterGrade = 'B';
+}
+else if( @grades.Calculated_Grade >= 70 )
+{
+    grades.LetterGrade = 'C';
+}
+else if( @grades.Calculated_Grade >= 60 )
+{
+    grades.LetterGrade = 'D';
+}
+else if( @grades.Calculated_Grade >= 0 )
+{
+    grades.LetterGrade = 'F';
+}
+
+
+<p class="totalGradeInfo" >Total Grade: @grades.Calculated_Grade% (@grades.LetterGrade)</p>
+
+
+
+
 @code{
 
 
-   
+
 
 
     List<RTXWebsite1.Models.Grades>? gradesList;
 
+    List<RTXWebsite1.Models.Module>? moduleList;
+
+    List<RTXWebsite1.Models.PlayerInformation>? playerList;
+
 
     RTXWebsite1.Models.Grades grades = new RTXWebsite1.Models.Grades();
+
+    RTXWebsite1.Models.Module modules = new RTXWebsite1.Models.Module();
+
+    RTXWebsite1.Models.PlayerInformation players = new RTXWebsite1.Models.PlayerInformation();
 
 
     private async Task GetData()
@@ -59,15 +154,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        
 
 
-        // string sql = "Select `RTX`.`Grades` WHERE (`Player_ID` = @ThisPlayer)";
+
 
         string sql = "select * from Grades where Grades_PlayerID = @ThisPlayer";
         gradesList = await _data.LoadData<RTXWebsite1.Models.Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
+        string otherSQL = "select * from Module";
+        moduleList = await _data.LoadData<RTXWebsite1.Models.Module, dynamic>(otherSQL, new {}, _config.GetConnectionString("RTX"));
+
+        string thirdSQL = "select * from Player where Player_ID = @ThisPlayer";
+        playerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(thirdSQL, new {ThisPlayer = Cookie.PlayerID}, _config.GetConnectionString("RTX"));
+
     }
+
+
+
 
 
 

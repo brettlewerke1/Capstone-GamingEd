@@ -1,10 +1,16 @@
 .navbar-toggler[b-fn9io6309k] {
+    /*
+        White
+    */
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 .top-row[b-fn9io6309k] {
     
     height: 3.5rem;
+    /*
+        Grey
+    */
     background-color: rgba(0,0,0,0.4);
 }
 
@@ -33,6 +39,9 @@
     }
 
     .nav-item[b-fn9io6309k]  a {
+        /*
+            Grey
+        */
         color: #d7d7d7;
         border-radius: 4px;
         height: 3rem;
@@ -42,11 +51,17 @@
     }
 
 .nav-item[b-fn9io6309k]  a.active {
+    /*
+        White
+    */
     background-color: rgba(255,255,255,0.25);
     color: white;
 }
 
 .nav-item[b-fn9io6309k]  a:hover {
+    /*
+        White
+    */
     background-color: rgba(255,255,255,0.1);
     color: white;
 }

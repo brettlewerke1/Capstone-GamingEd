@@ -76,12 +76,16 @@ main {
         font-weight: bold;
     }
 
-    /* On Hover Color */
+    /* On Hover Color: NAU True Blue */
     a:hover {
-        color: deepskyblue;
+      
+        color: rgb(0, 51, 102);
+        
+      
     }
 
 }
+
 
 
 
