@@ -15,11 +15,15 @@
 
 <br />
 
-<h3>View Discussions</h3>
+
 <button class="btn btn-primary" @onclick="NewDiscussion">Post New Discussion</button>
-<p>
-    -----------------------------------------------
-</p>
+
+<br/>
+<br/>
+
+
+<h3 class="header-head">View Discussions</h3>
+
 @if (discussions == null)
 {
     <p><em>Nothing here. Start a new post?</em></p>
@@ -28,7 +32,8 @@ else
 {
     @foreach (var p in discussions)
     {
-        <p>
+        <div class="discussion-styling">
+        <p >
             @p.Discussion_Title
         </p>
 
@@ -38,15 +43,15 @@ else
 
         <button class="btn btn-primary" @onclick="(() => Reply(p))">Open</button>
 
-        // If the person who made the post views the discussion, they have the choice to delete it
-        if(Cookie.UserID == p.Discussion_PlayerID)
+        <!--  If the person who made the post views the discussion, they have the choice to delete it  -->
+        @if(Cookie.UserID == p.Discussion_PlayerID)
         {
             <button class="btn btn-primary" @onclick="(() => DeleteDiscussion(p))">DELETE</button>
         }
 
-         <p>
-             -----------------------------------------------
-        </p>
+        </div>
+
+      
         
     }
 }

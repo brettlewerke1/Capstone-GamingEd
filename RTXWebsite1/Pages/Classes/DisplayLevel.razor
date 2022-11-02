@@ -22,9 +22,10 @@
 else
 {
     <h1 div class="title-head">@levelInfo[0].Level_Name</h1>
-    <p>
+    <h4 class="header-head">
         @levelInfo[0].Level_Desc
-    </p>
+    </h4>
+    <hr/>
 }
 
 @if(content == null)
@@ -36,7 +37,7 @@ else
     @foreach( var p in content )
     {
         <p>
-            <a href="@p.Module_Path" @onclick="(() => ChangeModule(p.LvlContent_ObjectID))">@p.LvlContent_OrderNum | @p.LvlContent_Name</a>
+            <a class="btn btn-primary" href="@p.Module_Path" @onclick="(() => ChangeModule(p.LvlContent_ObjectID))">@p.LvlContent_OrderNum | @p.LvlContent_Name</a>
         </p>
     }
 }

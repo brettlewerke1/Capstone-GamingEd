@@ -24,10 +24,9 @@
 }
 else
 {
-    <h3>@account[0].Account_Username 's Profile</h3>
-    <p>
-        Username: @account[0].Account_Username
-    </p>
+    <h3 div class = "header-head"> <em>  @account[0].Account_Username</em>'s Account Information </h3>
+  
+    <br/>
 
     if (player == null)
     {
@@ -39,20 +38,22 @@ else
     }
     else
     {
-        <h4>Enrolled Classes</h4>
+        
         @foreach (var playInfo  in player)
         {
-            <p>
-                -------------------------------------------------
-            </p>
-            <p>
+            <div class="account-info">
+
+
+            <h4>
                 (@playInfo.Course_Tag) @playInfo.Course_Name
-            </p>
+            </h4>
             <p>
                 IGN: @playInfo.Player_IGN | Coins: @playInfo.Player_Coins
             </p>
             <img src="@playInfo.Avatar_Image" class="avatar"/>
             <button class="btn btn-primary" @onclick="(() => ChangeAvatar(playInfo.Player_ID))">Change Avatar</button>
+
+            </div>
         }
     }
 }

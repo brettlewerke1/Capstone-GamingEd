@@ -173,6 +173,8 @@ else
         sql = "INSERT INTO `RTX`.`AssignmentSubmissions` ( `AssignmentS_AssignmentID`, `AssignmentS_PlayerID`, `AssignmentS_Comment`, `AssignmentS_StringUpload`, `AssignmentS_FileType` ) VALUES ( @ThisModule, @ThisPlayer, @ThisComment, @ThisUpload, @ThisType)";
         await _data.SaveData(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID, ThisComment = newPost.AssignmentS_Comment, ThisUpload = base64String, ThisType = newPost.AssignmentS_FileType }, _config.GetConnectionString("RTX")); 
 
+
+
         if (currentModule is not null)
         {
             // If this assessment is part of the unlock criteria

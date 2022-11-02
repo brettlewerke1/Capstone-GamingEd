@@ -14,7 +14,8 @@
 
 <br />
 
-<h3>Purchasable Items</h3>
+
+<hr/>
 
 @if ( Cookie.CurrentClass == 0 )
 {
@@ -28,7 +29,8 @@ else
 {
     if( player is not null )
     {
-        <p>@player[0].Player_Coins</p>
+        <h2 class="header-head">@player[0].Player_IGN's Total Coins: <em>@player[0].Player_Coins</em></h2>
+        <p>----------------------------------------------------------------------------------------------------</p>
 
         if( transactions.Count() == 0)
         {
@@ -36,20 +38,24 @@ else
         }
         else
         {
-            <ul>
-                <li>
-                    <em>Purchase More Avatars</em>
+           
+               
+                    <h4 class="header-head">Purchase Avatars</h4>
                     <p><button type="button" @onclick="(() => ViewAvatars())">View</button></p>
-                </li>
+
+                    <p>------------------------------------------------------------------------</p>
+               
             @foreach (var p in transactions)
             {
-                <li> 
-                    <em>@p.Transaction_Name</em>
+               
+                    <h4 class="header-head">@p.Transaction_Name</h4>
                     <p>@p.Transaction_Description</p>
                     <p>@p.Transaction_Cost <button type="button">+</button></p>
-                </li>
+
+                    <p>------------------------------------------------------------------------</p>
+                
             }
-            </ul>
+         
         }
     }
 }
