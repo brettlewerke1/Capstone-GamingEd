@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RTXWebsite1.Models
 {
@@ -96,6 +97,36 @@ namespace RTXWebsite1.Models
                 `ProgressUnlocks`.`PU_NumVal` AS `PU_NumVal`
             FROM
                 `ProgressUnlocks`";
+        }
+    }
+
+    public class PlayerProgressUnlocks
+    {
+        public int Progress_ID { get; set; }
+        public int Progress_PlayerID { get; set; }
+        public int Progress_LevelTreeID { get; set; }
+        public bool Progress_CompleteFlag { get; set; }
+        public int PU_ID { get; set; }
+        public int PU_LvlUnlockkID { get; set; }
+        public int PU_NumVal { get; set; }
+        public int PU_MaxVal { get; set; }
+        public static string GetSQL()
+        {
+            return @"
+            SELECT 
+                `Progress`.`Progress_ID` AS `Progress_ID`,
+                `Progress`.`Progress_PlayerID` AS `Progress_PlayerID`,
+                `Progress`.`Progress_LevelTreeID` AS `Progress_LevelTreeID`,
+                `Progress`.`Progress_CompleteFlag` AS `Progress_CompleteFlag`,
+                `ProgressUnlocks`.`PU_ID` AS `PU_ID`,
+                `ProgressUnlocks`.`PU_LvlUnlockID` AS `PU_LvlUnlockID`,
+                `ProgressUnlocks`.`PU_NumVal` AS `PU_NumVal`,
+                `ProgressUnlocks`.`PU_MaxVal` AS `PU_MaxVal`
+            FROM
+                (`Progress`
+                JOIN `ProgressUnlocks`)
+            WHERE
+                (`ProgressUnlocks`.`PU_ProgressID` = `Progress`.`Progress_ID`)";
         }
     }
 }
