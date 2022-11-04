@@ -122,6 +122,11 @@ else if( @grades.Calculated_Grade >= 0 )
 
 <p class="totalGradeInfo" >Total Grade: @grades.Calculated_Grade% (@grades.LetterGrade)</p>
 
+@if( gradesList != null )
+{
+    UpdateGrades( grades.LetterGrade, grades.Calculated_Grade );
+}
+
 
 
 
@@ -136,6 +141,8 @@ else if( @grades.Calculated_Grade >= 0 )
     List<RTXWebsite1.Models.Module>? moduleList;
 
     List<RTXWebsite1.Models.PlayerInformation>? playerList;
+
+    List<RTXWebsite1.Models.PlayerInformation>? anotherPlayerList;
 
 
     RTXWebsite1.Models.Grades grades = new RTXWebsite1.Models.Grades();
@@ -156,8 +163,6 @@ else if( @grades.Calculated_Grade >= 0 )
     {
 
 
-
-
         string sql = "select * from Grades where Grades_PlayerID = @ThisPlayer";
         gradesList = await _data.LoadData<RTXWebsite1.Models.Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
@@ -166,6 +171,22 @@ else if( @grades.Calculated_Grade >= 0 )
 
         string thirdSQL = "select * from Player where Player_ID = @ThisPlayer";
         playerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(thirdSQL, new {ThisPlayer = Cookie.PlayerID}, _config.GetConnectionString("RTX"));
+
+
+       
+
+    }
+
+
+
+    public async void UpdateGrades(char letterGrade, double percentageGrade )
+    {
+        
+        string updateLetterGradeSQL = "UPDATE `RTX`.`Player` SET `Player_Letter_Grade` = @ThisLetterGrade WHERE(`Player_ID` = @ThisPlayer)";
+        anotherPlayerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(updateLetterGradeSQL, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+        string updatePercentageGradeSQL = "UPDATE `RTX`.`Player` SET `Player_Percentage_Grade` = @ThisPercentageGrade WHERE(`Player_ID` = @ThisPlayer)";
+        anotherPlayerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(updatePercentageGradeSQL, new { ThisPercentageGrade = percentageGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
     }
 
