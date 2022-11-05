@@ -25,8 +25,6 @@
 
 
 
-
-
 <!--  Grabbing elements from Assignment table -->
 @if (submissions is null)
 {
@@ -36,12 +34,6 @@ else
 {
 
 
-
-    <p>AssignmentS_StringUpload: @submissions[0].AssignmentS_StringUpload</p>
-
-
-
- 
 
 
     if (submissions[0].AssignmentS_FileType == "PDF")
@@ -110,8 +102,8 @@ else
 
     private async void goBack( )
     {
-        // string sql = "Delete from AssignmentSubmissions where AssignmentS_AssignmentID = @ThisModule AND AssignmentS_PlayerID = @ThisPlayer";
-        // submissions = await _data.DeleteData<AssignmentSubmissions, dynamic>(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        string sql = "Delete from AssignmentSubmissions where AssignmentS_AssignmentID = @ThisModule AND AssignmentS_PlayerID = @ThisPlayer";
+        submissions = await _data.DeleteData<AssignmentSubmissions, dynamic>(sql, new { ThisModule = Cookie.CurrentModule, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
         
         // navigate back to assignment page
         NavManager.NavigateTo("/assignment");
