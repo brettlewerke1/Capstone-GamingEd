@@ -145,8 +145,8 @@
                 <p>Selected Answer is not null</p>
 
 
-                // check if answer is correct
-                if( @p.Assessment_SelectedAnswer == @p.Assessment_CorrectAnswer  )
+                // check if selected answer is correct (case does not matter)
+                if( @p.Assessment_SelectedAnswer.ToLower() == @p.Assessment_CorrectAnswer.ToLower()  )
                 {
 
 
