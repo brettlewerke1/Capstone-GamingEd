@@ -52,6 +52,12 @@ namespace RTXWebsite1.Models
 
         public string[]? selectedAnswers { get; set; }
 
+        public string? Selected_Answer {get; set; }
+       
+        public string? Assessment_CorrectAnswer { get; set; } 
+
+        public string? Assessment_SelectedAnswer { get; set; }
+
         public static string GetSQL()
         {
             return @"    
