@@ -35,8 +35,6 @@ namespace RTXWebsite1.Models
         // actual question being asked
         public string Assessment_Question { get; set; } = "";
 
-        // the entered answer by the user for non-matching questions
-        public string Assessment_Answers { get; set; } = "";
 
         // boolean to decide whether to show answers or not (tinyInt) (0=true, 1=false)
         public bool Assessment_DisplayAnswers { get; set; }
@@ -50,12 +48,7 @@ namespace RTXWebsite1.Models
         // number of total points in assessment
         public int totalPoints { get; set; }
 
-        public string[]? selectedAnswers { get; set; }
-
-        public string? Selected_Answer {get; set; }
-       
-        public string? Assessment_CorrectAnswer { get; set; } 
-
+        // Selected Answer for Non-Matching Questions
         public string? Assessment_SelectedAnswer { get; set; }
 
         public static string GetSQL()
@@ -78,7 +71,7 @@ namespace RTXWebsite1.Models
         // primary key for assessment_answers_table
         public int AssessmentAnswer_ID { get; set; }
 
-        // different options for each question
+        // different drop down options for each question
         public string? AssessmentAnswer_MatchingDropDownOption { get; set; }
 
         // foreign key
@@ -90,11 +83,11 @@ namespace RTXWebsite1.Models
         // the correct answers to the question
         public string? AssessmentAnswer_CorrectAnswers { get; set; }
 
-        public string? AssessmentAnswer_Selected_Answers { get; set; }
 
         public int AssessHeadID { get; set; }
 
 
+        // Selected Answer for Matching Questions Only
         public string? AssessmentAnswer_EnteredAnswer { get; set; }
 
         // option for multiple choice answer

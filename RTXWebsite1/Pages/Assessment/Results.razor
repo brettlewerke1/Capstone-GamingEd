@@ -92,6 +92,8 @@
 
     List<PlayerInformation>? player;
 
+    List<PlayerInformation>? playerAgain;
+
     List<AssessmentAnswers>? answerList;
 
     int earnedPoints = 0;
@@ -114,21 +116,31 @@
         answerList = await _data.LoadData<AssessmentAnswers, dynamic>(AssessmentAnswers.GetSQL() + sql, new { ThisModule = @Cookie.CurrentModule}, _config.GetConnectionString("RTX"));
 
 
+
+        // selects player to get current coins for that player below
         sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
         player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
+        // convert EarnedPoints from string to integer to be added below
+        earnedPoints = Convert.ToInt32(EarnedPoints);
+
+        // update player coins by what they had plus what they just earned
         sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = player[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        playerAgain = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = player[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
-
-        /*
-         * 
-         * // Updates assessment score to gradebook for the logged in user
-        sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @Score WHERE (`Player_ID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { Score = EarnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-        */
+        
+        
+          
+        // Updates assessment score to gradebook for the logged in user and specific assessment
+        sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @Score WHERE (`Grades_PlayerID` = @ThisPlayer) AND (`Grades_AssessHead_ID` = 1)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { Score = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+        
+        // Updates assessment total score to gradebook for the logged in user and specific assessment
+        sql = "UPDATE `RTX`.`Grades` SET `Grades_Total` = @TotalScore WHERE (`Grades_PlayerID` = @ThisPlayer) AND (`Grades_AssessHead_ID` = 1)";
+        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { TotalScore = TotalPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+        
         
         }
 

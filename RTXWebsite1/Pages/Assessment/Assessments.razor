@@ -41,7 +41,7 @@
     // initialize variables
     assessment.pointsEarned = 0;
     assessment.totalPoints = 0;
-    assessment.Selected_Answer = "";
+    
     int questionNumber = 0;
 
     // boolean to see if it a matching question.
@@ -136,27 +136,7 @@
             <br />
 
 
-
-            // check if answer has been selected
-            if (@p.Assessment_SelectedAnswer != null && @p.Assessment_CorrectAnswer != null )
-            {
-
-
-                <p>Selected Answer is not null</p>
-
-
-                // check if selected answer is correct (case does not matter)
-                if( @p.Assessment_SelectedAnswer.ToLower() == @p.Assessment_CorrectAnswer.ToLower()  )
-                {
-
-
-                    // increment points earned
-                    assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;   
-
-
-                }
-
-            }
+           
 
             <!-- You have to check correct answers by looping through the answerList -->
             // if answerList exists
