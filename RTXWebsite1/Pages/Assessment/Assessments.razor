@@ -80,7 +80,7 @@
                     if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "MultipleChoice")
                     {
                         <InputRadioGroup @bind-Value=@p.Assessment_SelectedAnswer>
-                            <InputRadio Value="@a.AssessmentAnswer_MatchingAnswer" /> @a.AssessmentAnswer_MatchingAnswer &nbsp;
+                            <InputRadio Value="@a.AssessmentAnswer_MultipleChoiceOption" /> @a.AssessmentAnswer_MultipleChoiceOption &nbsp;
                         </InputRadioGroup>
 
                     }
@@ -106,7 +106,7 @@
                                 if (@z.AssessmentAnswer_AssessmentID == @p.Assessment_ID)
                                 {
                                     // drop down list of answer options
-                                    <option>@z.AssessmentAnswer_Answers</option>
+                                    <option>@z.AssessmentAnswer_MatchingDropDownOption</option>
                                 }
                             }
                         </InputSelect>
@@ -119,7 +119,7 @@
                         }
 
                         // print a value to be matched with
-                        @a.AssessmentAnswer_MatchingAnswer
+                        @a.AssessmentAnswer_MatchingOption
                         <br />
                         <br />
                     }

@@ -79,13 +79,13 @@ namespace RTXWebsite1.Models
         public int AssessmentAnswer_ID { get; set; }
 
         // different options for each question
-        public string? AssessmentAnswer_Answers { get; set; }
+        public string? AssessmentAnswer_MatchingDropDownOption { get; set; }
 
         // foreign key
         public int AssessmentAnswer_AssessmentID { get; set; }
 
         // matching answers for matching questions only
-        public string? AssessmentAnswer_MatchingAnswer { get; set; }
+        public string? AssessmentAnswer_MatchingOption { get; set; }
 
         // the correct answers to the question
         public string? AssessmentAnswer_CorrectAnswers { get; set; }
@@ -97,16 +97,20 @@ namespace RTXWebsite1.Models
 
         public string? AssessmentAnswer_EnteredAnswer { get; set; }
 
+        // option for multiple choice answer
+        public string? AssessmentAnswer_MultipleChoiceOption { get; set; }
+
         public static string GetSQL()
         {
             return @"    
             SELECT 
                 `AssessmentAnswer`.`AssessmentAnswer_ID` AS `AssessmentAnswer_ID`,
-                `AssessmentAnswer`.`AssessmentAnswer_Answers` AS `AssessmentAnswer_Answers`,
+                `AssessmentAnswer`.`AssessmentAnswer_MatchingDropDownOption` AS `AssessmentAnswer_MatchingDropDownOption`,
                 `AssessmentAnswer`.`AssessmentAnswer_AssessmentID` AS `AssessmentAnswer_AssessmentID`,
-                `AssessmentAnswer`.`AssessmentAnswer_MatchingAnswer` AS `AssessmentAnswer_MatchingAnswer`,
+                `AssessmentAnswer`.`AssessmentAnswer_MatchingOption` AS `AssessmentAnswer_MatchingOption`,
                 `AssessmentAnswer`.`AssessmentAnswer_CorrectAnswers` AS `AssessmentAnswer_CorrectAnswers`,
-                `AssessmentAnswer`.`AssessmentAnswer_AssessHeadID` AS `AssessmentAnswer_AssessHeadID`
+                `AssessmentAnswer`.`AssessmentAnswer_AssessHeadID` AS `AssessmentAnswer_AssessHeadID`,
+                `AssessmentAnswer`.`AssessmentAnswer_MultipleChoiceOption` AS `AssessmentAnswer_MultipleChoiceOption`
             FROM
                 `AssessmentAnswer`";
         }
