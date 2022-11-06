@@ -58,8 +58,6 @@
             // reset matching boolean to false
             isMatchingBool = false;
 
-            // DEBUGGING
-            <p>@p.Assessment_PointsPerQuestion</p>
 
             // add points for each question
             assessment.totalPoints = assessment.totalPoints + @p.Assessment_PointsPerQuestion;
@@ -194,12 +192,7 @@
 
     }
      <!--End master loop-->
-        <!-- Submits to CalcGrade() -->
-
-        <p>Total Points: @assessment.totalPoints</p>
-
-        <p>Points Earned: @assessment.pointsEarned </p>
-
+        <!-- Submits to HandleValidSubmit() -->
         <button type="submit" class="btn btn-primary"> Submit</button>
         <br />
 
