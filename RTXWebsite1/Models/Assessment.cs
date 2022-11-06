@@ -94,6 +94,9 @@ namespace RTXWebsite1.Models
 
         public int AssessHeadID { get; set; }
 
+
+        public string? AssessmentAnswer_EnteredAnswer { get; set; }
+
         public static string GetSQL()
         {
             return @"    

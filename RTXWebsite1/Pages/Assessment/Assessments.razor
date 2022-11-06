@@ -47,7 +47,7 @@
     // boolean to see if it a matching question.
     bool isMatchingBool = false;
 
-    <EditForm Model="@assessment" OnValidSubmit="@goToResults">
+    <EditForm Model="@assessment" OnValidSubmit="@HandleValidSubmit">
 
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -73,7 +73,7 @@
             // lopp through answerList
             if( answerList is not null )
             {
-                <p>Answer list is not null</p>
+               
             
                 foreach (var a in answerList)
                 {
@@ -100,7 +100,7 @@
                         isMatchingBool = true;
 
 
-                        <InputSelect @bind-Value=@p.Assessment_SelectedAnswer>
+                        <InputSelect @bind-Value=@a.AssessmentAnswer_EnteredAnswer>
                             <option value="">Select an Answer</option>
 
                             @foreach (var z in answerList)
@@ -114,7 +114,7 @@
                         </InputSelect>
 
                         // if selected matching question is correct
-                        if (@a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_CorrectAnswers)
+                        if (@a.AssessmentAnswer_EnteredAnswer == @a.AssessmentAnswer_CorrectAnswers)
                         {
                             // add to total points earned if selected answer equals the correct answer
                             assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
@@ -139,14 +139,13 @@
 
 
 
-
             // check if answer has been selected
             if (@p.Assessment_SelectedAnswer != null && @p.Assessment_CorrectAnswer != null )
             {
 
+
                 <p>Selected Answer is not null</p>
 
-                
 
                 // check if answer is correct
                 if( @p.Assessment_SelectedAnswer == @p.Assessment_CorrectAnswer  )
@@ -156,11 +155,37 @@
                     // increment points earned
                     assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;   
 
-                    
+
                 }
-                
+
             }
-                
+
+            <!-- You have to check correct answers by looping through the answerList -->
+            // if answerList exists
+            if( answerList != null )
+            {
+                // loop through answer list
+                foreach( var myVar in answerList )
+                {
+                    // check if correct answers are null
+                    if( myVar.AssessmentAnswer_CorrectAnswers != null )
+                    {
+                        // check for correct answer
+                        if( myVar.AssessmentAnswer_CorrectAnswers == p.Assessment_SelectedAnswer )
+                        {
+                             // increment points earned
+                            assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;   
+
+                        
+                        }                        
+                    }
+
+                }
+            }
+            
+
+         
+
             <br />
 
 
@@ -225,13 +250,12 @@ else
     }
 
 
-    private async void goToResults()
+    private async void HandleValidSubmit()
     {
         
-        // navigate to results page while passing in 2 parameters
-        NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
+      
         
-        @*
+        
         if( currentModule is not null)
         {
             // If this assessment is part of the unlock criteria
@@ -284,7 +308,7 @@ else
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
 
-        *@
+        
 
     }
     
