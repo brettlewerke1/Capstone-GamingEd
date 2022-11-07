@@ -16,6 +16,8 @@
 
 <PageTitle>RTXWebsite1</PageTitle>
 
+
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -33,15 +35,18 @@
                 // check if accountList exists
                 if( accountList != null )
                 {
-                     
+                
+
                     // loop throuh accountList
                     foreach( var a in accountList )
                     {
 
+                   
                       
                         // display the account username
                         <p>Welcome, @a.Account_Username</p>
                        
+                        
 
                     }
                 }
@@ -89,6 +94,7 @@
 
             // selects player to get current coins for that player below
             string sql = "select * from Account where (`Account_ID` = @ThisAccount)";
+
             // Cookie.UserID is 0 for some reason not 1
             accountList = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisAccount = Cookie.UserID }, _config.GetConnectionString("RTX"));
         
