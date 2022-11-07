@@ -27,19 +27,22 @@
         {
 
            
-          
-           
+                // grab the data now that the Cookie.UserID is not 0
+                GetData();
 
+                // check if accountList exists
                 if( accountList != null )
                 {
-                 
-
+                     
+                    // loop throuh accountList
                     foreach( var a in accountList )
                     {
 
+                      
+                        // display the account username
+                        <p>Welcome, @a.Account_Username</p>
                        
-                        <!-- Display Username-->
-                        <p>@a.Account_Username</p>
+
                     }
                 }
 
