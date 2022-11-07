@@ -2,6 +2,18 @@
 @inject RTXWebsite1.Data.Cookies Cookie;
 @inject NavigationManager NavManager;
 
+
+@using RTXWebsite1.Models;
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
 <PageTitle>RTXWebsite1</PageTitle>
 
 <div class="page">
@@ -11,8 +23,25 @@
 
     <main>
         <div class="top-row px-4">
-        @if(Cookie.UserID != 0)
+        @if(Cookie.UserID != 0 )
         {
+
+           
+          
+                <!-- Display the user who is currently signed in-->
+                <p>You are signed in as @Cookie.UserID</p>
+
+                @*
+                GetData();
+
+                if( playerList != null )
+                {
+                    <p>Definitely list is here</p>
+                   
+                    <p>@playerList[1]</p>
+                }
+                *@
+
             <a href="/">Home</a>
             <a href="/classes">Classes</a>
             <a href="/account">Account</a>
@@ -31,10 +60,43 @@
 </div> 
 
 @code{
+
+
+    List<PlayerInformation>? playerList;
+
+    List<PlayerInformation>? playerListAgain;
+
+    List<PlayerInformation>? playerListThird;
+
     public async Task Logout()
     {
         NavManager.NavigateTo("/logout");
     }
+
+    private void GetData()
+    {
+        OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // selects player to get current coins for that player below
+        string sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
+        playerList = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
+        string anotherSQL = "select * from Player";
+        playerListAgain = await _data.LoadData<PlayerInformation, dynamic>(anotherSQL, new { }, _config.GetConnectionString("RTX"));
+
+
+    }
+
+    private async Task GetUsername()
+    {
+        string thirdSQL = "select * from Player where (`Player_ID` = @ThisPlayer)";
+        playerListThird = await _data.LoadData<PlayerInformation, dynamic>(thirdSQL, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+    }
+
 }
 
 

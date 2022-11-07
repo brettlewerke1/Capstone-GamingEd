@@ -9,5 +9,8 @@
         public int CurrentAssessment { get; set; } = 0;
         public int CurrentLvl { get; set; } = 0;
         public int CurrentModule { get; set; } = 0;
+
+
+        public string? Account_Username { get; set; }
     }
 }
