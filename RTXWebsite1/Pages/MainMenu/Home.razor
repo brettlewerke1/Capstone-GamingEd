@@ -18,6 +18,10 @@
 }
 else
 {
+    // refresh the page to display username at the top
+    NavManager.NavigateTo("/home");
+
+
     @if(account ==  null)
     {
         <p><em>Loading...</em></p>

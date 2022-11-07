@@ -2,7 +2,21 @@
 @inject RTXWebsite1.Data.Cookies Cookie;
 @inject NavigationManager NavManager;
 
+
+@using RTXWebsite1.Models;
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage;
+@inject IJSRuntime JsRuntime;
+@inject IConfiguration _config;
+
+
+@using RTXWebsite1.IDbContext
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+
 <PageTitle>RTXWebsite1</PageTitle>
+
+
 
 <div class="page">
     <div class="sidebar">
@@ -11,8 +25,39 @@
 
     <main>
         <div class="top-row px-4">
-        @if(Cookie.UserID != 0)
+        @if(Cookie.UserID != 0 )
         {
+
+           
+                // grab the data now that the Cookie.UserID is not 0
+                GetData();
+
+                // check if accountList exists
+                if( accountList != null )
+                {
+                
+
+                    // loop throuh accountList
+                    foreach( var a in accountList )
+                    {
+
+                   
+                      
+                        // display the account username
+                        <div class="UserText">
+                            <p>  Welcome, @a.Account_Username</p>
+                        </div>
+                        
+                       
+                        
+
+                    }
+                }
+
+                
+                
+                
+
             <a href="/">Home</a>
             <a href="/classes">Classes</a>
             <a href="/account">Account</a>
@@ -31,10 +76,34 @@
 </div> 
 
 @code{
+
+
+    List<PlayerInformation>? accountList;
+
+    
+
     public async Task Logout()
     {
         NavManager.NavigateTo("/logout");
     }
+
+    private void GetData()
+    {
+        OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+            // selects player to get current coins for that player below
+            string sql = "select * from Account where (`Account_ID` = @ThisAccount)";
+
+            // Cookie.UserID is 0 for some reason not 1
+            accountList = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisAccount = Cookie.UserID }, _config.GetConnectionString("RTX"));
+        
+
+    }
+
 }
 
 

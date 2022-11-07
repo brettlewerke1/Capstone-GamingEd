@@ -41,12 +41,13 @@
     // initialize variables
     assessment.pointsEarned = 0;
     assessment.totalPoints = 0;
+    
     int questionNumber = 0;
 
     // boolean to see if it a matching question.
     bool isMatchingBool = false;
 
-    <EditForm Model="@assessment" OnValidSubmit="@goToResults">
+    <EditForm Model="@assessment" OnValidSubmit="@HandleValidSubmit">
 
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -57,8 +58,11 @@
             // reset matching boolean to false
             isMatchingBool = false;
 
+
             // add points for each question
             assessment.totalPoints = assessment.totalPoints + @p.Assessment_PointsPerQuestion;
+
+       
 
             questionNumber++;
 
@@ -67,6 +71,7 @@
             // lopp through answerList
             if( answerList is not null )
             {
+               
             
                 foreach (var a in answerList)
                 {
@@ -74,8 +79,8 @@
                     // if question type is: multiple choice
                     if (@a.AssessmentAnswer_AssessmentID == @p.Assessment_ID && @p.Assessment_QuestionType == "MultipleChoice")
                     {
-                        <InputRadioGroup @bind-Value=@p.Assessment_Answers>
-                            <InputRadio Value="@a.AssessmentAnswer_Answers" /> @a.AssessmentAnswer_Answers &nbsp;
+                        <InputRadioGroup @bind-Value=@p.Assessment_SelectedAnswer>
+                            <InputRadio Value="@a.AssessmentAnswer_MultipleChoiceOption" /> @a.AssessmentAnswer_MultipleChoiceOption &nbsp;
                         </InputRadioGroup>
 
                     }
@@ -93,7 +98,7 @@
                         isMatchingBool = true;
 
 
-                        <InputSelect @bind-Value=@a.AssessmentAnswer_Selected_Answers>
+                        <InputSelect @bind-Value=@a.AssessmentAnswer_EnteredAnswer>
                             <option value="">Select an Answer</option>
 
                             @foreach (var z in answerList)
@@ -101,20 +106,20 @@
                                 if (@z.AssessmentAnswer_AssessmentID == @p.Assessment_ID)
                                 {
                                     // drop down list of answer options
-                                    <option>@z.AssessmentAnswer_Answers</option>
+                                    <option>@z.AssessmentAnswer_MatchingDropDownOption</option>
                                 }
                             }
                         </InputSelect>
 
                         // if selected matching question is correct
-                        if (@a.AssessmentAnswer_Selected_Answers == @a.AssessmentAnswer_CorrectAnswers)
+                        if (@a.AssessmentAnswer_EnteredAnswer == @a.AssessmentAnswer_CorrectAnswers)
                         {
                             // add to total points earned if selected answer equals the correct answer
                             assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
                         }
 
                         // print a value to be matched with
-                        @a.AssessmentAnswer_MatchingAnswer
+                        @a.AssessmentAnswer_MatchingOption
                         <br />
                         <br />
                     }
@@ -126,27 +131,48 @@
             if (@p.Assessment_QuestionType == "Text")
             {
                 <label for="answer">Answer: </label>
-                <InputText @bind-Value=@p.Assessment_Answers />
+                <InputText @bind-Value=@p.Assessment_SelectedAnswer />
             }
             <br />
 
-            if (answerList is not null)
-            {
-                // calculate number of questions answered correctly
-                foreach (var myVar in answerList)
-                {
-                    // check if answer is correct
-                    if (myVar.AssessmentAnswer_CorrectAnswers != null && @myVar.AssessmentAnswer_CorrectAnswers != "" && myVar.AssessmentAnswer_CorrectAnswers.ToLower() == @p.Assessment_Answers.ToLower())
-                    {
-                        // add to total points earned
-                        assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
-                    }
-                }
-                <br />
-            }
 
-        } <!--End master loop-->
-        <!-- Submits to CalcGrade() -->
+           
+
+            <!-- You have to check correct answers by looping through the answerList -->
+            // if answerList exists
+            if( answerList != null )
+            {
+                // loop through answer list
+                foreach( var myVar in answerList )
+                {
+                    // check if correct answers are null
+                    if( myVar.AssessmentAnswer_CorrectAnswers != null )
+                    {
+                        // check for correct answer
+                        if( myVar.AssessmentAnswer_CorrectAnswers == p.Assessment_SelectedAnswer )
+                        {
+                             // increment points earned
+                            assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;   
+
+                        
+                        }                        
+                    }
+
+                }
+            }
+            
+
+         
+
+            <br />
+
+
+           
+
+
+    }
+     <!--End master loop-->
+        <!-- Submits to HandleValidSubmit() -->
         <button type="submit" class="btn btn-primary"> Submit</button>
         <br />
 
@@ -154,11 +180,15 @@
     <br />
     <br />
 
+    
+
 }
 else
 {
     <p><em>Loading...</em></p>
 }
+
+
 
 
 @code {
@@ -169,6 +199,7 @@ else
     List<AssessmentAnswers>? answerList;
 
     List<LevelContent>? currentModule;
+
 
 
     private async Task GetData()
@@ -192,8 +223,12 @@ else
     }
 
 
-    private async void goToResults()
+    private async void HandleValidSubmit()
     {
+        
+      
+        
+        
         if( currentModule is not null)
         {
             // If this assessment is part of the unlock criteria
@@ -245,6 +280,11 @@ else
 
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
+
+        
+
     }
+    
+   
 
 }
