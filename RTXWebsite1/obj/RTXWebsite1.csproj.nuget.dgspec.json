@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_33\\RTXWebsite1\\RTXWebsite1.csproj": {}
+    "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_33\\RTXWebsite1\\RTXWebsite1.csproj": {
+    "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_33\\RTXWebsite1\\RTXWebsite1.csproj",
+        "projectUniqueName": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
         "projectName": "RTXWebsite1",
-        "projectPath": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_33\\RTXWebsite1\\RTXWebsite1.csproj",
-        "packagesPath": "C:\\Users\\chhaa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chhaa\\Source\\Repos\\Capstone-GamingEd_33\\RTXWebsite1\\obj\\",
+        "projectPath": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\RTXWebsite1.csproj",
+        "packagesPath": "C:\\Users\\hsieh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\chhaa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hsieh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -59,7 +63,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -71,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
