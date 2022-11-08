@@ -12,7 +12,7 @@
 <h1 div class="title-head">New Account</h1>
 <br />
 
-<EditForm Model=@account OnValidSubmit="">
+<EditForm Model=@account OnValidSubmit="@NewAccount">
 
     <DataAnnotationsValidator />
     <div class="form-group">
