@@ -18,6 +18,8 @@
     NavManager.NavigateTo("/");
 }
 
+
+
 @if (account == null)
 {
     <p><em>Loading...</em></p>
@@ -58,6 +60,15 @@ else
     }
 }
 
+
+
+<!-- Password Reset -->
+<button class="btn btn-primary" @onclick="(() => ResetPassword() )">Reset Password</button>
+
+
+
+
+
 @code {
     List<Account>? account;
     List<PlayerInformation>? player;
@@ -81,4 +92,13 @@ else
         Cookie.PlayerID = player;
         NavManager.NavigateTo("/account/avatar");
     }
+
+
+
+    public void ResetPassword()
+    {
+        NavManager.NavigateTo("/resetpassword");
+    }
+
+
 }

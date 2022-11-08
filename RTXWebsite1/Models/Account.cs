@@ -129,4 +129,18 @@ namespace RTXWebsite1.Models
                 (`ProgressUnlocks`.`PU_ProgressID` = `Progress`.`Progress_ID`)";
         }
     }
+
+
+
+    public class ResetPassword
+    {
+        public string? oldPassword;
+
+        public string? newPassword;
+
+        public string? confirmNewPassword;
+    }
+
+
+
 }
