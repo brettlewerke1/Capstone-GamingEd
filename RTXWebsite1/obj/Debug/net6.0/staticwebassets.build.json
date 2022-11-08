@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FJaDY3hbEEw+x6vr72ZsYumllhKbaEOLpb9vnV6QKu4=",
+  "Hash": "CXfQatj1dlaZIUZtb1DskMUOonC83vF1G3AvMuL3T3E=",
   "Source": "RTXWebsite1",
   "BasePath": "_content/RTXWebsite1",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "RTXWebsite1\\wwwroot",
       "Source": "RTXWebsite1",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "RTXWebsite1.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\bundle\\RTXWebsite1.styles.css"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "RTXWebsite1.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RTXWebsite1.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Ariel.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Ariel.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Ariel.png",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Ariel.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Brac.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Brac.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Brac.png",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Brac.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\default.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\default.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/default.png",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\default.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Jeff.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Jeff.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Jeff.png",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Jeff.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Kato.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Kato.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Kato.png",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Kato.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Kaya.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Kaya.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Kaya.png",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Kaya.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Levi.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Levi.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Levi.png",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Levi.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Odon.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Odon.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Odon.png",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Odon.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Olive.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Olive.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Olive.png",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Olive.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Paco.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Paco.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Paco.png",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Paco.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Tate.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Tate.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Tate.png",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Tate.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Weeko.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Weeko.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Weeko.png",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Weeko.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\avatars\\Yumiko.png",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\avatars\\Yumiko.png",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "avatars/Yumiko.png",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\avatars\\Yumiko.png"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -425,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -442,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -459,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\css\\site.css",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -476,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\favicon.ico",
       "SourceId": "RTXWebsite1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hsieh\\source\\Repos\\Capstone-GamingEd\\RTXWebsite1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Chase\\Source\\Repos\\Capstone-GamingEd_59\\RTXWebsite1\\wwwroot\\",
       "BasePath": "_content/RTXWebsite1",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",

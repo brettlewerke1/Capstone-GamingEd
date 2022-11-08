@@ -39,8 +39,15 @@ else
 }
 
 
+
+ @((MarkupString)myMarkup)
+
+
 @code {
     RTXWebsite1.Models.Account account = new RTXWebsite1.Models.Account();
+
+
+    string myMarkup = "";
 
     async Task ValidateAccount()
     {
@@ -52,6 +59,11 @@ else
             Cookie.UserID = result;
             Cookie.CurrentClass = 0;
             NavManager.NavigateTo("/");
+        }
+        else
+        {
+             <!-- You did not enter the correct login information  -->
+             myMarkup = "<p class='markup'><em>Incorrect Account Information</em>.</p>";
         }
     }
 }
