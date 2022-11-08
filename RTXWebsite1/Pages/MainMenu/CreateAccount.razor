@@ -1,0 +1,52 @@
+@page "/createAccount"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject NavigationManager NavManager
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+<h1 div class="title-head">New Account</h1>
+<br />
+
+<EditForm Model=@account OnValidSubmit="">
+
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="Username">Username:</label>
+        <InputText @bind-Value=account.Account_Username class="form-control" id="Username" />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <InputText @bind-Value=account.Account_Password class="form-control" id="Password" />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Repeat Password:</label>
+        <InputText @bind-Value=secondPassword class="form-control" id="Password" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</EditForm>
+
+@code
+{
+    RTXWebsite1.Models.Account account = new RTXWebsite1.Models.Account();
+    string secondPassword;
+
+    async void NewAccount()
+    {
+        if( account.Account_Password == secondPassword )
+        {
+            string sql = "Insert into Account (@newUser, @newPass) values (Account_Username, Account_Password";
+
+            await _data.SaveData(sql, new { newUser = account.Account_Username, newPass = account.Account_Password }, _config.GetConnectionString("RTX"));
+
+            NavManager.NavigateTo("/");
+        }
+    }
+}
