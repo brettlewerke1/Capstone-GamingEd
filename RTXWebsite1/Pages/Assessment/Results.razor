@@ -130,19 +130,14 @@
         playerAgain = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = player[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
+
+        // Inserts assessment score to gradebook for the logged in user and specific assessment
+        string sqlStringAgain = "insert into Grades (Grades_Score, Grades_Total, Grades_PlayerID, Grades_ObjectID, Grades_ModuleID) values (@ThisScore, @ThisTotal, @ThisPlayer, @ThisModule, 2)";
+        await _data.SaveData(sqlStringAgain, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule, ThisTotal = TotalPoints }, _config.GetConnectionString("RTX"));
         
-        
-        /* 
-         * TODO!!!!!!!!!!!!!!!!!!!!!!
-        // Updates assessment score to gradebook for the logged in user and specific assessment
-        sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @Score WHERE (`Grades_PlayerID` = @ThisPlayer) AND (ThisModule = @Cookie.CurrentModule)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { Score = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
-        
-        // Updates assessment total score to gradebook for the logged in user and specific assessment
-        sql = "UPDATE `RTX`.`Grades` SET `Grades_Total` = @TotalScore WHERE (`Grades_PlayerID` = @ThisPlayer) AND (ThisModule = @Cookie.CurrentModule)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { TotalScore = TotalPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
-        */
-        
+   
+
+
         }
 
 
