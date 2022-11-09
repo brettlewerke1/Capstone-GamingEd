@@ -37,7 +37,7 @@ else
     @foreach( var p in content )
     {
         <p>
-            <a class="btn btn-primary" href="@p.Module_Path" @onclick="(() => ChangeModule(p.LvlContent_ObjectID))">@p.LvlContent_OrderNum | @p.LvlContent_Name</a>
+            <a class="btn btn-primary" href="@p.Module_Path" @onclick="(() => ChangeModule(p.LvlContent_ObjectID))">@p.LvlContent_Name</a>
         </p>
     }
 }
@@ -52,7 +52,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "WHERE LevelContent.LvlContent_LevelID = @ThisLvl ORDER BY `LevelContent`.`LvlContent_OrderNum`";
+        string sql = "WHERE LevelContent.LvlContent_LevelID = @ThisLvl";
 
         content = await _data.LoadData<LevelContent, dynamic>(LevelContent.GetSQL() + sql, new { ThisLvl = Cookie.CurrentLvl }, _config.GetConnectionString("RTX"));
 

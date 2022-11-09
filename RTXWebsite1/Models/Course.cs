@@ -64,7 +64,6 @@ namespace RTXWebsite1.Models
         public int LvlContent_ID { get; set; }
         public int LvlContent_LevelID { get; set; }
         public int LvlContent_ObjectID { get; set; }
-        public int LvlContent_OrderNum { get; set; }
         public int LvlContent_ModuleID { get; set; }
         public string? LvlContent_Name { get; set; }
         public int Module_ID { get; set; }
@@ -79,7 +78,6 @@ namespace RTXWebsite1.Models
                 `LevelContent`.`LvlContent_ID` AS `LvlContent_ID`,
                 `LevelContent`.`LvlContent_LevelID` AS `LvlContent_LevelID`,
                 `LevelContent`.`LvlContent_ObjectID` AS `LvlContent_ObjectID`,
-                `LevelContent`.`LvlContent_OrderNum` AS `LvlContent_OrderNum`,
                 `LevelContent`.`LvlContent_ModuleID` AS `LvlContent_ModuleID`,
                 `LevelContent`.`LvlContent_Name` AS `LvlContent_Name`,
                 `Module`.`Module_ID` AS `Module_ID`,

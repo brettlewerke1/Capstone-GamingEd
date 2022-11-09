@@ -38,22 +38,20 @@ else
         }
         else
         {
-                    <h4 class="header-head">Purchase Avatars</h4>
-                    <p><button type="button" @onclick="(() => ViewAvatars())">View</button></p>
-
-                    <p>------------------------------------------------------------------------</p>
-               
-            @foreach (var p in transactions)
+            if( transactions[0].Transaction_Avatars )
             {
-               
-                    <h4 class="header-head">@p.Transaction_Name</h4>
-                    <p>@p.Transaction_Description</p>
-                    <p>@p.Transaction_Cost <button type="button">+</button></p>
-
-                    <p>------------------------------------------------------------------------</p>
-                
+                <a href="/avatars" class="header-head">Purchase Avatars</a>
             }
-         
+
+            if( transactions[0].Transaction_Redo )
+            {
+                <a href="/lives" class="header-head">Purchase New Attempts</a>
+            }
+
+            if( transactions[0].Transaction_ExemptMedal )
+            {
+                <a href="/exempt" class="header-head">Purchase New Attempts</a>
+            }
         }
     }
 }
@@ -76,11 +74,6 @@ else
         sql = "WHERE Player_ID = @ThisPlayer";
 
         player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-    }
-
-    private void ViewAvatars()
-    {
-        NavManager.NavigateTo("/avatars");
     }
 }
 

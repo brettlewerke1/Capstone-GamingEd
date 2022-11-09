@@ -1,0 +1,29 @@
+@page "/exempt"
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject IConfiguration _config
+@inject IDatabaseAccess _data
+
+@inject NavigationManager NavManager
+
+
+@code {
+    List<PlayerInformation> player;
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE Player_ID = @ThisPlayer";
+
+        player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+    }
+
+}
