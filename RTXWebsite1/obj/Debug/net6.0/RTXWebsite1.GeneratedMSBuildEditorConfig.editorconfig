@@ -8,133 +8,133 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RTXWebsite1
 build_property.RootNamespace = RTXWebsite1
-build_property.ProjectDir = C:\Users\hsieh\source\Repos\Capstone-GamingEd\RTXWebsite1\
+build_property.ProjectDir = C:\Users\Chase\Source\Repos\Capstone-GamingEd_clone\RTXWebsite1\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\hsieh\source\Repos\Capstone-GamingEd\RTXWebsite1
+build_property.MSBuildProjectDirectory = C:\Users\Chase\Source\Repos\Capstone-GamingEd_clone\RTXWebsite1
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/App.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Account/ChangeAvatar.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Account/ChangeAvatar.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxDaGFuZ2VBdmF0YXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Account/ClassGrades.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Account/ClassGrades.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxDbGFzc0dyYWRlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Account/DisplayAccount.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Account/DisplayAccount.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxEaXNwbGF5QWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Account/PasswordUpdated.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Account/PasswordUpdated.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxQYXNzd29yZFVwZGF0ZWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Account/ResetPassword.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Account/ResetPassword.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Assessment/Assessments.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Assessment/Assessments.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzZXNzbWVudFxBc3Nlc3NtZW50cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Assessment/Results.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Assessment/Results.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzZXNzbWVudFxSZXN1bHRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Assignment/Coursework.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Assignment/Coursework.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzaWdubWVudFxDb3Vyc2V3b3JrLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Assignment/WorkComplete.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Assignment/WorkComplete.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzaWdubWVudFxXb3JrQ29tcGxldGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Classes/ClassHome.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Classes/ClassHome.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xDbGFzc0hvbWUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Classes/DisplayLevel.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Classes/DisplayLevel.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xEaXNwbGF5TGV2ZWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Classes/Text.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Classes/Text.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xhc3Nlc1xUZXh0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/NewDiscussion.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/DiscussionBoard/NewDiscussion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzY3Vzc2lvbkJvYXJkXE5ld0Rpc2N1c3Npb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/ReplyToDiscussion.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/DiscussionBoard/ReplyToDiscussion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzY3Vzc2lvbkJvYXJkXFJlcGx5VG9EaXNjdXNzaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/DiscussionBoard/ViewDiscussions.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/DiscussionBoard/ViewDiscussions.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzY3Vzc2lvbkJvYXJkXFZpZXdEaXNjdXNzaW9ucy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Index.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/MainMenu/ClassMenu.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/MainMenu/ClassMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbk1lbnVcQ2xhc3NNZW51LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/MainMenu/CreateAccount.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/MainMenu/CreateAccount.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbk1lbnVcQ3JlYXRlQWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/MainMenu/Home.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/MainMenu/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbk1lbnVcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/MainMenu/Logout.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/MainMenu/Logout.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbk1lbnVcTG9nb3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Marketplace/Avatars.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Marketplace/Avatars.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFya2V0cGxhY2VcQXZhdGFycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Marketplace/ExemptionMedal.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Marketplace/ExemptionMedal.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFya2V0cGxhY2VcRXhlbXB0aW9uTWVkYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Marketplace/MarketplaceMenu.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Marketplace/MarketplaceMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFya2V0cGxhY2VcTWFya2V0cGxhY2VNZW51LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/Marketplace/PurchaseLives.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/Marketplace/PurchaseLives.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFya2V0cGxhY2VcUHVyY2hhc2VMaXZlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/temp/Login.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/temp/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcdGVtcFxMb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/_Imports.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Shared/MainLayout.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-flfmdw9yl9
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Shared/NavMenu.razor]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-fn9io6309k
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/_Host.cshtml]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hsieh/source/Repos/Capstone-GamingEd/RTXWebsite1/Pages/_Layout.cshtml]
+[C:/Users/Chase/Source/Repos/Capstone-GamingEd_clone/RTXWebsite1/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

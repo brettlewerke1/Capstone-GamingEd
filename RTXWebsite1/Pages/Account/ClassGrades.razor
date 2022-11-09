@@ -181,13 +181,16 @@ else if( @grades.Calculated_Grade >= 0 )
 
     public async void UpdateGrades(char letterGrade, double percentageGrade )
     {
+
+        // Insert player letter grade
+        string sqlString = "insert into Progress (Player_Letter_Grade) values (@ThisLetterGrade) where (Player_ID = @ThisPlayer)";
+        await _data.SaveData(sqlString, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+        // Insert player percentage grade
+        string sqlStringAgain = "insert into Progress (Player_Letter_Grade) values (@ThisLetterGrade) where (Player_ID = @ThisPlayer)";
+        await _data.SaveData(sqlStringAgain, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
         
-        string updateLetterGradeSQL = "UPDATE `RTX`.`Player` SET `Player_Letter_Grade` = @ThisLetterGrade WHERE(`Player_ID` = @ThisPlayer)";
-        anotherPlayerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(updateLetterGradeSQL, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-
-        string updatePercentageGradeSQL = "UPDATE `RTX`.`Player` SET `Player_Percentage_Grade` = @ThisPercentageGrade WHERE(`Player_ID` = @ThisPlayer)";
-        anotherPlayerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(updatePercentageGradeSQL, new { ThisPercentageGrade = percentageGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-
+        
     }
 
 
