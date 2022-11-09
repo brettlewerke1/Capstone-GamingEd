@@ -17,9 +17,9 @@
 
 
 @code {
-    // Only sees assignments/assessments/anything with a lock that the student has access to at this point in time
-    List<PlayerProgressUnlocks>? options;
 
+    // Currently sees all assignments and assessments regardless of completion
+    List<PlayerFullProgress>? options;
 
     private async Task GetData()
     {
@@ -30,7 +30,6 @@
     {
         string sql = "WHERE Progress_PlayerID = @thisPlayer";
 
-        options = await _data.LoadData<PlayerProgressUnlocks, dynamic>(PlayerProgressUnlocks.GetSQL() + sql, new { thisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-
+        options = await _data.LoadData<PlayerFullProgress, dynamic>(PlayerFullProgress.GetSQL() + sql + PlayerFullProgress.SortSQL(), new { thisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
     }
 }

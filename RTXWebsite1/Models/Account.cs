@@ -141,6 +141,4 @@ namespace RTXWebsite1.Models
         public string? confirmNewPassword;
     }
 
-
-
 }
