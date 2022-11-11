@@ -126,7 +126,7 @@ else if( @grades.Calculated_Grade >= 0 )
 
 @if( gradesList != null )
 {
-    UpdateGrades( grades.LetterGrade, grades.Calculated_Grade );
+    UpdatePlayerGrades( grades.LetterGrade, grades.Calculated_Grade );
 }
 
 
@@ -183,7 +183,7 @@ else if( @grades.Calculated_Grade >= 0 )
 
     
     
-    public async void UpdateGrades(char letterGrade, double percentageGrade )
+    public async void UpdatePlayerGrades(char letterGrade, double percentageGrade )
     {
 
         

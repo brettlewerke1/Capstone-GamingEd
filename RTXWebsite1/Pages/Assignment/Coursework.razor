@@ -193,14 +193,14 @@ else
 
                     if (critera.LvlUnlock_Type == "LIVES")
                     {
-                        int currentTries = playerProgress[0].PU_NumVal + 1;
+                        int currentTries = playerProgress[0].PU_NumAttempts + 1;
                         if (currentTries >= critera.LvlUnlock_NumGoal)
                         {
                             sql = "UPDATE `RTX`.`Progress` SET `Progress_CompleteFlag` = true WHERE Progress_ID = @ThisUnlock";
                             await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { ThisUnlock = playerProgress[0].PU_ProgressID }, _config.GetConnectionString("RTX"));
                         }
 
-                        sql = "UPDATE `RTX`.`ProgressUnlocks` SET `PU_NumVal` = @newNum WHERE PU_LvlUnlockID = @ThisUnlock";
+                        sql = "UPDATE `RTX`.`ProgressUnlocks` SET `PU_NumAttempts` = @newNum WHERE PU_LvlUnlockID = @ThisUnlock";
                         playerProgress = await _data.LoadData<ProgressUnlocks, dynamic>(sql, new { newNum = currentTries, ThisUnlock = critera.LvlUnlock_ID }, _config.GetConnectionString("RTX"));
                     }
                 }

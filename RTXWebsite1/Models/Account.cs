@@ -85,7 +85,7 @@ namespace RTXWebsite1.Models
         public int PU_ID { get; set; }
         public int PU_ProgressID { get; set; }
         public int LvlUnlockID { get; set; }
-        public int PU_NumVal { get; set; }
+        public int PU_NumAttempts { get; set; }
 
         public static string GetSQL()
         {
@@ -94,7 +94,7 @@ namespace RTXWebsite1.Models
                 `ProgressUnlocks`.`PU_ID` AS `PU_ID`,
                 `ProgressUnlocks`.`PU_ProgressID` AS `PU_ProgressID`,
                 `ProgressUnlocks`.`PU_LvlUnlockID` AS `PU_LvlUnlockID`,
-                `ProgressUnlocks`.`PU_NumVal` AS `PU_NumVal`
+                `ProgressUnlocks`.`PU_NumAttempts` AS `PU_NumAttempts`
             FROM
                 `ProgressUnlocks`";
         }
@@ -108,8 +108,8 @@ namespace RTXWebsite1.Models
         public bool Progress_CompleteFlag { get; set; }
         public int PU_ID { get; set; }
         public int PU_LvlUnlockkID { get; set; }
-        public int PU_NumVal { get; set; }
-        public int PU_MaxVal { get; set; }
+        public int PU_NumAttempts { get; set; }
+        public int PU_MaxAttempts { get; set; }
         public static string GetSQL()
         {
             return @"
@@ -120,8 +120,8 @@ namespace RTXWebsite1.Models
                 `Progress`.`Progress_CompleteFlag` AS `Progress_CompleteFlag`,
                 `ProgressUnlocks`.`PU_ID` AS `PU_ID`,
                 `ProgressUnlocks`.`PU_LvlUnlockID` AS `PU_LvlUnlockID`,
-                `ProgressUnlocks`.`PU_NumVal` AS `PU_NumVal`,
-                `ProgressUnlocks`.`PU_MaxVal` AS `PU_MaxVal`
+                `ProgressUnlocks`.`PU_NumAttempts` AS `PU_NumAttempts`,
+                `ProgressUnlocks`.`PU_MaxAttempts` AS `PU_MaxAttempts`
             FROM
                 (`Progress`
                 JOIN `ProgressUnlocks`)

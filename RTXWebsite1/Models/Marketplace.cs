@@ -53,8 +53,8 @@ namespace RTXWebsite1.Models
     {
         public int PU_ID { get; set; }
         public int PU_ProgressID { get; set; }
-        public int PU_NumVal { get; set; }      // Current Number obtained
-        public int PU_MaxVal { get; set; }      // Current Maximum Lives
+        public int PU_NumAttempts { get; set; }      // Current Number obtained
+        public int PU_MaxAttempts { get; set; }      // Current Maximum Lives
         public string? LvlUnlock_Type { get; set; }
         public int LvlContent_ObjectID { get; set; }
         public int LvlContent_OrderNum { get; set; }
@@ -69,8 +69,8 @@ namespace RTXWebsite1.Models
             SELECT 
                 `ProgressUnlocks`.`PU_ID` AS `PU_ID`,
                 `ProgressUnlocks`.`PU_ProgressID` AS `PU_ProgressID`,
-                `ProgressUnlocks`.`PU_NumVal` AS `PU_NumVal`,
-                `ProgressUnlocks`.`PU_MaxVal` AS `PU_MaxVal`,
+                `ProgressUnlocks`.`PU_NumAttempts` AS `PU_NumAttempts`,
+                `ProgressUnlocks`.`PU_MaxAttempts` AS `PU_MaxAttempts`,
                 `LevelUnlock`.`LvlUnlock_Type` AS `LvlUnlock_Type`,
                 `LevelContent`.`LvlContent_ID` AS `LvlContent_ID`,
                 `LevelContent`.`LvlContent_LevelID` AS `LvlContent_LevelID`,
