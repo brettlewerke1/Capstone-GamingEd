@@ -147,7 +147,7 @@ else
                         {
                             foreach( var criteria in unlockCriteria )
                             {
-                                sqlString = "INSERT INTO ProgressUnlocks (PU_LvlUnlockID, PU_ProgressID, PU_NumVal) VALUES (@ThisLevel, @ThisProgress, @ThisNum)";
+                                sqlString = "INSERT INTO ProgressUnlocks (PU_LvlUnlockID, PU_ProgressID, PU_NumAttempts) VALUES (@ThisLevel, @ThisProgress, @ThisNum)";
                                 await _data.SaveData(sqlString, new { ThisLevel = criteria.LvlUnlock_ID, ThisProgress = playerProgress[0].Progress_ID, ThisNum = 0 }, _config.GetConnectionString("RTX"));
                             }
                         }

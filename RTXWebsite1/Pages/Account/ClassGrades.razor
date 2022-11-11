@@ -59,7 +59,7 @@
 
                         grades.Summed_Grades_Total += @p.Grades_Total;
 
-                        grades.Summed_Score_Total += @p.Grades_Score;
+                        grades.Summed_Score_Total += (double)@p.Grades_Score;
                     }
 
                     // or if assessment
@@ -70,7 +70,7 @@
 
                         grades.Summed_Grades_Total += @p.Grades_Total;
 
-                        grades.Summed_Score_Total += @p.Grades_Score;
+                        grades.Summed_Score_Total += (double)@p.Grades_Score;
 
                     }
 
@@ -122,9 +122,11 @@ else if( @grades.Calculated_Grade >= 0 )
 
 <p class="totalGradeInfo" >Total Grade: @grades.Calculated_Grade% (@grades.LetterGrade)</p>
 
+
+
 @if( gradesList != null )
 {
-    UpdateGrades( grades.LetterGrade, grades.Calculated_Grade );
+    UpdatePlayerGrades( grades.LetterGrade, grades.Calculated_Grade );
 }
 
 
@@ -143,6 +145,8 @@ else if( @grades.Calculated_Grade >= 0 )
     List<RTXWebsite1.Models.PlayerInformation>? playerList;
 
     List<RTXWebsite1.Models.PlayerInformation>? anotherPlayerList;
+
+    List<RTXWebsite1.Models.PlayerInformation>? thirdPlayerList;
 
 
     RTXWebsite1.Models.Grades grades = new RTXWebsite1.Models.Grades();
@@ -177,21 +181,23 @@ else if( @grades.Calculated_Grade >= 0 )
 
     }
 
-
-
-    public async void UpdateGrades(char letterGrade, double percentageGrade )
+    
+    
+    public async void UpdatePlayerGrades(char letterGrade, double percentageGrade )
     {
 
-        // Insert player letter grade
-        string sqlString = "insert into Progress (Player_Letter_Grade) values (@ThisLetterGrade) where (Player_ID = @ThisPlayer)";
-        await _data.SaveData(sqlString, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        
+        // Update player letter grade
+        string sqlThird = "UPDATE `RTX`.`Player` SET `Player_Letter_Grade` = @ThisLetterGrade WHERE Player_ID = @ThisPlayer";
+        anotherPlayerList = await _data.LoadData<PlayerInformation, dynamic>(sqlThird, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        
+        // Upddate player percentage grade
+        string sqlFour = "UPDATE `RTX`.`Player` SET `Player_Percentage_Grade` = @ThisPercentageGrade WHERE Player_ID = @ThisPlayer";
+        thirdPlayerList = await _data.LoadData<PlayerInformation, dynamic>(sqlFour, new { ThisPercentageGrade = percentageGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
-        // Insert player percentage grade
-        string sqlStringAgain = "insert into Progress (Player_Letter_Grade) values (@ThisLetterGrade) where (Player_ID = @ThisPlayer)";
-        await _data.SaveData(sqlStringAgain, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-        
-        
     }
+    
+    
 
 
 
