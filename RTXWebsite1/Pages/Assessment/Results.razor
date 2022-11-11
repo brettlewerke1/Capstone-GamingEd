@@ -80,6 +80,7 @@
         }
     }
 
+
 @code {
 
     [Parameter]
@@ -94,9 +95,14 @@
 
     List<PlayerInformation>? playerAgain;
 
+    List<Grades>? GradesList;
+
     List<AssessmentAnswers>? answerList;
 
     int earnedPoints = 0;
+
+
+    bool isThereGrade;
 
 
     private async Task GetData()
@@ -131,11 +137,37 @@
 
 
 
-        // Inserts assessment score to gradebook for the logged in user and specific assessment
-        string sqlStringAgain = "insert into Grades (Grades_Score, Grades_Total, Grades_PlayerID, Grades_ObjectID, Grades_ModuleID) values (@ThisScore, @ThisTotal, @ThisPlayer, @ThisModule, 2)";
-        await _data.SaveData(sqlStringAgain, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule, ThisTotal = TotalPoints }, _config.GetConnectionString("RTX"));
-        
-   
+        // select from grades for a specific player and assessment
+        sql = "select * from Grades where (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
+        GradesList = await _data.LoadData<Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+
+
+
+        if( GradesList != null )
+        {
+
+            foreach( var g in GradesList )
+            {
+                // there is a grade already for this assessment
+                isThereGrade = true;
+
+                // update assessment score into gradebook for the logged in user and specific assessment
+                sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @ThisScore WHERE (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
+                await _data.SaveData(sql, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+
+
+            }
+        }
+
+        // No grade for current assessment
+        if( isThereGrade == false )
+        {
+            // Inserts assessment score to gradebook for the logged in user and specific assessment
+            sql = "insert into Grades (Grades_Score, Grades_Total, Grades_PlayerID, Grades_ObjectID, Grades_ModuleID) values (@ThisScore, @ThisTotal, @ThisPlayer, @ThisModule, 2)";
+            await _data.SaveData(sql, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule, ThisTotal = TotalPoints }, _config.GetConnectionString("RTX"));
+        }
+
+
 
 
         }
