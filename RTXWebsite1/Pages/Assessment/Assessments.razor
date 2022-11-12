@@ -16,20 +16,16 @@
 
 
 <!--Print the title-->
-@if (assessmentList != null)
+@if (assessmentHead != null)
 {
-    bool myBool = true;
 
-    foreach (var p in assessmentList)
+    foreach (var p in assessmentHead)
     {
-        // then I have already printed the title
-        if (myBool == true)
-        {
-            <h1 div class="title-head"> TEMP </h1>
+        
+            <h1 div class="title-head"> @p.AssessHead_Title </h1>
             <br />
 
-            myBool = false;
-        }
+          
     }
 }
 
