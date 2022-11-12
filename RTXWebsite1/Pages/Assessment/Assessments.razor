@@ -146,10 +146,10 @@
                 foreach( var myVar in answerList )
                 {
                     // check if correct answers are null
-                    if( myVar.AssessmentAnswer_CorrectAnswers != null )
+                    if( myVar.AssessmentAnswer_CorrectAnswers != null && p.Assessment_SelectedAnswer != null )
                     {
                         // check for correct answer
-                        if( myVar.AssessmentAnswer_CorrectAnswers == p.Assessment_SelectedAnswer )
+                        if( myVar.AssessmentAnswer_CorrectAnswers.ToLower() == p.Assessment_SelectedAnswer.ToLower() )
                         {
                              // increment points earned
                             assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;   
