@@ -24,6 +24,11 @@ namespace RTXWebsite1.Models
         }
     }
 
+    public class NewPlayer
+    {
+        public string? Course_Key;
+        public string? Player_IGN;
+    }
 
     public class PlayerInformation
     {
@@ -129,7 +134,6 @@ namespace RTXWebsite1.Models
                 (`ProgressUnlocks`.`PU_ProgressID` = `Progress`.`Progress_ID`)";
         }
     }
-
 
 
     public class ResetPassword
