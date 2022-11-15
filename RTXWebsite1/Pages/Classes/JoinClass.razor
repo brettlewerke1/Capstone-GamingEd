@@ -1,0 +1,142 @@
+@page "/newClass"
+
+
+@using RTXWebsite1.IDbContext
+@using RTXWebsite1.Models
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess _data
+@inject IConfiguration _config
+@inject RTXWebsite1.Data.Cookies Cookie;
+
+@inject NavigationManager NavManager
+
+@if( Cookie.UserID == 0 )
+{
+    NavManager.NavigateTo("/");
+}
+else
+{
+
+    <h1 div class="title-head"> Join Class </h1>
+    <br />
+
+    <EditForm Model=@newPlayer OnValidSubmit="ValidateCourse">
+
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="courseKey">Course Key:</label>
+            <InputText @bind-Value=newPlayer.Course_Key class="form-control" id="courseKey" />
+        </div>
+        <ValidationMessage For="@(() => newPlayer.Course_Key)" />
+
+        <div class="form-group">
+            <label for="Player_IGN">In Game Name(IGN):</label>
+            <InputText @bind-Value=newPlayer.Player_IGN class="form-control" id="Player_IGN" />
+        </div>
+        <ValidationMessage For="@(() => newPlayer.Course_Key)" />
+
+        <button type="submit" class="btn btn-primary">Join</button>
+    </EditForm>
+
+    @((MarkupString)myMarkup)
+}
+
+@code{
+    RTXWebsite1.Models.NewPlayer newPlayer = new RTXWebsite1.Models.NewPlayer();
+    List<Course>? classes;
+    List<PlayerInformation>? player;
+    List<PlayerInformation>? currentPlayers;
+
+    string myMarkup = "";
+
+    private async Task GetData()
+    {
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "WHERE Account_ID = @ThisAccount";
+
+        player = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { ThisAccount = Cookie.UserID }, _config.GetConnectionString("RTX"));
+
+        classes = await _data.LoadData<Course, dynamic>(Course.GetSQL(), new {}, _config.GetConnectionString("RTX"));
+    }
+
+    async Task ValidateCourse()
+    {
+        string testString = "";
+
+        string sql;
+        int correctCourseID;
+        // If the correct class is found, boolean set to true and stops search
+        // If an error is found, the account is not enrolled into the course
+        bool classFound = false, errorOccured = false;
+
+        // Reset Markup
+        myMarkup = "";
+
+
+        if (classes is not null)
+        {
+            // Check for corresponding class
+            foreach( var a in classes )
+            {
+                if (classFound)
+                {
+                    break;
+                }
+                // If correct class...
+                if (a.Course_Key == newPlayer.Course_Key)
+                {
+                    correctCourseID = a.Course_ID;
+                    // Check if not already enrolled
+                    classFound = true;
+                    if( player is not null )
+                    {
+                        foreach (var b in player)
+                        {
+                            // If already in the class, say so.
+                            if (b.Course_ID == a.Course_ID)
+                            {
+                                myMarkup = "<p class='markup'><em>Already Enrolled</em>.</p>";
+                                errorOccured = true;
+                                break;
+                            }
+                            else
+                            {
+                                sql = "WHERE Course_ID = @thisCourse";
+                                currentPlayers = await _data.LoadData<PlayerInformation, dynamic>(PlayerInformation.GetSQL() + sql, new { thisCourse = a.Course_ID }, _config.GetConnectionString("RTX"));
+                                foreach (var c in currentPlayers)
+                                {
+                                    if (c.Player_IGN == newPlayer.Player_IGN)
+                                    {
+                                        myMarkup = "<p class='markup'><em>In Game Name Taken</em>.</p>";
+                                        errorOccured = true;
+                                    }
+                                }
+                            }
+                            if (errorOccured)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (myMarkup == "" && classFound)
+                    {
+                        myMarkup = "<p class='markup'><em>Class Joined</em>.</p>";
+                        // Enroll the account as a player
+                        sql = "INSERT into Player (Player_IGN, Player_AccountID, Player_CourseID) values (@thisIGN, @thisAccount, @thisCourse)";
+                        await _data.SaveData(sql, new { thisIGN = newPlayer.Player_IGN, thisAccount = Cookie.UserID, thisCourse = a.Course_ID }, _config.GetConnectionString("RTX"));
+                    }
+                }
+            }
+
+            if (classFound == false && myMarkup == "")
+            {
+                myMarkup = "<p class='markup'><em>Invalid Class Key</em>.</p>";
+            }
+        }
+    }
+}

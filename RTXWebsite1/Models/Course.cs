@@ -10,6 +10,7 @@ namespace RTXWebsite1.Models
         public int Course_LevelID { get; set; }
         public bool Course_MarketFlag { get; set; }
         public string? Course_ProfEmail { get; set; }
+        public string? Course_Key { get; set; }
 
         public static string GetSQL()
         {
@@ -20,7 +21,8 @@ namespace RTXWebsite1.Models
                 `Course`.`Course_Tag` AS `Course_Tag`,
                 `Course`.`Course_LevelID` AS `Course_LevelID`,
                 `Course`.`Course_MarketFlag` AS `Course_MarketFlag`,
-                `Course`.`Course_ProfEmail` AS `Course_ProfEmail`
+                `Course`.`Course_ProfEmail` AS `Course_ProfEmail`,
+                `Course`.`Course_Key` AS `Course_Key`
             FROM
                 `Course`";
         }
