@@ -42,7 +42,7 @@
     {
         if( account.Account_Password == secondPassword )
         {
-            string sql = "Insert into Account (@newUser, @newPass) values (Account_Username, Account_Password";
+            string sql = "Insert into Account (Account_Username, Account_Password) values (@newUser, @newPass)";
 
             await _data.SaveData(sql, new { newUser = account.Account_Username, newPass = account.Account_Password }, _config.GetConnectionString("RTX"));
 
