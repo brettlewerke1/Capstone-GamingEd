@@ -196,6 +196,12 @@ else
 
     List<LevelContent>? currentModule;
 
+    List<PlayerInformation>? playerListOne;
+
+    List<PlayerInformation>? playerListTwo;
+
+
+
 
 
     private async Task GetData()
@@ -221,9 +227,11 @@ else
 
     private async void HandleValidSubmit()
     {
-        
-      
-        
+
+        int earnedPoints = 0;
+
+        string sql = "";
+
         
         if( currentModule is not null)
         {
@@ -233,7 +241,7 @@ else
                 List<LevelUnlock>? unlockCriteria;
                 List<ProgressUnlocks>? playerProgress;
 
-                string sql = "WHERE LvlUnlock_LvlContentID = @ContentID";
+                sql = "WHERE LvlUnlock_LvlContentID = @ContentID";
                 unlockCriteria = await _data.LoadData<LevelUnlock, dynamic>(LevelUnlock.GetSQL() + sql, new { ContentID = currentModule[0].LvlContent_ID }, _config.GetConnectionString("RTX"));
 
                 foreach( var critera in unlockCriteria )
@@ -264,6 +272,31 @@ else
                 }
             }
         }
+
+
+
+
+        // Submit coins earned
+
+
+            // selects player to get current coins for that player below
+            sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
+            playerListOne = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+            // convert EarnedPoints from string to integer to be added below
+            earnedPoints = Convert.ToInt32(assessment.pointsEarned);
+
+            // update player coins by what they had plus what they just earned
+            sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
+            playerListTwo = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = playerListOne[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+
+
+
+
+
+
+
 
         // navigate to results page while passing in 2 parameters
         NavManager.NavigateTo($"/results/{assessment.pointsEarned}/{assessment.totalPoints}");
