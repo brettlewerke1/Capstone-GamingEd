@@ -93,13 +93,13 @@
 
     List<PlayerInformation>? player;
 
-    List<PlayerInformation>? playerAgain;
+
 
     List<Grades>? GradesList;
 
     List<AssessmentAnswers>? answerList;
 
-    int earnedPoints = 0;
+    
 
 
     bool isThereGrade;
@@ -123,17 +123,13 @@
 
 
 
+        /*
         // selects player to get current coins for that player below
         sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
         player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        */
 
-
-        // convert EarnedPoints from string to integer to be added below
-        earnedPoints = Convert.ToInt32(EarnedPoints);
-
-        // update player coins by what they had plus what they just earned
-        sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
-        playerAgain = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = player[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+        
 
 
 
