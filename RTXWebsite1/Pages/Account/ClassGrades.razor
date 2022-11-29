@@ -55,7 +55,15 @@
                     // if assignment
                     if( @m.Module_Name == "Assignment")
                     {
-                        <p class="grade-info">  My grade on @m.Module_Name #@p.Grades_ObjectID is: @p.Grades_Score out of @p.Grades_Total </p>
+
+                        foreach( var assignment in assignmentList )
+                        {
+                            if( @p.Grades_ObjectID == @assignment.Assignment_ID)
+                            {
+                                <p class="grade-info">  My grade on @assignment.Assignment_Title is: @p.Grades_Score out of @p.Grades_Total </p>
+                            }
+                        }
+
 
                         grades.Summed_Grades_Total += @p.Grades_Total;
 
@@ -65,8 +73,13 @@
                     // or if assessment
                     if( @m.Module_Name == "Asessment" )
                     {
-
-                        <p class="grade-info">My grade on @m.Module_Name #@p.Grades_ObjectID is: @p.Grades_Score out of @p.Grades_Total </p>
+                        foreach( var head in assessHeadList )
+                        {
+                            if( @p.Grades_ObjectID == @head.AssessHead_ID)
+                            {
+                                 <p class="grade-info">My grade on @head.AssessHead_Title is: @p.Grades_Score out of @p.Grades_Total </p>
+                            }
+                        }
 
                         grades.Summed_Grades_Total += @p.Grades_Total;
 
@@ -148,12 +161,21 @@ else if( @grades.Calculated_Grade >= 0 )
 
     List<RTXWebsite1.Models.PlayerInformation>? thirdPlayerList;
 
+    List<RTXWebsite1.Models.AssessHead>? assessHeadList;
+
+    List<RTXWebsite1.Models.Assignment>? assignmentList;
+
 
     RTXWebsite1.Models.Grades grades = new RTXWebsite1.Models.Grades();
 
     RTXWebsite1.Models.Module modules = new RTXWebsite1.Models.Module();
 
     RTXWebsite1.Models.PlayerInformation players = new RTXWebsite1.Models.PlayerInformation();
+
+
+
+
+   
 
 
     private async Task GetData()
@@ -170,11 +192,18 @@ else if( @grades.Calculated_Grade >= 0 )
         string sql = "select * from Grades where Grades_PlayerID = @ThisPlayer";
         gradesList = await _data.LoadData<RTXWebsite1.Models.Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
-        string otherSQL = "select * from Module";
-        moduleList = await _data.LoadData<RTXWebsite1.Models.Module, dynamic>(otherSQL, new {}, _config.GetConnectionString("RTX"));
+        string secondSQL = "select * from Module";
+        moduleList = await _data.LoadData<RTXWebsite1.Models.Module, dynamic>(secondSQL, new {}, _config.GetConnectionString("RTX"));
 
         string thirdSQL = "select * from Player where Player_ID = @ThisPlayer";
         playerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(thirdSQL, new {ThisPlayer = Cookie.PlayerID}, _config.GetConnectionString("RTX"));
+
+        string fourthSQL = "select * from AssessHead";
+        assessHeadList = await _data.LoadData<RTXWebsite1.Models.AssessHead, dynamic>(fourthSQL, new {}, _config.GetConnectionString("RTX"));
+
+        string fifthSQL = "select * from Assignment";
+        assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(fifthSQL, new {}, _config.GetConnectionString("RTX"));
+
 
 
        

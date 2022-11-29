@@ -1,4 +1,4 @@
-﻿@page "/results/{EarnedPoints}/{TotalPoints}"
+﻿@page "/results"
 
 
 
@@ -20,11 +20,20 @@
 <h1 div class="title-head"> Assessment Results </h1>
 <br />
 
-<p> Your Score: @EarnedPoints out of @TotalPoints </p>
-<p> Coins Earned: @EarnedPoints </p>
 
-    @if( assessmentList != null )
+
+@if( assessmentResultList != null )
+{
+    foreach( var result in assessmentResultList )
     {
+        <p>Your Score: @result.Grades_Score out of @result.Grades_Total</p>
+        <p>Coins Earned: @result.Grades_Score </p>
+    }
+}
+
+
+@if( assessmentList != null )
+{
     // tracking number of answers to print labels for matching questions
     int numberOfAnswers = 0;
     int questionNumber = 0;
@@ -38,8 +47,9 @@
         <p>===============</p>
     
     @foreach (var p in assessmentList )
-        {
+    {
             questionNumber++;
+
             if( answerList is not null )
             {
                 // if Display_Answers boolean is set to true then show the correct answers (0=false, 1=true because tinyInt)
@@ -77,32 +87,203 @@
                     }
                 }
             }
-        }
     }
+}
+
+
+
+
+
+
+<!-- Get info to update the gradebook-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+@if( gradesList == null )
+{
+    <p>Loading...</p>
+}
+
+@if( gradesList!= null )
+{
+   @foreach(var p in gradesList )
+   {
+       if( moduleList != null )
+        {
+            foreach( var m in moduleList )
+            {
+                if( @p.Grades_ModuleID == @m.Module_ID )
+                {
+
+                    // if assignment
+                    if( @m.Module_Name == "Assignment")
+                    {
+
+                        grades.Summed_Grades_Total += @p.Grades_Total;
+
+                        grades.Summed_Score_Total += (double)@p.Grades_Score;
+                    }
+
+                    // or if assessment
+                    if( @m.Module_Name == "Asessment" )
+                    {
+
+                        grades.Summed_Grades_Total += @p.Grades_Total;
+
+                        grades.Summed_Score_Total += (double)@p.Grades_Score;
+
+                    }
+
+                }
+            }            
+        }
+
+    
+
+
+   }    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @if( grades.Summed_Grades_Total != 0 )
+    {
+        grades.Calculated_Grade = grades.Summed_Score_Total / grades.Summed_Grades_Total * 100;
+    }
+
+
+
+
+    @if( @grades.Calculated_Grade >= 90 )
+    {
+        grades.LetterGrade = 'A';
+    }
+    else if( @grades.Calculated_Grade >= 80 )
+    {
+        grades.LetterGrade = 'B';
+    }
+    else if( @grades.Calculated_Grade >= 70 )
+    {
+        grades.LetterGrade = 'C';
+    }
+    else if( @grades.Calculated_Grade >= 60 )
+    {
+        grades.LetterGrade = 'D';
+    }
+    else if( @grades.Calculated_Grade >= 0 )
+    {
+        grades.LetterGrade = 'F';
+    }
+
+
+
+    @if( firstPlayerList != null )
+    {
+        UpdatePlayerGrades( grades.LetterGrade, grades.Calculated_Grade );
+    }
+
+
+
+
 
 
 @code {
 
-    [Parameter]
-    public string? EarnedPoints { get; set; }
-
-    [Parameter]
-    public string? TotalPoints { get; set; }
 
     List<Assessment>? assessmentList;
 
-    List<PlayerInformation>? player;
+    // List<PlayerInformation>? player;
 
-    List<PlayerInformation>? playerAgain;
 
-    List<Grades>? GradesList;
+
+
 
     List<AssessmentAnswers>? answerList;
 
-    int earnedPoints = 0;
+
+
+
+    List<Grades>? assessmentResultList;
+
+
+
+
+
+
+    List<PlayerInformation>? firstPlayerList;
+
+    List<PlayerInformation>? secondPlayerList;
+
+    List<PlayerInformation>? thirdPlayerList;
+
+
+
+
+    List<Grades>? gradesList;
+
+    List<Module>? moduleList;
+
+
+
+    List<RTXWebsite1.Models.PlayerInformation>? anotherPlayerList;
+
+
 
 
     bool isThereGrade;
+
+
+
+
+
+
+    List<RTXWebsite1.Models.AssessHead>? assessHeadList;
+
+    List<RTXWebsite1.Models.Assignment>? assignmentList;
+
+
+
+
+
+    RTXWebsite1.Models.Grades grades = new RTXWebsite1.Models.Grades();
+
+    RTXWebsite1.Models.Module modules = new RTXWebsite1.Models.Module();
+
+    RTXWebsite1.Models.PlayerInformation players = new RTXWebsite1.Models.PlayerInformation();
+
+
 
 
     private async Task GetData()
@@ -123,60 +304,56 @@
 
 
 
-        // selects player to get current coins for that player below
-        sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
-        // convert EarnedPoints from string to integer to be added below
-        earnedPoints = Convert.ToInt32(EarnedPoints);
-
-        // update player coins by what they had plus what they just earned
-        sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
-        playerAgain = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = player[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-
-
-
-        // select from grades for a specific player and assessment
         sql = "select * from Grades where (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
-        GradesList = await _data.LoadData<Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+        assessmentResultList = await _data.LoadData<Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
 
 
-        if( GradesList != null )
-        {
-
-            foreach( var g in GradesList )
-            {
-                // there is a grade already for this assessment
-                isThereGrade = true;
-
-                // update assessment score into gradebook for the logged in user and specific assessment
-                sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @ThisScore WHERE (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
-                await _data.SaveData(sql, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
-
-                // update assessment total score into gradebook for logged in user and specific assessment
-                sql = "UPDATE `RTX`.`Grades` SET `Grades_Total` = @ThisScore WHERE (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
-                await _data.SaveData(sql, new { ThisScore = TotalPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
 
 
-            }
-        }
 
-        // No grade for current assessment
-        if( isThereGrade == false )
-        {
-            // Inserts assessment score to gradebook for the logged in user and specific assessment
-            sql = "insert into Grades (Grades_Score, Grades_Total, Grades_PlayerID, Grades_ObjectID, Grades_ModuleID) values (@ThisScore, @ThisTotal, @ThisPlayer, @ThisModule, 2)";
-            await _data.SaveData(sql, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule, ThisTotal = TotalPoints }, _config.GetConnectionString("RTX"));
+        sql = "select * from Grades where Grades_PlayerID = @ThisPlayer";
+        gradesList = await _data.LoadData<RTXWebsite1.Models.Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
-            
+        string secondSQL = "select * from Module";
+        moduleList = await _data.LoadData<RTXWebsite1.Models.Module, dynamic>(secondSQL, new {}, _config.GetConnectionString("RTX"));
+
+        string thirdSQL = "select * from Player where Player_ID = @ThisPlayer";
+        firstPlayerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(thirdSQL, new {ThisPlayer = Cookie.PlayerID}, _config.GetConnectionString("RTX"));
+
+        string fourthSQL = "select * from AssessHead";
+        assessHeadList = await _data.LoadData<RTXWebsite1.Models.AssessHead, dynamic>(fourthSQL, new {}, _config.GetConnectionString("RTX"));
+
+        string fifthSQL = "select * from Assignment";
+        assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(fifthSQL, new {}, _config.GetConnectionString("RTX"));
 
 
-        }
 
 
+       
+
+
+
+
+    }
+
+
+
+
+
+    public async void UpdatePlayerGrades(char letterGrade, double percentageGrade)
+    {
+
+        // Update player letter grade
+        string sqlThird = "UPDATE `RTX`.`Player` SET `Player_Letter_Grade` = @ThisLetterGrade WHERE Player_ID = @ThisPlayer";
+        secondPlayerList = await _data.LoadData<PlayerInformation, dynamic>(sqlThird, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+        // Update player percentage grade
+        string sqlFour = "UPDATE `RTX`.`Player` SET `Player_Percentage_Grade` = @ThisPercentageGrade WHERE Player_ID = @ThisPlayer";
+        thirdPlayerList = await _data.LoadData<PlayerInformation, dynamic>(sqlFour, new { ThisPercentageGrade = percentageGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
     }
