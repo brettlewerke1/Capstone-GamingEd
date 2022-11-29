@@ -24,6 +24,36 @@
         public double Calculated_Grade { get; set; }
 
         public char LetterGrade { get; set; }
+
+
+
+
+
+
+
+
+
+        // retrieving all the variables in the "Grades" table
+        public static string GetSQL()
+        {
+            return @"    
+            SELECT 
+                `Grades`.`Grades_ID` AS `Grades_ID`,
+                `Grades`.`Grades_Score` AS `Grades_Score`,
+                `Grades`.`Grades_Total` AS `Grades_Total`,
+                `Grades`.`Grades_PlayerID` AS `Grades_PlayerID`,
+                `Grades`.`Grades_ObjectID` AS `Grades_ObjectID`,
+                `Grades`.`Grades_ModuleID` AS `Grades_ModuleID`
+            FROM
+                `Grades`";
+        }
+
+
+
+
+
+
+
     }
 
 }

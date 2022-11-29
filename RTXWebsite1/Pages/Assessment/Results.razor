@@ -1,4 +1,4 @@
-﻿@page "/results/{EarnedPoints}/{TotalPoints}"
+﻿@page "/results"
 
 
 
@@ -20,8 +20,17 @@
 <h1 div class="title-head"> Assessment Results </h1>
 <br />
 
-<p> Your Score: @EarnedPoints out of @TotalPoints </p>
-<p> Coins Earned: @EarnedPoints </p>
+
+
+@if( assessmentResultList != null )
+{
+    foreach( var result in assessmentResultList )
+    {
+        <p>Your Score: @result.Grades_Score out of @result.Grades_Total</p>
+        <p>Coins Earned: @result.Grades_Score </p>
+    }
+}
+
 
     @if( assessmentList != null )
     {
@@ -83,23 +92,23 @@
 
 @code {
 
-    [Parameter]
-    public string? EarnedPoints { get; set; }
-
-    [Parameter]
-    public string? TotalPoints { get; set; }
 
     List<Assessment>? assessmentList;
 
-    List<PlayerInformation>? player;
+    // List<PlayerInformation>? player;
 
 
 
-    List<Grades>? GradesList;
+
 
     List<AssessmentAnswers>? answerList;
 
-    
+
+
+
+    List<Grades>? assessmentResultList;
+
+
 
 
     bool isThereGrade;
@@ -129,50 +138,15 @@
         player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
         */
 
-        
 
-
-
-        // select from grades for a specific player and assessment
         sql = "select * from Grades where (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
-        GradesList = await _data.LoadData<Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+        assessmentResultList = await _data.LoadData<Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
+
+        
+       
 
 
-
-        if( GradesList != null )
-        {
-
-            foreach( var g in GradesList )
-            {
-                // there is a grade already for this assessment
-                isThereGrade = true;
-
-                // update assessment score into gradebook for the logged in user and specific assessment
-                sql = "UPDATE `RTX`.`Grades` SET `Grades_Score` = @ThisScore WHERE (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
-                await _data.SaveData(sql, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
-
-                // update assessment total score into gradebook for logged in user and specific assessment
-                sql = "UPDATE `RTX`.`Grades` SET `Grades_Total` = @ThisScore WHERE (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
-                await _data.SaveData(sql, new { ThisScore = TotalPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
-
-
-
-            }
-        }
-
-        // No grade for current assessment
-        if( isThereGrade == false )
-        {
-            // Inserts assessment score to gradebook for the logged in user and specific assessment
-            sql = "insert into Grades (Grades_Score, Grades_Total, Grades_PlayerID, Grades_ObjectID, Grades_ModuleID) values (@ThisScore, @ThisTotal, @ThisPlayer, @ThisModule, 2)";
-            await _data.SaveData(sql, new { ThisScore = EarnedPoints, ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule, ThisTotal = TotalPoints }, _config.GetConnectionString("RTX"));
-
-            
-
-
-        }
-
-
+        
 
 
     }
