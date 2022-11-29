@@ -32,8 +32,8 @@
 }
 
 
-    @if( assessmentList != null )
-    {
+@if( assessmentList != null )
+{
     // tracking number of answers to print labels for matching questions
     int numberOfAnswers = 0;
     int questionNumber = 0;
@@ -47,8 +47,9 @@
         <p>===============</p>
     
     @foreach (var p in assessmentList )
-        {
+    {
             questionNumber++;
+
             if( answerList is not null )
             {
                 // if Display_Answers boolean is set to true then show the correct answers (0=false, 1=true because tinyInt)
@@ -86,8 +87,136 @@
                     }
                 }
             }
-        }
     }
+}
+
+
+
+
+
+
+<!-- Get info to update the gradebook-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+@if( gradesList == null )
+{
+    <p>Loading...</p>
+}
+
+@if( gradesList!= null )
+{
+   @foreach(var p in gradesList )
+   {
+       if( moduleList != null )
+        {
+            foreach( var m in moduleList )
+            {
+                if( @p.Grades_ModuleID == @m.Module_ID )
+                {
+
+                    // if assignment
+                    if( @m.Module_Name == "Assignment")
+                    {
+
+                        grades.Summed_Grades_Total += @p.Grades_Total;
+
+                        grades.Summed_Score_Total += (double)@p.Grades_Score;
+                    }
+
+                    // or if assessment
+                    if( @m.Module_Name == "Asessment" )
+                    {
+
+                        grades.Summed_Grades_Total += @p.Grades_Total;
+
+                        grades.Summed_Score_Total += (double)@p.Grades_Score;
+
+                    }
+
+                }
+            }            
+        }
+
+    
+
+
+   }    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @if( grades.Summed_Grades_Total != 0 )
+    {
+        grades.Calculated_Grade = grades.Summed_Score_Total / grades.Summed_Grades_Total * 100;
+    }
+
+
+
+
+    @if( @grades.Calculated_Grade >= 90 )
+    {
+        grades.LetterGrade = 'A';
+    }
+    else if( @grades.Calculated_Grade >= 80 )
+    {
+        grades.LetterGrade = 'B';
+    }
+    else if( @grades.Calculated_Grade >= 70 )
+    {
+        grades.LetterGrade = 'C';
+    }
+    else if( @grades.Calculated_Grade >= 60 )
+    {
+        grades.LetterGrade = 'D';
+    }
+    else if( @grades.Calculated_Grade >= 0 )
+    {
+        grades.LetterGrade = 'F';
+    }
+
+
+
+    @if( firstPlayerList != null )
+    {
+        UpdatePlayerGrades( grades.LetterGrade, grades.Calculated_Grade );
+    }
+
+
+
+
 
 
 @code {
@@ -111,7 +240,50 @@
 
 
 
+
+
+    List<PlayerInformation>? firstPlayerList;
+
+    List<PlayerInformation>? secondPlayerList;
+
+    List<PlayerInformation>? thirdPlayerList;
+
+
+
+
+    List<Grades>? gradesList;
+
+    List<Module>? moduleList;
+
+
+
+    List<RTXWebsite1.Models.PlayerInformation>? anotherPlayerList;
+
+
+
+
     bool isThereGrade;
+
+
+
+
+
+
+    List<RTXWebsite1.Models.AssessHead>? assessHeadList;
+
+    List<RTXWebsite1.Models.Assignment>? assignmentList;
+
+
+
+
+
+    RTXWebsite1.Models.Grades grades = new RTXWebsite1.Models.Grades();
+
+    RTXWebsite1.Models.Module modules = new RTXWebsite1.Models.Module();
+
+    RTXWebsite1.Models.PlayerInformation players = new RTXWebsite1.Models.PlayerInformation();
+
+
 
 
     private async Task GetData()
@@ -132,21 +304,56 @@
 
 
 
-        /*
-        // selects player to get current coins for that player below
-        sql = "select * from Player where (`Player_ID` = @ThisPlayer)";
-        player = await _data.LoadData<PlayerInformation, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
-        */
 
 
         sql = "select * from Grades where (`Grades_PlayerID` = @ThisPlayer) and (`Grades_ObjectID` = @ThisModule)";
         assessmentResultList = await _data.LoadData<Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID, ThisModule = @Cookie.CurrentModule }, _config.GetConnectionString("RTX"));
 
-        
+
+
+
+
+
+
+        sql = "select * from Grades where Grades_PlayerID = @ThisPlayer";
+        gradesList = await _data.LoadData<RTXWebsite1.Models.Grades, dynamic>(sql, new { ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+        string secondSQL = "select * from Module";
+        moduleList = await _data.LoadData<RTXWebsite1.Models.Module, dynamic>(secondSQL, new {}, _config.GetConnectionString("RTX"));
+
+        string thirdSQL = "select * from Player where Player_ID = @ThisPlayer";
+        firstPlayerList = await _data.LoadData<RTXWebsite1.Models.PlayerInformation, dynamic>(thirdSQL, new {ThisPlayer = Cookie.PlayerID}, _config.GetConnectionString("RTX"));
+
+        string fourthSQL = "select * from AssessHead";
+        assessHeadList = await _data.LoadData<RTXWebsite1.Models.AssessHead, dynamic>(fourthSQL, new {}, _config.GetConnectionString("RTX"));
+
+        string fifthSQL = "select * from Assignment";
+        assignmentList = await _data.LoadData<RTXWebsite1.Models.Assignment, dynamic>(fifthSQL, new {}, _config.GetConnectionString("RTX"));
+
+
+
+
        
 
 
-        
+
+
+    }
+
+
+
+
+
+    public async void UpdatePlayerGrades(char letterGrade, double percentageGrade)
+    {
+
+        // Update player letter grade
+        string sqlThird = "UPDATE `RTX`.`Player` SET `Player_Letter_Grade` = @ThisLetterGrade WHERE Player_ID = @ThisPlayer";
+        secondPlayerList = await _data.LoadData<PlayerInformation, dynamic>(sqlThird, new { ThisLetterGrade = letterGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+
+        // Update player percentage grade
+        string sqlFour = "UPDATE `RTX`.`Player` SET `Player_Percentage_Grade` = @ThisPercentageGrade WHERE Player_ID = @ThisPlayer";
+        thirdPlayerList = await _data.LoadData<PlayerInformation, dynamic>(sqlFour, new { ThisPercentageGrade = percentageGrade, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
     }
