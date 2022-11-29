@@ -8,6 +8,8 @@
 @inject NavigationManager NavManager;
 @inject RTXWebsite1.Data.Cookies Cookie;
 
+
+
 @if (Cookie.UserID == 0)
 {
 
@@ -37,8 +39,8 @@
 else
 {
     NavManager.NavigateTo("/home");
-
 }
+
 
 
 
@@ -59,7 +61,7 @@ else
             await localStorage.SetItemAsync("username", account.Account_Username);
             Cookie.UserID = result;
             Cookie.CurrentClass = 0;
-            NavManager.NavigateTo("/");
+            NavManager.NavigateTo("/home");
         }
         else
         {
