@@ -37,7 +37,8 @@
     // initialize variables
     assessment.pointsEarned = 0;
     assessment.totalPoints = 0;
-    
+    assessmentAnswers.coinsEarned = 0;
+
     int questionNumber = 0;
 
     // boolean to see if it a matching question.
@@ -112,6 +113,9 @@
                         {
                             // add to total points earned if selected answer equals the correct answer
                             assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+
+                            // also add to totoal coins earned
+                            assessmentAnswers.coinsEarned = assessmentAnswers.coinsEarned + @a.AssessmentAnswer_Coins;
                         }
 
                         // print a value to be matched with
@@ -147,8 +151,13 @@
                         // check for correct answer
                         if( myVar.AssessmentAnswer_CorrectAnswers.ToLower() == p.Assessment_SelectedAnswer.ToLower() )
                         {
-                             // increment points earned
-                            assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;   
+                            // increment points earned
+                            assessment.pointsEarned = assessment.pointsEarned + @p.Assessment_PointsPerQuestion;
+                            
+
+                            // increment coins earned
+                            assessmentAnswers.coinsEarned = assessmentAnswers.coinsEarned + @myVar.AssessmentAnswer_Coins;
+                            
 
                         
                         }                        
@@ -189,6 +198,8 @@ else
 
 @code {
     RTXWebsite1.Models.Assessment assessment = new RTXWebsite1.Models.Assessment();
+
+    RTXWebsite1.Models.AssessmentAnswers assessmentAnswers = new RTXWebsite1.Models.AssessmentAnswers();
 
     List<AssessHead>? assessmentHead;
     List<Assessment>? assessmentList;
@@ -241,6 +252,8 @@ else
     {
 
         int earnedPoints = 0;
+
+        int earnedCoins = 0;
 
         string sql = "";
 
@@ -298,9 +311,11 @@ else
             // convert EarnedPoints from string to integer to be added below
             earnedPoints = Convert.ToInt32(assessment.pointsEarned);
 
+            
+
             // update player coins by what they had plus what they just earned
             sql = "UPDATE `RTX`.`Player` SET `Player_Coins` = @NewCoins WHERE (`Player_ID` = @ThisPlayer)";
-            playerListTwo = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = playerListOne[0].Player_Coins + earnedPoints, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
+            playerListTwo = await _data.LoadData<PlayerInformation, dynamic>(sql, new { NewCoins = playerListOne[0].Player_Coins + assessmentAnswers.coinsEarned, ThisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
 
 
 
