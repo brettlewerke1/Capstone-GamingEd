@@ -93,6 +93,11 @@ namespace RTXWebsite1.Models
         // option for multiple choice answer
         public string? AssessmentAnswer_MultipleChoiceOption { get; set; }
 
+        public int AssessmentAnswer_Coins { get; set; }
+
+
+        public int coinsEarned { get; set; }
+
         public static string GetSQL()
         {
             return @"    
@@ -103,7 +108,8 @@ namespace RTXWebsite1.Models
                 `AssessmentAnswer`.`AssessmentAnswer_MatchingOption` AS `AssessmentAnswer_MatchingOption`,
                 `AssessmentAnswer`.`AssessmentAnswer_CorrectAnswers` AS `AssessmentAnswer_CorrectAnswers`,
                 `AssessmentAnswer`.`AssessmentAnswer_AssessHeadID` AS `AssessmentAnswer_AssessHeadID`,
-                `AssessmentAnswer`.`AssessmentAnswer_MultipleChoiceOption` AS `AssessmentAnswer_MultipleChoiceOption`
+                `AssessmentAnswer`.`AssessmentAnswer_MultipleChoiceOption` AS `AssessmentAnswer_MultipleChoiceOption`,
+                `AssessmentAnswer`.`AssessmentAnswer_Coins` AS `AssessmentAnswer_Coins`
             FROM
                 `AssessmentAnswer`";
         }
