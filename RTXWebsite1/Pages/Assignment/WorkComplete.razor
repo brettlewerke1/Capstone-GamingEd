@@ -41,7 +41,7 @@ else
         <!-- PDF ONLY -->
         var PdfContent = $"data:application/pdf;base64, {submissions[0].AssignmentS_StringUpload}";
 
-        <embed src="@PdfContent" accept=".pdf" />
+        <embed src="@PdfContent" accept=".pdf" width=800 height=800/>
     }
 
     else if (submissions[0].AssignmentS_FileType == "Image")

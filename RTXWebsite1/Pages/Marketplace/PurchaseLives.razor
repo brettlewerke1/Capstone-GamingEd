@@ -15,9 +15,12 @@
     NavManager.NavigateTo("/");
 }
 
+<p>Welcome to the purchase lives page.</p>
+
 
 @code {
 
+    @*
     // Currently sees all assignments and assessments regardless of completion
     List<PlayerFullProgress>? options;
 
@@ -32,4 +35,5 @@
 
         options = await _data.LoadData<PlayerFullProgress, dynamic>(PlayerFullProgress.GetSQL() + sql + PlayerFullProgress.SortSQL(), new { thisPlayer = Cookie.PlayerID }, _config.GetConnectionString("RTX"));
     }
+    *@
 }
